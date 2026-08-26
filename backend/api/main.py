@@ -8,10 +8,12 @@ Ingestion transparency endpoints (/api/stats, /api/logs) exist so the dataset
 build is inspectable rather than a black box.
 """
 from __future__ import annotations
+import json
 from typing import Any
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from backend.config import ABSTAIN_THRESHOLD, GRAPH_HOPS, RETRIEVAL_TOP_K
@@ -19,7 +21,7 @@ from backend.pipeline.batch import run_batch
 from backend.pipeline.certification import check_certification
 from backend.pipeline.currency import check_currency
 from backend.pipeline.llm import available as llm_available
-from backend.pipeline.recommend import recommend
+from backend.pipeline.recommend import recommend, recommend_events
 from backend.kb.vector_index import VectorIndex
 from backend.pipeline.retrieve import Retriever
 from backend.store import connect, stats
@@ -204,6 +206,35 @@ def post_recommend(q: Query) -> dict[str, Any]:
     con = connect()
     return recommend(con, get_retriever(con), q.query, top_k=q.top_k, hops=q.hops,
                      threshold=q.threshold, use_llm=q.use_llm)
+
+
+@app.post("/api/recommend/stream")
+def post_recommend_stream(q: Query) -> StreamingResponse:
+    """Same pipeline, streamed as server-sent events.
+
+    A recommendation takes several seconds and the expensive parts (embedding,
+    synthesis, grounding) are invisible from outside. Streaming the real stage
+    transitions tells the caller what is actually happening instead of showing a
+    spinner that implies progress it cannot know.
+    """
+    SEP = "\n\n"
+
+    def gen():
+        con = connect()          # this generator runs on its own thread
+        try:
+            for ev in recommend_events(con, get_retriever(con), q.query,
+                                       top_k=q.top_k, hops=q.hops,
+                                       threshold=q.threshold, use_llm=q.use_llm):
+                yield "data: " + json.dumps(ev) + SEP
+        except HTTPException as e:
+            yield "data: " + json.dumps({"event": "error", "detail": e.detail}) + SEP
+        except Exception as e:   # noqa: BLE001 - the client must not be left hanging
+            yield "data: " + json.dumps(
+                {"event": "error", "detail": f"{type(e).__name__}: {e}"}) + SEP
+
+    return StreamingResponse(gen(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache",
+                                      "X-Accel-Buffering": "no"})
 
 
 @app.post("/api/batch")
