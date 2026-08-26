@@ -1,0 +1,68 @@
+TENDER DOCUMENT — SUPPLY, INSTALLATION, TESTING AND COMMISSIONING OF
+INTERNAL ELECTRIFICATION WORKS FOR ADMINISTRATIVE BLOCK
+
+Tender Reference: EE/ELECT/2026-27/114
+Issued by: Office of the Executive Engineer (Electrical Division)
+
+SECTION III — TECHNICAL SPECIFICATIONS
+
+3.1  GENERAL
+3.1.1  All electrical wiring installation work shall be carried out in
+       accordance with the Code of Practice for Electrical Wiring
+       Installations, IS 732, and the relevant statutory rules in force.
+3.1.2  The entire installation shall be earthed in accordance with the Code
+       of Practice for Earthing, IS 3043 - 1987.
+
+3.2  CABLES AND CONDUCTORS
+3.2.1  All internal wiring shall be carried out using PVC insulated copper
+       conductor cables of 1100 V grade conforming to IS 694.
+3.2.2  Heavy duty PVC insulated armoured cables for sub-mains distribution
+       shall conform to IS 1554 (Part 1) for working voltages up to and
+       including 1100 V.
+3.2.3  Cross-linked polyethylene insulated cables, where specified for
+       outdoor feeder runs, shall conform to IS 7098 (Part 1).
+3.2.4  The minimum cross sectional area of any conductor used for light
+       points shall not be less than 1.5 sq mm copper.
+
+3.3  CONDUITS AND ACCESSORIES
+3.3.1  Rigid non-metallic conduits used for surface, recessed and concealed
+       conduit wiring shall conform to IS 9537 (Part 3).
+3.3.2  Fittings and accessories for rigid steel conduits shall conform to
+       IS 3419.
+
+3.4  SWITCHES, SOCKETS AND PROTECTION
+3.4.1  All switches for domestic and similar purposes shall conform to
+       IS 3854.
+3.4.2  Plugs and socket outlets of rated voltage up to and including 250 V
+       shall conform to IS 1293.
+3.4.3  Low voltage switchgear and controlgear assemblies (distribution
+       boards) shall be factory built assemblies conforming to
+       IS 8623 (Part 1).
+3.4.4  Miniature circuit breakers shall provide overcurrent protection
+       appropriate to the connected load and the conductor size.
+
+3.5  LIGHTING
+3.5.1  All luminaires shall be LED type. Self-ballasted LED lamps for general
+       lighting services shall conform to IS 16102 (Part 1).
+3.5.2  LED luminaires shall carry valid BIS registration under the applicable
+       compulsory registration requirements.
+3.5.3  Illumination levels for office areas shall comply with the national
+       lighting code requirements for interior illumination.
+
+3.6  TESTING AND COMMISSIONING
+3.6.1  Insulation resistance of the completed installation shall be measured
+       and recorded before energisation.
+3.6.2  Earth resistance of each earth electrode shall be measured and shall
+       not exceed the value stipulated in the relevant Indian Standard.
+3.6.3  All high voltage switchboards shall be tested for dielectric strength
+       in the manner recommended in the applicable Indian Standard.
+
+SECTION IV — COMMERCIAL TERMS
+
+4.1  Earnest Money Deposit of Rs 2,00,000 shall accompany the bid.
+4.2  Payment shall be released within 45 days of certified completion.
+4.3  The defect liability period shall be 12 months from the date of handing
+     over. Any dispute shall be referred to arbitration under the
+     Arbitration and Conciliation Act, 1996.
+4.4  Bidders must have completed at least two similar works of value not less
+     than Rs 50,00,000 in the last five years.
