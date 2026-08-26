@@ -17,10 +17,24 @@ def get_model():
     if _model is None:
         import os
         import torch
-        torch.set_num_threads(os.cpu_count() or 4)
+        # Use PHYSICAL cores, not logical. os.cpu_count() reports hyperthreads,
+        # and oversubscribing them measurably slows embedding down: on this
+        # machine 16 threads gave 10.4 chunks/s against 11.4 at 8. Override with
+        # EMBED_THREADS if the heuristic is wrong for your CPU.
+        env = os.getenv("EMBED_THREADS")
+        n = int(env) if env else max(4, (os.cpu_count() or 8) // 2)
+        torch.set_num_threads(n)
+
+        # A GPU turns the index build from ~90 minutes into a couple of minutes.
+        # EMBED_DEVICE forces a choice; otherwise CUDA is used when present.
+        device = os.getenv("EMBED_DEVICE") or ("cuda" if torch.cuda.is_available() else "cpu")
+        if device.startswith("cuda"):
+            print(f"[embedder] device: {device} ({torch.cuda.get_device_name(0)})")
+        else:
+            print(f"[embedder] device: cpu ({n} threads)")
         from sentence_transformers import SentenceTransformer
         print(f"[embedder] loading {EMBED_MODEL} (first run downloads ~130MB)...")
-        _model = SentenceTransformer(EMBED_MODEL)
+        _model = SentenceTransformer(EMBED_MODEL, device=device)
     return _model
 
 
