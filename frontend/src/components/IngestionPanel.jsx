@@ -2,8 +2,32 @@ import { useEffect, useState } from 'react'
 import { getLogs, getStats } from '../api'
 import { downloadCSV, downloadJSON, stamp } from '../download'
 
+const fmt = (n) => (n ?? 0).toLocaleString()
+
 function Tile({ n, l, cls = '' }) {
-  return <div className={`tile ${cls}`}><div className="n">{n}</div><div className="l">{l}</div></div>
+  return <div className={`tile ${cls}`}><div className="n">{fmt(n)}</div><div className="l">{l}</div></div>
+}
+
+/** Magnitude comparison across categories: bars, sorted, one hue. A bare number
+ *  column makes the reader do the comparing; the bar does it for them. */
+function BarRows({ data, hue = 'var(--accent)' }) {
+  const rows = Object.entries(data || {})
+    .filter(([k]) => k && k !== 'null')
+    .sort((a, b) => b[1] - a[1])
+  const max = Math.max(1, ...rows.map(([, v]) => v))
+  return (
+    <div className="bars">
+      {rows.map(([k, v]) => (
+        <div className="bar-row" key={k}>
+          <span className="bar-label" title={k}>{k.replace(/_/g, ' ')}</span>
+          <span className="bar-track">
+            <i style={{ width: `${Math.max(2, (v / max) * 100)}%`, background: hue }} />
+          </span>
+          <span className="bar-val">{fmt(v)}</span>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 const STATUS_CLS = { ok: 'ok', skip: 'warn', error: 'danger' }
@@ -29,13 +53,14 @@ export default function IngestionPanel() {
     <>
       <div className="panel">
         <h2>Corpus</h2>
+        <p className="sub">Built entirely from the BIS catalogue and Internet Archive — nothing hand-curated.</p>
         <div className="tiles">
           <Tile n={stats.standards} l="Standards ingested" />
-          <Tile n={stats.with_full_text} l={`With full text (${ftPct}%)`} cls="good" />
-          <Tile n={stats.metadata_only} l="Metadata only" cls="flag" />
-          <Tile n={stats.chunks} l="Citable chunks" />
-          <Tile n={stats.edges_confirmed} l="Confirmed edges" cls="good" />
-          <Tile n={stats.edges_inferred} l="Inferred edges" cls="flag" />
+          <Tile n={stats.with_full_text} l={`Verifiable against full text (${ftPct}%)`} cls="good" />
+          <Tile n={stats.metadata_only} l="Metadata only — flagged" cls="flag" />
+          <Tile n={stats.chunks} l="Citable passages" />
+          <Tile n={stats.edges_confirmed} l="Confirmed dependencies" cls="good" />
+          <Tile n={stats.edges_inferred} l="Inferred — unverified" cls="flag" />
         </div>
         <p className="small muted" style={{ marginTop: 12, marginBottom: 0 }}>
           Standards without full text stay flagged as <b>metadata only</b>: they remain
@@ -50,36 +75,19 @@ export default function IngestionPanel() {
 
       <div className="panel">
         <h2>Composition</h2>
-        <div className="row" style={{ alignItems: 'flex-start', gap: 32 }}>
+        <p className="sub">What the ingested corpus is actually made of.</p>
+        <div className="composition">
           <div>
             <h3>By department</h3>
-            <table style={{ minWidth: 200 }}>
-              <tbody>
-                {Object.entries(stats.by_department || {}).map(([k, v]) => (
-                  <tr key={k}><td className="mono">{k || '—'}</td><td>{v}</td></tr>
-                ))}
-              </tbody>
-            </table>
+            <BarRows data={stats.by_department} />
           </div>
           <div>
             <h3>By aspect</h3>
-            <table style={{ minWidth: 240 }}>
-              <tbody>
-                {Object.entries(stats.by_aspect || {}).map(([k, v]) => (
-                  <tr key={k}><td>{k}</td><td>{v}</td></tr>
-                ))}
-              </tbody>
-            </table>
+            <BarRows data={stats.by_aspect} />
           </div>
           <div>
-            <h3>Edge types</h3>
-            <table style={{ minWidth: 220 }}>
-              <tbody>
-                {Object.entries(stats.edge_types || {}).map(([k, v]) => (
-                  <tr key={k}><td>{k.replace('_', ' ')}</td><td>{v}</td></tr>
-                ))}
-              </tbody>
-            </table>
+            <h3>Relationship types</h3>
+            <BarRows data={stats.edge_types} hue="var(--cat-2)" />
           </div>
         </div>
       </div>
