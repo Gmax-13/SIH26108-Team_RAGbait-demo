@@ -76,6 +76,18 @@ def client(tmp_path_factory):
     return TestClient(app)
 
 
+def test_root_orients_instead_of_404(client):
+    """Opening the API host directly should say what is running and where the
+    dashboard is — a bare 404 there just looks like the server is down."""
+    r = client.get("/")
+    assert r.status_code == 200
+    b = r.json()
+    assert b["status"] == "running"
+    assert b["dashboard"].startswith("http")
+    assert "POST /api/recommend" in b["endpoints"]
+    assert b["ready_to_query"] is True
+
+
 def test_health_reports_corpus(client):
     r = client.get("/api/health")
     assert r.status_code == 200

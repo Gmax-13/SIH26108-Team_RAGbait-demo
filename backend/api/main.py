@@ -78,6 +78,39 @@ class BatchText(BaseModel):
     use_llm: bool = True
 
 
+@app.get("/")
+def root() -> dict[str, Any]:
+    """Orientation for anyone who opens the API host directly.
+
+    This is the backend, not the dashboard — a bare 404 here just looks like the
+    server is down, so say what is running and where the UI actually lives.
+    """
+    con = connect()
+    s = stats(con)
+    return {
+        "service": "Indian Standards Recommendation Engine API",
+        "status": "running",
+        "dashboard": "http://localhost:5173",
+        "interactive_docs": "/docs",
+        "corpus": {
+            "standards": s["standards"],
+            "with_full_text": s["with_full_text"],
+            "citable_chunks": s["chunks"],
+            "confirmed_dependencies": s["edges_confirmed"],
+        },
+        "ready_to_query": s["chunks"] > 0,
+        "llm_configured": llm_available(),
+        "endpoints": {
+            "POST /api/recommend": "one product description or requirement",
+            "POST /api/batch": "a whole tender document",
+            "GET /api/standards/{is_number}": "one standard in full",
+            "GET /api/graph/{is_number}": "its dependency graph",
+            "GET /api/stats": "corpus composition",
+            "GET /api/logs": "ingestion audit trail",
+        },
+    }
+
+
 @app.get("/api/health")
 def health() -> dict[str, Any]:
     con = connect()
