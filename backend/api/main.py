@@ -1,0 +1,186 @@
+"""Phase 5a — HTTP API.
+
+Both operation modes hit the same pipeline:
+    POST /api/recommend   single product description  -> structured result
+    POST /api/batch       full tender document        -> compliance report
+
+Ingestion transparency endpoints (/api/stats, /api/logs) exist so the dataset
+build is inspectable rather than a black box.
+"""
+from __future__ import annotations
+from typing import Any
+
+from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+
+from backend.config import ABSTAIN_THRESHOLD, GRAPH_HOPS, RETRIEVAL_TOP_K
+from backend.pipeline.batch import run_batch
+from backend.pipeline.certification import check_certification
+from backend.pipeline.currency import check_currency
+from backend.pipeline.llm import available as llm_available
+from backend.pipeline.recommend import recommend
+from backend.kb.vector_index import VectorIndex
+from backend.pipeline.retrieve import Retriever
+from backend.store import connect, stats
+
+app = FastAPI(title="Indian Standards Recommendation Engine",
+              version="0.1.0",
+              description="Semantic IS recommendation with dependency graph, "
+                          "citations, currency and certification checks, and "
+                          "explicit abstention.")
+
+app.add_middleware(
+    CORSMiddleware, allow_origins=["*"], allow_credentials=False,
+    allow_methods=["*"], allow_headers=["*"])
+
+_index: VectorIndex | None = None
+
+
+def get_index() -> VectorIndex:
+    """The FAISS index is immutable once built, so it is loaded once and shared."""
+    global _index
+    if _index is None:
+        try:
+            _index = VectorIndex.load()
+        except Exception as e:  # noqa: BLE001
+            raise HTTPException(
+                503, f"Knowledge base not built yet ({type(e).__name__}: {e}). "
+                     f"Run: python -m backend.kb.build_kb") from e
+    return _index
+
+
+def get_retriever(con) -> Retriever:
+    """A retriever per request.
+
+    sqlite3 connections are bound to the thread that created them, and FastAPI
+    runs sync handlers on a threadpool — so a module-level cached connection
+    raises ProgrammingError as soon as a second worker thread serves a request.
+    The connection is therefore per-request; only the index is shared.
+    """
+    return Retriever(con, get_index())
+
+
+class Query(BaseModel):
+    query: str = Field(..., min_length=3, description="Product description or requirement")
+    top_k: int = RETRIEVAL_TOP_K
+    hops: int = GRAPH_HOPS
+    threshold: float = ABSTAIN_THRESHOLD
+    use_llm: bool = True
+
+
+class BatchText(BaseModel):
+    text: str = Field(..., min_length=20)
+    max_requirements: int = 0
+    use_llm: bool = True
+
+
+@app.get("/api/health")
+def health() -> dict[str, Any]:
+    con = connect()
+    return {"ok": True, "llm_configured": llm_available(), "corpus": stats(con)}
+
+
+@app.get("/api/stats")
+def get_stats() -> dict[str, Any]:
+    con = connect()
+    s = stats(con)
+    s["by_department"] = {r["department"]: r["n"] for r in con.execute(
+        "SELECT department, COUNT(*) n FROM standards GROUP BY 1 ORDER BY n DESC")}
+    s["by_aspect"] = {r["aspect"]: r["n"] for r in con.execute(
+        "SELECT aspect, COUNT(*) n FROM standards WHERE aspect IS NOT NULL "
+        "GROUP BY 1 ORDER BY n DESC")}
+    s["edge_types"] = {r["edge_type"]: r["n"] for r in con.execute(
+        "SELECT edge_type, COUNT(*) n FROM edges GROUP BY 1 ORDER BY n DESC")}
+    s["llm_configured"] = llm_available()
+    return s
+
+
+@app.get("/api/logs")
+def get_logs(phase: str | None = None, status: str | None = None,
+             limit: int = 200) -> dict[str, Any]:
+    """Ingestion audit trail — how the dataset was actually built."""
+    con = connect()
+    q = "SELECT run_id,phase,target,status,message,ts FROM scrape_log"
+    w, p = [], []
+    if phase:
+        w.append("phase=?"); p.append(phase)
+    if status:
+        w.append("status=?"); p.append(status)
+    if w:
+        q += " WHERE " + " AND ".join(w)
+    q += " ORDER BY id DESC LIMIT ?"
+    p.append(min(limit, 2000))
+    rows = [dict(r) for r in con.execute(q, p)]
+    runs = [dict(r) for r in con.execute(
+        "SELECT run_id,phase,MIN(ts) started,MAX(ts) ended,COUNT(*) events "
+        "FROM scrape_log GROUP BY run_id,phase ORDER BY started DESC LIMIT 40")]
+    return {"runs": runs, "events": rows}
+
+
+@app.get("/api/standards/{is_number:path}")
+def get_standard(is_number: str) -> dict[str, Any]:
+    con = connect()
+    row = con.execute(
+        "SELECT id,is_number,is_base,part,year,title,technical_committee,department,"
+        "aspect,amendment_count,status_note,withdrawn_status,is_active,iso_equivalence,"
+        "iso_equiv_degree,source,archive_identifier,has_full_text,full_text_chars,"
+        "metadata_only,scraped_at FROM standards WHERE is_number=?", (is_number,)).fetchone()
+    if row is None:
+        raise HTTPException(404, f"{is_number} is not in the ingested corpus")
+    out = dict(row)
+    out["currency"] = check_currency(con, is_number)
+    out["certification"] = check_certification(con, is_number)
+    out["outgoing_edges"] = [dict(r) for r in con.execute(
+        "SELECT dst_is_base,edge_type,confidence,evidence_section,evidence_snippet "
+        "FROM edges WHERE src_standard_id=? ORDER BY confidence DESC LIMIT 60",
+        (row["id"],))]
+    # Reverse dependencies: which standards cite THIS one. Useful for judging how
+    # load-bearing a standard is, and for impact analysis when it is superseded.
+    out["incoming_edges"] = [dict(r) for r in con.execute(
+        """SELECT src.is_number AS src_is_number, src.title AS src_title,
+                  e.edge_type, e.confidence, e.evidence_section, e.evidence_snippet
+           FROM edges e JOIN standards src ON src.id = e.src_standard_id
+           WHERE e.dst_is_base = ?
+           ORDER BY (e.confidence='confirmed') DESC LIMIT 60""",
+        (row["is_base"],))]
+    out["cited_by_count"] = con.execute(
+        "SELECT COUNT(*) FROM edges WHERE dst_is_base=?", (row["is_base"],)).fetchone()[0]
+    return out
+
+
+@app.get("/api/graph/{is_number:path}")
+def get_graph(is_number: str, hops: int = GRAPH_HOPS) -> dict[str, Any]:
+    con = connect()
+    return get_retriever(con).expand([is_number], hops=hops)
+
+
+@app.post("/api/recommend")
+def post_recommend(q: Query) -> dict[str, Any]:
+    con = connect()
+    return recommend(con, get_retriever(con), q.query, top_k=q.top_k, hops=q.hops,
+                     threshold=q.threshold, use_llm=q.use_llm)
+
+
+@app.post("/api/batch")
+def post_batch(b: BatchText) -> dict[str, Any]:
+    con = connect()
+    return run_batch(con, get_retriever(con), b.text, use_llm=b.use_llm,
+                     max_requirements=b.max_requirements)
+
+
+@app.post("/api/batch/upload")
+async def post_batch_upload(file: UploadFile = File(...),
+                            max_requirements: int = 0) -> dict[str, Any]:
+    raw = await file.read()
+    name = (file.filename or "").lower()
+    if name.endswith(".pdf"):
+        import fitz
+        with fitz.open(stream=raw, filetype="pdf") as doc:
+            text = "\n".join(page.get_text() for page in doc)
+    else:
+        text = raw.decode("utf-8", "ignore")
+    if len(text.strip()) < 20:
+        raise HTTPException(400, "Could not extract usable text from the upload.")
+    con = connect()
+    return run_batch(con, get_retriever(con), text, max_requirements=max_requirements)
