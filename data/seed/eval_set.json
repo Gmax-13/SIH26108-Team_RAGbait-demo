@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "purpose": "Golden set for measuring retrieval and abstention quality.",
+    "matching": "Expected values are IS BASE numbers (edition-agnostic), because the correct answer is the standard, not a particular year.",
+    "note": "Queries are phrased as a procurement engineer would write them, not as the standard's title, so this measures semantic matching rather than title lookup.",
+    "domain": "ETD / LITD (electrical and electronics)"
+  },
+
+  "should_recommend": [
+    { "query": "PVC insulated unsheathed copper conductor cable for internal building wiring rated 1100 V",
+      "expect": ["IS 694"], "note": "core wiring cable spec" },
+
+    { "query": "code of practice for electrical wiring installations in a building",
+      "expect": ["IS 732"], "note": "installation code" },
+
+    { "query": "earthing and equipotential bonding of a low voltage electrical installation",
+      "expect": ["IS 3043"], "note": "earthing code" },
+
+    { "query": "heavy duty PVC insulated armoured power cable for sub-main distribution up to 1100 V",
+      "expect": ["IS 1554"], "note": "heavy duty cable" },
+
+    { "query": "cross-linked polyethylene XLPE insulated power cable for outdoor feeder",
+      "expect": ["IS 7098"], "note": "XLPE cable" },
+
+    { "query": "rigid non-metallic conduit for concealed and surface electrical wiring",
+      "expect": ["IS 9537"], "note": "conduits" },
+
+    { "query": "electrical switches for domestic and similar purposes",
+      "expect": ["IS 3854", "IS 3854"], "note": "switches" },
+
+    { "query": "plugs and socket outlets of rated voltage up to and including 250 V",
+      "expect": ["IS 1293"], "note": "plugs and sockets" },
+
+    { "query": "self-ballasted LED lamps for general lighting services",
+      "expect": ["IS 16102"], "note": "LED lamps, CRS-notified" },
+
+    { "query": "low voltage switchgear and controlgear assemblies factory built distribution board",
+      "expect": ["IS 8623"], "note": "the standard the old letter-seed scrape missed" },
+
+    { "query": "electrotechnical vocabulary and definitions of electrical terms",
+      "expect": ["IS 1885"], "note": "terminology hub standard" },
+
+    { "query": "methods of test for electric cables",
+      "expect": ["IS 10810"], "note": "test method hub standard" },
+
+    { "query": "conductors for insulated electric cables and flexible cords",
+      "expect": ["IS 8130"], "note": "conductor spec" },
+
+    { "query": "voltage bands for electrical installations",
+      "expect": ["IS 12360"], "note": "voltage bands" }
+  ],
+
+  "should_abstain": [
+    { "query": "good quality durable product for general use",
+      "note": "no technical content at all" },
+
+    { "query": "something reliable and cost effective for our project",
+      "note": "commercial language, no product" },
+
+    { "query": "the item must be of approved make and best quality",
+      "note": "typical vague tender boilerplate" },
+
+    { "query": "supply and installation as per relevant standards",
+      "note": "circular reference, names nothing" }
+  ]
+}
