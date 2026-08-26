@@ -1,0 +1,81 @@
+{
+  "_meta": {
+    "purpose": "Seed mapping from Indian Standards to mandatory certification schemes.",
+    "status": "CURATED SEED — NOT AUTHORITATIVE",
+    "caveat": "QCO coverage changes by gazette notification. Every rule here must be re-verified against the live BIS/MeitY notification lists before being relied on for compliance decisions. The pipeline surfaces these as 'flags to check', never as legal determinations.",
+    "authorities": {
+      "BIS_PRODUCT_CERT": "BIS (Conformity Assessment) Regulations 2018, Scheme-I (ISI Mark), issued under product-specific Quality Control Orders",
+      "CRS": "Compulsory Registration Scheme — Electronics & IT Goods (Requirements for Compulsory Registration) Order, MeitY; administered by BIS",
+      "HALLMARKING": "BIS (Hallmarking) Regulations 2018 read with the Hallmarking of Gold Jewellery QCO"
+    },
+    "sources": [
+      "https://www.bis.gov.in/product-certification/products-under-compulsory-certification/",
+      "https://www.bis.gov.in/scheme-of-registration/",
+      "https://www.meity.gov.in/esdm/compulsory-registration-scheme"
+    ],
+    "last_reviewed": "2026-08-26"
+  },
+
+  "rules": [
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 13252","mandatory":1,
+     "notes":"Safety of information technology equipment — laptops, monitors, printers, power adapters, mobile phones. Core CRS standard.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 616","mandatory":1,
+     "notes":"Audio, video and similar electronic apparatus — safety requirements.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 16046","mandatory":1,
+     "notes":"Secondary cells and batteries containing alkaline/non-acid electrolytes — portable sealed cells, lithium batteries.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 16102","mandatory":1,
+     "notes":"Self-ballasted LED lamps for general lighting services.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 15885","mandatory":1,
+     "notes":"Safety of lamp controlgear / LED drivers.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"CRS","match_type":"is_base","match_value":"IS 16103","mandatory":1,
+     "notes":"LED modules and luminaires for general lighting.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 694","mandatory":1,
+     "notes":"PVC insulated cables for working voltages up to and including 1100 V — under Electric Cables QCO.",
+     "authority":"Electric Wires, Cables, Appliances and Protection Devices QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 1554","mandatory":1,
+     "notes":"PVC insulated heavy duty electric cables.",
+     "authority":"Electric Cables QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 7098","mandatory":1,
+     "notes":"Cross-linked polyethylene (XLPE) insulated cables.",
+     "authority":"Electric Cables QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 302","mandatory":1,
+     "notes":"Safety of household and similar electrical appliances.",
+     "authority":"Household Electrical Appliances QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 1293","mandatory":1,
+     "notes":"Plugs and socket-outlets of rated voltage up to and including 250 V.",
+     "authority":"Electrical Accessories QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 3854","mandatory":1,
+     "notes":"Switches for domestic and similar purposes.",
+     "authority":"Electrical Accessories QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 9537","mandatory":1,
+     "notes":"Conduits for electrical installations.",
+     "authority":"Electrical Accessories QCO"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"is_base","match_value":"IS 8623","mandatory":1,
+     "notes":"Low-voltage switchgear and controlgear assemblies.",
+     "authority":"Switchgear QCO"},
+
+    {"scheme":"HALLMARKING","match_type":"is_base","match_value":"IS 1417","mandatory":1,
+     "notes":"Grades of gold and gold alloys, jewellery/artefacts — hallmarking basis.",
+     "authority":"Hallmarking of Gold Jewellery QCO"},
+    {"scheme":"HALLMARKING","match_type":"is_base","match_value":"IS 2112","mandatory":1,
+     "notes":"Hallmarking of gold jewellery — marking requirements.",
+     "authority":"BIS (Hallmarking) Regulations 2018"},
+    {"scheme":"HALLMARKING","match_type":"is_base","match_value":"IS 15820","mandatory":1,
+     "notes":"Hallmarking of silver jewellery and artefacts.",
+     "authority":"BIS (Hallmarking) Regulations 2018"},
+
+    {"scheme":"CRS","match_type":"keyword","match_value":"information technology equipment","mandatory":0,
+     "notes":"Weak signal — IT equipment is generally CRS-notified. Flag for human check.",
+     "authority":"MeitY Electronics & IT Goods Order"},
+    {"scheme":"BIS_PRODUCT_CERT","match_type":"keyword","match_value":"cable","mandatory":0,
+     "notes":"Weak signal — many cable types fall under the Electric Cables QCO. Flag for human check.",
+     "authority":"Electric Cables QCO"}
+  ]
+}
