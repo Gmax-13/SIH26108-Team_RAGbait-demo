@@ -510,3 +510,45 @@ pre.raw {
   .masthead-inner, .tabs, .app { padding-left: 16px; padding-right: 16px; }
   .statusbar { flex-wrap: wrap; }
 }
+
+/* ---------------------------------------------------------- composition bars */
+.composition {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 28px 40px;
+}
+.bars { display: flex; flex-direction: column; gap: 7px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(132px, 1.35fr) minmax(52px, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  font-size: 13px;
+}
+.bar-label {
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar-track {
+  height: 9px;
+  background: var(--surface-3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+/* 4px rounded data-end anchored to the baseline; thin mark, recessive track */
+.bar-track > i {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  min-width: 3px;
+}
+.bar-val {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  text-align: right;
+  min-width: 48px;
+}
