@@ -1,0 +1,25 @@
+# python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# secrets
+.env
+
+# generated corpus + index (rebuild with the ingestion pipeline)
+data/store/*.db
+data/store/*.db-wal
+data/store/*.db-shm
+data/store/faiss/
+data/raw/*.html
+data/raw/*.json
+data/raw/*.txt
+
+# keep the JSON run summaries (evidence of how the dataset was built),
+# but not the raw stdout captures
+data/logs/*.log
+
+# node
+frontend/node_modules/
+frontend/dist/
