@@ -5,7 +5,7 @@ raise LLMUnavailable, and callers turn that into an abstention with a stated
 reason. It must never turn into a fabricated answer.
 """
 from __future__ import annotations
-import json, re
+import json, re, time
 from typing import Any
 
 from backend.config import GROQ_API_KEY, GROQ_MODEL
@@ -31,6 +31,15 @@ def _get_client():
         from groq import Groq
         _client = Groq(api_key=GROQ_API_KEY)
     return _client
+
+
+_RETRY_AFTER_RE = re.compile(r"try again in ([\d.]+)s", re.I)
+
+
+def _retry_after(message: str, default: float = 20.0) -> float:
+    """Groq states the wait in the error body; honour it rather than guessing."""
+    m = _RETRY_AFTER_RE.search(message)
+    return (float(m.group(1)) + 1.0) if m else default
 
 
 def _is_reasoning_model(model: str) -> bool:
@@ -59,10 +68,25 @@ def chat(messages: list[dict[str, str]], *, temperature: float = 0.1,
         # survives — otherwise `content` comes back empty and looks like success.
         kwargs["reasoning_effort"] = reasoning_effort or "low"
         kwargs["max_tokens"] = max(max_tokens, 3000)
-    try:
-        resp = client.chat.completions.create(**kwargs)
-    except Exception as e:  # noqa: BLE001 — surface as unavailable, never as a guess
-        raise LLMUnavailable(f"{type(e).__name__}: {e}") from e
+    # Free tiers meter tokens per MINUTE, so a burst (batch tender mode runs one
+    # synthesis plus several grounding checks per requirement) hits the ceiling
+    # even when each individual call is small. Wait it out rather than turning a
+    # transient quota into a false abstention.
+    last: Exception | None = None
+    for attempt in range(3):
+        try:
+            resp = client.chat.completions.create(**kwargs)
+            break
+        except Exception as e:  # noqa: BLE001 — surface as unavailable, never as a guess
+            last = e
+            msg = str(e)
+            retryable = "rate_limit" in msg or "429" in msg or "503" in msg
+            if not retryable or attempt == 2:
+                raise LLMUnavailable(f"{type(e).__name__}: {e}") from e
+            wait = _retry_after(msg, default=20 * (attempt + 1))
+            time.sleep(min(wait, 65))
+    else:  # pragma: no cover - loop always breaks or raises
+        raise LLMUnavailable(f"exhausted retries: {last}")
 
     choice = resp.choices[0]
     content = (choice.message.content or "").strip()

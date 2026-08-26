@@ -39,6 +39,16 @@ Reply ONLY with JSON of this exact shape:
 }"""
 
 
+# Groq's free tier allows 8,000 tokens per MINUTE, and the critic fires further
+# calls right after synthesis. So the prompt is budgeted, not merely "trimmed":
+# 4 candidates x 2 passages x 900 chars keeps one synthesis near 2.5k tokens and
+# leaves room for the grounding checks that follow it in the same minute.
+MAX_PROMPT_CANDIDATES = 4
+MAX_PASSAGES_PER_CANDIDATE = 2
+MAX_PASSAGE_CHARS = 900
+MAX_GRAPH_EDGES = 8
+
+
 def _render_candidates(retrieved: list[dict[str, Any]]) -> str:
     lines: list[str] = []
     for c in retrieved:
@@ -49,10 +59,11 @@ def _render_candidates(retrieved: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def _render_passages(retrieved: list[dict[str, Any]], max_chars: int = 1400) -> str:
+def _render_passages(retrieved: list[dict[str, Any]],
+                     max_chars: int = MAX_PASSAGE_CHARS) -> str:
     blocks: list[str] = []
     for c in retrieved:
-        for ch in c["chunks"]:
+        for ch in c["chunks"][:MAX_PASSAGES_PER_CANDIDATE]:
             sec = f" ({ch['section']})" if ch.get("section") else ""
             blocks.append(
                 f"[{ch['chunk_id']}]{sec} from {c['is_number']}:\n"
@@ -112,10 +123,14 @@ def synthesize_rule_based(retrieved: list[dict[str, Any]]) -> dict[str, Any]:
 def synthesize(query: str, retrieved: list[dict[str, Any]],
                graph: dict[str, Any] | None = None) -> dict[str, Any]:
     """Produce a structured, citation-bearing recommendation."""
+    # Only the candidates actually offered to the model are described; the rest
+    # still reach the critic and the abstention response.
+    retrieved = retrieved[:MAX_PROMPT_CANDIDATES]
+
     graph_note = ""
     if graph and graph.get("edges"):
         rel = []
-        for e in graph["edges"][:20]:
+        for e in graph["edges"][:MAX_GRAPH_EDGES]:
             mark = "confirmed" if e["confidence"] == "confirmed" else "INFERRED-unverified"
             rel.append(f"- {e['source']} --{e['edge_type']}({mark})--> {e['target']}")
         graph_note = ("\n\nKNOWN DEPENDENCY EDGES (from ingested full text):\n"
