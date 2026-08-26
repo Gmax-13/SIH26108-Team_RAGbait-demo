@@ -50,15 +50,18 @@ def get_index() -> VectorIndex:
     return _index
 
 
-def get_retriever(con) -> Retriever:
+def get_retriever(con, *, need_index: bool = True) -> Retriever:
     """A retriever per request.
 
     sqlite3 connections are bound to the thread that created them, and FastAPI
     runs sync handlers on a threadpool — so a module-level cached connection
     raises ProgrammingError as soon as a second worker thread serves a request.
     The connection is therefore per-request; only the index is shared.
+
+    `need_index=False` skips loading FAISS entirely, so graph traversal keeps
+    working before the embedding build has finished.
     """
-    return Retriever(con, get_index())
+    return Retriever(con, get_index() if need_index else None)
 
 
 class Query(BaseModel):
@@ -131,9 +134,17 @@ def get_standard(is_number: str) -> dict[str, Any]:
     out = dict(row)
     out["currency"] = check_currency(con, is_number)
     out["certification"] = check_certification(con, is_number)
+    # Join through to the cited standard so the UI can name it, not just number
+    # it. The join is LEFT because a standard may cite something outside the
+    # ingested departments, and that gap should stay visible.
     out["outgoing_edges"] = [dict(r) for r in con.execute(
-        "SELECT dst_is_base,edge_type,confidence,evidence_section,evidence_snippet "
-        "FROM edges WHERE src_standard_id=? ORDER BY confidence DESC LIMIT 60",
+        """SELECT e.dst_is_base, e.edge_type, e.confidence,
+                  e.evidence_section, e.evidence_snippet,
+                  dst.is_number AS dst_is_number, dst.title AS dst_title
+           FROM edges e
+           LEFT JOIN standards dst ON dst.id = e.dst_standard_id
+           WHERE e.src_standard_id = ?
+           ORDER BY (e.confidence='confirmed') DESC LIMIT 60""",
         (row["id"],))]
     # Reverse dependencies: which standards cite THIS one. Useful for judging how
     # load-bearing a standard is, and for impact analysis when it is superseded.
@@ -152,7 +163,7 @@ def get_standard(is_number: str) -> dict[str, Any]:
 @app.get("/api/graph/{is_number:path}")
 def get_graph(is_number: str, hops: int = GRAPH_HOPS) -> dict[str, Any]:
     con = connect()
-    return get_retriever(con).expand([is_number], hops=hops)
+    return get_retriever(con, need_index=False).expand([is_number], hops=hops)
 
 
 @app.post("/api/recommend")

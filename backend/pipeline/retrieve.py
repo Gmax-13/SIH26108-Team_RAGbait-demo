@@ -7,15 +7,39 @@ anchored to a specific passage.
 from __future__ import annotations
 from typing import Any
 
+import re
+
 from backend.config import GRAPH_HOPS, RETRIEVAL_TOP_K
 from backend.kb.embedder import encode_query
 from backend.kb.vector_index import VectorIndex
 
+_TITLE_STOP = set(
+    "for of and the part sec section code practice indian standard specification "
+    "requirements requirement general methods test tests with rated up to".split())
+
+
+def _title_terms(s: str) -> set[str]:
+    return {w for w in re.findall(r"[a-z0-9]+", (s or "").lower())
+            if len(w) > 3 and w not in _TITLE_STOP}
+
 
 class Retriever:
+    """Semantic retrieval plus graph traversal.
+
+    The FAISS index is loaded lazily. Graph expansion is pure SQL and must keep
+    working before the index exists, so browsing a standard's dependencies does
+    not depend on an embedding build having finished.
+    """
+
     def __init__(self, con, index: VectorIndex | None = None):
         self.con = con
-        self.index = index or VectorIndex.load()
+        self._index = index
+
+    @property
+    def index(self) -> VectorIndex:
+        if self._index is None:
+            self._index = VectorIndex.load()
+        return self._index
 
     # ---------- step 1: semantic retrieval ----------
     def search_chunks(self, query: str, k: int = RETRIEVAL_TOP_K,
@@ -67,15 +91,27 @@ class Retriever:
             e["best_score"] = max(e["best_score"], c["score"])
             e["chunks"].append({"chunk_id": c["id"], "section": c["section"],
                                 "score": c["score"], "text": c["text"]})
-        # A withdrawn standard is still worth surfacing — a tender may cite one,
-        # and the user needs to be told. But an active standard of equal
-        # similarity should always rank above it, so withdrawn entries are
-        # demoted for ORDERING only; `best_score` stays the true similarity so
-        # confidence signals are not silently distorted.
-        ranked = sorted(
-            agg.values(),
-            key=lambda r: -(r["best_score"] * (1.0 if r["is_active"] else 0.88)),
-        )[:max_standards]
+        # Ranking adjustments below affect ORDER ONLY. `best_score` keeps the
+        # true similarity so the critic's confidence signals stay honest.
+        qt = _title_terms(query)
+
+        def rank_key(r: dict[str, Any]) -> float:
+            score = r["best_score"]
+            # A withdrawn standard is still worth surfacing — a tender may cite
+            # one — but an active standard of equal similarity outranks it.
+            if not r["is_active"]:
+                score *= 0.88
+            # A standard whose TITLE is the query's subject should beat one that
+            # merely mentions the subject in passing. Without this, "earthing and
+            # equipotential bonding" ranked a cable-television standard above
+            # IS 3043 "Code of practice for earthing", because the former had
+            # more body text discussing earthing.
+            if qt:
+                overlap = len(qt & _title_terms(r["title"])) / len(qt)
+                score *= 1.0 + 0.18 * min(1.0, overlap / 0.5)
+            return -score
+
+        ranked = sorted(agg.values(), key=rank_key)[:max_standards]
         for r in ranked:
             r["chunks"] = sorted(r["chunks"], key=lambda c: -c["score"])[:3]
         return ranked
