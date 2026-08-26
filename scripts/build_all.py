@@ -34,6 +34,8 @@ STAGES = [
                 "--workers", str(a.workers)]),
     ("kb", "Chunk and embed into the FAISS index",
      lambda a: [PY, "-m", "backend.kb.build_kb"]),
+    ("certrules", "Load the certification rule table",
+     lambda a: [PY, "scripts/load_certification_rules.py"]),
     ("graph", "Build the dependency graph",
      lambda a: [PY, "-m", "backend.kb.build_graph"]),
 ]
