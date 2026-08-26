@@ -1,0 +1,21 @@
+{
+  "run_id": "fulltext-20260826-211151-27f326",
+  "seconds": 2682.7,
+  "attempted": 2194,
+  "full_text_ok": 865,
+  "no_edition": 1299,
+  "errors": 30,
+  "coverage_pct": 39.4,
+  "db": {
+    "standards": 2882,
+    "with_full_text": 1553,
+    "metadata_only": 1329,
+    "active": 2882,
+    "edges": 0,
+    "edges_confirmed": 0,
+    "edges_inferred": 0,
+    "edges_dangling": 0,
+    "chunks": 0,
+    "departments": 2
+  }
+}

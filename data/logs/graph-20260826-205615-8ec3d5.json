@@ -1,0 +1,26 @@
+{
+  "run_id": "graph-20260826-205615-8ec3d5",
+  "seconds": 1.6,
+  "fulltext_sources": 495,
+  "edges_confirmed": 2239,
+  "edges_inferred": 1259,
+  "late_resolved": 784,
+  "edge_types": {
+    "test_method": 1366,
+    "terminology": 432,
+    "normative_reference": 1041,
+    "safety": 66
+  },
+  "db": {
+    "standards": 2882,
+    "with_full_text": 495,
+    "metadata_only": 2387,
+    "active": 2882,
+    "edges": 2905,
+    "edges_confirmed": 1793,
+    "edges_inferred": 1112,
+    "edges_dangling": 784,
+    "chunks": 0,
+    "departments": 2
+  }
+}

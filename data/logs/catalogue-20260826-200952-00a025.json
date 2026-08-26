@@ -1,0 +1,36 @@
+{
+  "run_id": "catalogue-20260826-200952-00a025",
+  "seconds": 4.9,
+  "seeds": [
+    "e"
+  ],
+  "distinct_rows_seen": 360,
+  "kept": 40,
+  "rejected_unparseable": 7,
+  "reject_rate_pct": 1.94,
+  "by_department": {
+    "ETD": 25,
+    "LITD": 15
+  },
+  "db": {
+    "standards": 38,
+    "with_full_text": 0,
+    "metadata_only": 38,
+    "active": 38,
+    "edges": 0,
+    "edges_confirmed": 0,
+    "edges_inferred": 0,
+    "edges_dangling": 0,
+    "chunks": 0,
+    "departments": 2
+  },
+  "reject_samples": [
+    "IS/IEC -1-310:2005<br> (Active)",
+    "IS/ISO/IEC -1:2008<br> (Active)",
+    "IS/ISO/IEC -2:2008<br> (Active)",
+    "IS/ISO/IEC -3:2008<br> (Active)",
+    "IS/IEC -1-302:2005<br> (Active)",
+    "IS/IEC -1-308:2012<br>NULL <br> (Active)",
+    "IS  (Part 1/Sec 1):1975<br><font color=\"green\">Reviewed In : 2022</font><br>Reaffirmed but not taken up for revision (Active)"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "run_id": "catalogue-20260826-211602-22fad8",
+  "seconds": 2976.7,
+  "seeds": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+  ],
+  "distinct_rows_seen": 35408,
+  "kept": 6017,
+  "rejected_unparseable": 97,
+  "reject_rate_pct": 0.27,
+  "by_department": {
+    "ETD": 3013,
+    "LITD": 3004
+  },
+  "db": {
+    "standards": 5054,
+    "with_full_text": 0,
+    "metadata_only": 5054,
+    "active": 2864,
+    "edges": 0,
+    "edges_confirmed": 0,
+    "edges_inferred": 0,
+    "edges_dangling": 0,
+    "chunks": 0,
+    "departments": 2
+  },
+  "reject_samples": [
+    "IS/IEC -1-310:2005<br> (Active)",
+    "IS/ISO/IEC -1:2008<br> (Active)",
+    "IS/ISO/IEC -2:2008<br> (Active)",
+    "IS/ISO/IEC -3:2008<br> (Active)",
+    "IS/IEC -1-302:2005<br> (Active)",
+    "IS/IEC -1-308:2012<br>NULL <br> (Active)",
+    "ISO/SAE 21434:2021<br> (Active)",
+    "IEC 61000-5-2:2026<br> (Active)",
+    "IEC 61196-1-105:2026<br> (Active)",
+    "IS/IEC TS 61724-3:2016<br> (Active)",
+    "IS/IEC TS 62916:2017<br> (Active)",
+    "IS/IEC TS 62989:2018<br> (Active)",
+    "SI B241:2010<br> (Active)",
+    "SI B2410:2011<br> (Active)",
+    "SI B2411:2011<br> (Active)",
+    "SI B2412:2011<br> (Active)",
+    "SI B242:2010<br> (Active)",
+    "SI B243:2010<br> (Active)",
+    "SI B244:2010<br> (Active)",
+    "SI B245:2010<br> (Active)"
+  ]
+}
