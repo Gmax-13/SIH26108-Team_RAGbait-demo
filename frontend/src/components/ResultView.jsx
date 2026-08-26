@@ -7,17 +7,20 @@ function Abstention({ r }) {
   return (
     <>
       <div className="statusbar abstain">
-        <span style={{ fontSize: 20 }}>⃠</span>
-        <div style={{ flex: 1 }}>
+        <span className="icon" aria-hidden="true">⊘</span>
+        <div style={{ flex: 1, minWidth: 200 }}>
           <div className="big">Abstained — not confident enough to recommend a standard</div>
           <div className="small muted">
-            The system returns no IS number rather than guessing one.
+            No IS number is returned. Guessing one here would be worse than answering nothing.
           </div>
         </div>
+        <div style={{ textAlign: 'right' }}>
+          <div className="confval" style={{ color: confColor(r.confidence) }}>
+            {(r.confidence ?? 0).toFixed(2)}
+          </div>
+          <div className="small muted">threshold {r.threshold}</div>
+        </div>
         <Meter value={r.confidence} />
-        <span className="mono" style={{ color: confColor(r.confidence) }}>
-          {(r.confidence ?? 0).toFixed(2)} / {r.threshold}
-        </span>
       </div>
 
       <div className="panel">
@@ -119,9 +122,11 @@ function GraphPanel({ graph, onOpen }) {
     <div className="panel">
       <h2>Dependency graph</h2>
       <div className="row small muted" style={{ marginBottom: 10 }}>
-        <span>{n} standards · {e} edges</span>
-        <span className="badge ok">{confirmed} confirmed from source text</span>
-        {e - confirmed > 0 && <span className="badge warn">{e - confirmed} inferred (unverified)</span>}
+        <span>{n} standards · {e} relationships</span>
+        <span className="badge ok"><b aria-hidden="true">✓</b>{confirmed} confirmed from source text</span>
+        {e - confirmed > 0 && (
+          <span className="badge warn"><b aria-hidden="true">!</b>{e - confirmed} inferred — unverified</span>
+        )}
       </div>
       <GraphView graph={graph} onNodeClick={onOpen} />
     </div>
@@ -137,11 +142,11 @@ export default function ResultView({ result, onOpen }) {
   return (
     <>
       <div className="statusbar ok">
-        <span style={{ fontSize: 19 }}>✓</span>
-        <div style={{ flex: 1 }}>
-          <div className="big">Recommendation verified against source text</div>
+        <span className="icon" aria-hidden="true">✓</span>
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div className="big">Verified against source text</div>
           <div className="small muted">
-            Every claim below cites a passage that was checked by the critic layer.
+            Every claim below cites a passage that the critic layer checked.
           </div>
         </div>
         {r.synthesis_method === 'rule_based' && (
@@ -149,10 +154,13 @@ export default function ResultView({ result, onOpen }) {
             rule-based synthesis
           </span>
         )}
+        <div style={{ textAlign: 'right' }}>
+          <div className="confval" style={{ color: confColor(r.confidence) }}>
+            {r.confidence?.toFixed(2)}
+          </div>
+          <div className="small muted">confidence</div>
+        </div>
         <Meter value={r.confidence} />
-        <span className="mono" style={{ color: confColor(r.confidence) }}>
-          {r.confidence?.toFixed(2)}
-        </span>
       </div>
 
       <div className="panel">
@@ -209,9 +217,10 @@ export default function ResultView({ result, onOpen }) {
               <span
                 className={`badge ${c.support_score >= 0.9 ? 'ok' : c.support_score >= 0.5 ? 'warn' : 'danger'}`}
               >
+                <b aria-hidden="true">{c.support_score >= 0.9 ? '✓' : c.support_score >= 0.5 ? '~' : '×'}</b>
                 {c.llm_verdict || (c.support_score >= 0.5 ? 'supported' : 'weak')} · {c.support_score}
               </span>
-              {c.uncited && <span className="badge danger">no citation</span>}
+              {c.uncited && <span className="badge danger"><b aria-hidden="true">×</b>no citation</span>}
             </div>
             <div>{c.claim}</div>
             {c.llm_reason && <div className="small muted" style={{ marginTop: 4 }}>{c.llm_reason}</div>}

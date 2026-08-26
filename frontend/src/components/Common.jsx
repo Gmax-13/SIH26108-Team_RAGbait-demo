@@ -1,8 +1,10 @@
+// Confidence is a status, not a series: colour is paired with the number itself
+// so the value never rests on hue alone.
 export function confColor(c) {
-  if (c === null || c === undefined) return 'var(--muted)'
-  if (c >= 0.75) return 'var(--ok)'
+  if (c === null || c === undefined) return 'var(--ink-muted)'
+  if (c >= 0.75) return 'var(--good-ink)'
   if (c >= 0.55) return 'var(--warn)'
-  return 'var(--abstain)'
+  return 'var(--abstain-ink)'
 }
 
 export function Meter({ value }) {
@@ -18,14 +20,14 @@ export function CurrencyBadge({ currency }) {
   if (!currency) return null
   const s = currency.status
   const map = {
-    current: ['ok', 'Current edition'],
-    superseded: ['danger', `Superseded → ${currency.latest_known_edition || 'newer edition'}`],
-    withdrawn: ['danger', 'Withdrawn'],
-    unknown_year: ['warn', 'Year unknown'],
-    unknown: ['muted', 'Not in corpus'],
+    current: ['ok', '✓', 'Current edition'],
+    superseded: ['danger', '↑', `Superseded → ${currency.latest_known_edition || 'newer edition'}`],
+    withdrawn: ['danger', '⊘', 'Withdrawn'],
+    unknown_year: ['warn', '?', 'Year unknown'],
+    unknown: ['muted', '–', 'Not in corpus'],
   }
-  const [cls, label] = map[s] || ['muted', s]
-  return <span className={`badge ${cls}`}>{label}</span>
+  const [cls, glyph, label] = map[s] || ['muted', '–', s]
+  return <span className={`badge ${cls}`}><b aria-hidden="true">{glyph}</b>{label}</span>
 }
 
 export function CertBadges({ certification }) {
@@ -39,9 +41,10 @@ export function CertBadges({ certification }) {
           className={`badge ${s.mandatory ? 'warn' : 'muted'}`}
           title={`${s.match} — ${s.notes || ''}`}
         >
-          {s.scheme}
-          {s.mandatory ? ' (mandatory)' : ''}
-          {s.confidence === 'low' ? ' ?' : ''}
+          <b aria-hidden="true">{s.mandatory ? '!' : 'i'}</b>
+          {s.scheme.replace(/_/g, ' ')}
+          {s.mandatory ? ' · mandatory' : ''}
+          {s.confidence === 'low' ? ' · weak match' : ''}
         </span>
       ))}
     </>
@@ -52,7 +55,7 @@ export function WithdrawnBadge({ on }) {
   if (!on) return null
   return (
     <span className="badge danger" title="This standard is marked withdrawn in the BIS catalogue and should not be specified for new work.">
-      WITHDRAWN
+      <b aria-hidden="true">⊘</b>Withdrawn
     </span>
   )
 }
@@ -61,7 +64,7 @@ export function MetaOnlyBadge({ on }) {
   if (!on) return null
   return (
     <span className="badge warn" title="No full text was ingested for this standard, so its content could not be verified against source text.">
-      metadata only — unverified
+      <b aria-hidden="true">!</b>Metadata only — unverified
     </span>
   )
 }
