@@ -150,8 +150,12 @@ export default function ResultView({ result, onOpen }) {
           </div>
         </div>
         {r.synthesis_method === 'rule_based' && (
-          <span className="badge warn" title="No LLM configured — synthesis came from catalogue titles plus semantic retrieval, then went through the same verification.">
-            rule-based synthesis
+          <span className="badge warn"
+            title={r.llm_error
+              ? `The language model was unavailable, so this used rule-based synthesis: ${r.llm_error}`
+              : 'No LLM configured — synthesis came from catalogue titles plus semantic retrieval, then went through the same verification.'}>
+            <b aria-hidden="true">!</b>
+            {r.llm_error ? 'LLM unavailable — rule-based' : 'rule-based synthesis'}
           </span>
         )}
         <div style={{ textAlign: 'right' }}>

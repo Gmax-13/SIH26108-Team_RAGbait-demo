@@ -645,3 +645,38 @@ button.linkish:hover { text-decoration-color: var(--accent); }
   border: 2px solid var(--warn);
   width: 11px; height: 11px;
 }
+
+/* ---------------------------------------------------------- pipeline stages */
+.stages ol.stage-list { list-style: none; margin: 4px 0 0; padding: 0; }
+.stage {
+  display: grid;
+  grid-template-columns: 22px minmax(140px, auto) 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 2px;
+  border-bottom: 1px solid var(--line);
+}
+.stage:last-child { border-bottom: 0; }
+
+.stage-mark {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 700;
+  border: 2px solid var(--line-strong);
+  color: #fff;
+}
+.stage.idle    .stage-label { color: var(--ink-muted); }
+.stage.done    .stage-mark  { background: var(--good); border-color: var(--good); }
+.stage.done    .stage-label { color: var(--ink); font-weight: 550; }
+.stage.running .stage-mark  { border-color: var(--accent); border-right-color: transparent;
+                              animation: spin .7s linear infinite; }
+.stage.running .stage-label { color: var(--accent-ink); font-weight: 600; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .stage.running .stage-mark { animation: none; border-right-color: var(--accent); }
+}
+
+.stage-detail { text-align: left; }
+.stage-time { text-align: right; min-width: 44px; }

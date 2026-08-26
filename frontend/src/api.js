@@ -30,3 +30,44 @@ export const postBatchUpload = (file) => {
   fd.append('file', file)
   return fetch('/api/batch/upload', { method: 'POST', body: fd }).then(j)
 }
+
+/** Stream a recommendation, calling `onEvent` as each pipeline stage starts and
+ *  finishes. Resolves with the final result.
+ *
+ *  EventSource cannot POST, so the SSE frames are parsed off a fetch body
+ *  reader. Frames are separated by a blank line and may arrive split across
+ *  chunks, so the tail is buffered until a separator shows up.
+ */
+export async function streamRecommend(body, onEvent) {
+  const res = await fetch('/api/recommend/stream', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error((await res.text()).slice(0, 300) || `HTTP ${res.status}`)
+
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  let buf = ''
+  let result = null
+
+  for (;;) {
+    const { value, done } = await reader.read()
+    if (done) break
+    buf += decoder.decode(value, { stream: true })
+
+    let sep
+    while ((sep = buf.indexOf('\n\n')) !== -1) {
+      const frame = buf.slice(0, sep).trim()
+      buf = buf.slice(sep + 2)
+      if (!frame.startsWith('data:')) continue
+      let ev
+      try { ev = JSON.parse(frame.slice(5).trim()) } catch { continue }
+      if (ev.event === 'result') result = ev.result
+      else if (ev.event === 'error') throw new Error(ev.detail)
+      else onEvent?.(ev)
+    }
+  }
+  if (!result) throw new Error('Stream ended before a result arrived')
+  return result
+}
