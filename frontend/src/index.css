@@ -552,3 +552,96 @@ pre.raw {
   text-align: right;
   min-width: 48px;
 }
+
+/* ---------------------------------------------------------- standard detail */
+.std-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.std-head-stats { display: flex; gap: 26px; }
+.std-head-stats > div { text-align: right; }
+.std-head-stats b {
+  display: block;
+  font-size: 20px;
+  font-weight: 660;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.std-head-stats span { font-size: 11.5px; color: var(--ink-muted); }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+.detail-grid > .panel { margin-bottom: 0; }
+
+table.fields { font-size: 13.5px; }
+table.fields td { padding: 8px 10px; }
+table.fields tbody tr:hover { background: transparent; }
+.field-label {
+  color: var(--ink-muted);
+  width: 44%;
+  font-size: 12.5px;
+}
+
+ul.flags { color: var(--warn); }
+ul.flags li { margin-bottom: 7px; }
+
+/* inline link-style button used inside tables */
+button.linkish {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  color: var(--accent-ink);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--line-strong);
+}
+button.linkish:hover { text-decoration-color: var(--accent); }
+
+.excerpt {
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ---------------------------------------------------------- graph chrome */
+.graph-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.graph-toolbar .spacer { flex: 1 1 auto; }
+.zoomers { display: flex; gap: 4px; }
+.zoomers button {
+  width: 32px;
+  padding: 7px 0;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1;
+}
+.graph-hover {
+  margin-top: 10px;
+  padding: 11px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.dot.ring {
+  background: transparent;
+  border: 2px solid var(--warn);
+  width: 11px; height: 11px;
+}
