@@ -76,7 +76,8 @@ def upsert_standard(con: sqlite3.Connection, rec: dict[str, Any]) -> int:
     updates = ", ".join(
         f"{c}=excluded.{c}" for c in STANDARD_COLS
         if c not in ("is_number", "full_text", "has_full_text", "full_text_chars",
-                     "full_text_year", "metadata_only", "archive_checked")
+                     "full_text_year", "metadata_only", "archive_checked",
+                     "archive_identifier")
     )
     sql = f"""
         INSERT INTO standards ({cols}) VALUES ({ph})
@@ -86,7 +87,13 @@ def upsert_standard(con: sqlite3.Connection, rec: dict[str, Any]) -> int:
             full_text_chars = MAX(excluded.full_text_chars, standards.full_text_chars),
             full_text_year  = COALESCE(excluded.full_text_year, standards.full_text_year),
             metadata_only   = MIN(excluded.metadata_only, standards.metadata_only),
-            archive_checked = MAX(excluded.archive_checked, standards.archive_checked)
+            archive_checked = MAX(excluded.archive_checked, standards.archive_checked),
+            -- Provenance must survive a metadata refresh. A later catalogue
+            -- scrape carries no archive identifier, and without COALESCE it
+            -- overwrites the pointer to the document the text actually came
+            -- from, breaking the citation trail while the text itself stays.
+            archive_identifier = COALESCE(excluded.archive_identifier,
+                                          standards.archive_identifier)
     """
     con.execute(sql, [rec[c] for c in STANDARD_COLS])
     row = con.execute("SELECT id FROM standards WHERE is_number=?", (rec["is_number"],)).fetchone()
