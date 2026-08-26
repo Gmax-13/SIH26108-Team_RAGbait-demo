@@ -3,10 +3,12 @@ import { downloadCSV, downloadJSON, stamp } from '../download'
 import { CurrencyBadge } from './Common'
 import ResultView from './ResultView'
 
+const fmt = (n) => (n ?? 0).toLocaleString()
+
 function Tile({ n, l, cls = '' }) {
   return (
     <div className={`tile ${cls}`}>
-      <div className="n">{n}</div>
+      <div className="n">{fmt(n)}</div>
       <div className="l">{l}</div>
     </div>
   )
@@ -21,14 +23,15 @@ export default function BatchReport({ report }) {
     <>
       <div className="panel">
         <h2>Compliance summary</h2>
+        <p className="sub">Every requirement ran through the same verification as a single query.</p>
         <div className="tiles">
           <Tile n={s.requirements_extracted} l="Requirements extracted" />
           <Tile n={s.standards_identified} l="Standards identified" cls="good" />
-          <Tile n={s.outdated_document_citations} l="Outdated references in tender"
+          <Tile n={s.outdated_document_citations} l="Outdated references in the tender"
                 cls={s.outdated_document_citations ? 'bad' : ''} />
           <Tile n={s.certification_flags} l="Certification flags"
                 cls={s.certification_flags ? 'flag' : ''} />
-          <Tile n={s.requirements_abstained} l="Abstained (no confident match)"
+          <Tile n={s.requirements_abstained} l="Abstained — no confident match"
                 cls={s.requirements_abstained ? 'flag' : ''} />
         </div>
         <div className="row" style={{ marginTop: 12 }}>
