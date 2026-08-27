@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { CertBadges, Citation, CurrencyBadge, Meter, MetaOnlyBadge, WithdrawnBadge, confColor } from './Common'
+import OfficerView from './OfficerView'
 import GraphView from './GraphView'
 
 /** The abstention response. Deliberately prominent — it is the key behaviour,
@@ -135,6 +137,7 @@ function GraphPanel({ graph, onOpen }) {
 
 export default function ResultView({ result, onOpen }) {
   const r = result
+  const [evidence, setEvidence] = useState(false)
   if (!r) return null
   if (r.status === 'abstained') return <Abstention r={r} />
 
@@ -146,7 +149,7 @@ export default function ResultView({ result, onOpen }) {
         <div style={{ flex: 1, minWidth: 200 }}>
           <div className="big">Verified against source text</div>
           <div className="small muted">
-            Every claim below cites a passage that the critic layer checked.
+            Checked against the actual standard before being shown.
           </div>
         </div>
         {r.synthesis_method === 'rule_based' && (
@@ -165,6 +168,34 @@ export default function ResultView({ result, onOpen }) {
           <div className="small muted">confidence</div>
         </div>
         <Meter value={r.confidence} />
+      </div>
+
+      {!evidence && (
+        <>
+          <OfficerView r={r} onOpen={onOpen} onShowEvidence={() => setEvidence(true)} />
+          <div className="panel evidence-toggle">
+            <div>
+              <b>Need to justify this choice?</b>
+              <p className="small muted" style={{ margin: '3px 0 0' }}>
+                Every claim, the passage it came from, the dependency graph and the
+                verification scores.
+              </p>
+            </div>
+            <button className="ghost" onClick={() => setEvidence(true)}>Show the evidence</button>
+          </div>
+        </>
+      )}
+
+      {evidence && (
+      <>
+      <div className="panel evidence-toggle">
+        <div>
+          <b>Evidence view</b>
+          <p className="small muted" style={{ margin: '3px 0 0' }}>
+            Everything behind the recommendation.
+          </p>
+        </div>
+        <button className="ghost" onClick={() => setEvidence(false)}>Back to the answer</button>
       </div>
 
       <div className="panel">
@@ -247,6 +278,8 @@ export default function ResultView({ result, onOpen }) {
 
       {r.dependency_graph && <GraphPanel graph={r.dependency_graph} onOpen={onOpen} />}
       <Signals v={r.verification} />
+      </>
+      )}
     </>
   )
 }
