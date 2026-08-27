@@ -2,6 +2,7 @@
 
     python scripts/build_all.py                     # full build, ETD/LITD
     python scripts/build_all.py --departments CED   # a different slice
+    python scripts/build_all.py --all-departments   # every department (~24k, hours)
     python scripts/build_all.py --skip catalogue    # resume a partial build
     python scripts/build_all.py --dry-run           # just show the plan
 
@@ -21,8 +22,8 @@ PY = sys.executable
 
 STAGES = [
     ("catalogue", "Scrape the BIS catalogue (digit seeds 0-9, provably complete)",
-     lambda a: [PY, "-m", "backend.ingestion.scrape_catalogue",
-                "--departments", a.departments]),
+     lambda a: [PY, "-m", "backend.ingestion.scrape_catalogue"]
+               + (["--all"] if a.all_departments else ["--departments", a.departments])),
     ("migrate", "Add/backfill full_text_year",
      lambda a: [PY, "scripts/migrate_full_text_year.py"]),
     ("migrate2", "Add/backfill archive_checked (avoids re-querying dead ends)",
@@ -44,6 +45,8 @@ STAGES = [
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--departments", default="ETD,LITD")
+    ap.add_argument("--all-departments", action="store_true",
+                    help="ingest every BIS department (~24k standards, many hours)")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--skip", default="", help="comma-separated stage names to skip")
     ap.add_argument("--only", default="", help="comma-separated stage names to run")
