@@ -16,7 +16,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from backend.config import ABSTAIN_THRESHOLD, GRAPH_HOPS, RETRIEVAL_TOP_K
+from backend.config import (ABSTAIN_THRESHOLD, DEMO_STATUS, GRAPH_HOPS,
+                            RETRIEVAL_TOP_K, active_departments)
 from backend.pipeline.batch import run_batch
 from backend.pipeline.certification import check_certification
 from backend.pipeline.currency import check_currency
@@ -89,9 +90,10 @@ def root() -> dict[str, Any]:
     server is down, so say what is running and where the UI actually lives.
     """
     con = connect()
-    s = stats(con)
+    s = stats(con, active_departments())
     return {
         "service": "Indian Standards Recommendation Engine API",
+        "scope": _scope(),
         "status": "running",
         "dashboard": "http://localhost:5173",
         "interactive_docs": "/docs",
@@ -114,24 +116,61 @@ def root() -> dict[str, Any]:
     }
 
 
+def _scope() -> dict[str, Any]:
+    """What slice of the ingested catalogue the system is answering from.
+
+    Reported everywhere rather than applied silently: a corpus that holds 17
+    departments while answering from 2 must say so, or the dashboard's counts
+    become a quiet misrepresentation.
+    """
+    depts = active_departments()
+    return {
+        "demo_status": DEMO_STATUS,
+        "departments": depts,
+        "scoped": depts is not None,
+        "note": (f"Answering only from {', '.join(depts)} — the departments with "
+                 f"full-text coverage. Set DEMO_STATUS=false to use the whole "
+                 f"ingested catalogue.") if depts else
+                "Answering from the entire ingested catalogue.",
+    }
+
+
 @app.get("/api/health")
 def health() -> dict[str, Any]:
     con = connect()
-    return {"ok": True, "llm_configured": llm_available(), "corpus": stats(con)}
+    return {"ok": True, "llm_configured": llm_available(),
+            "scope": _scope(),
+            "corpus": stats(con, active_departments()),
+            "corpus_total": stats(con, None)}
 
 
 @app.get("/api/stats")
 def get_stats() -> dict[str, Any]:
     con = connect()
-    s = stats(con)
+    depts = active_departments()
+    s = stats(con, depts)
+    where, params = ("", [])
+    if depts:
+        where = f" WHERE department IN ({','.join('?' * len(depts))})"
+        params = depts
     s["by_department"] = {r["department"]: r["n"] for r in con.execute(
-        "SELECT department, COUNT(*) n FROM standards GROUP BY 1 ORDER BY n DESC")}
+        f"SELECT department, COUNT(*) n FROM standards{where}"
+        " GROUP BY 1 ORDER BY n DESC", params)}
     s["by_aspect"] = {r["aspect"]: r["n"] for r in con.execute(
-        "SELECT aspect, COUNT(*) n FROM standards WHERE aspect IS NOT NULL "
-        "GROUP BY 1 ORDER BY n DESC")}
+        f"SELECT aspect, COUNT(*) n FROM standards{where}"
+        + (" AND" if depts else " WHERE") + " aspect IS NOT NULL"
+        " GROUP BY 1 ORDER BY n DESC", params)}
+    edge_where, edge_params = ("", [])
+    if depts:
+        edge_where = (f" WHERE src_standard_id IN (SELECT id FROM standards"
+                      f" WHERE department IN ({','.join('?' * len(depts))}))")
+        edge_params = depts
     s["edge_types"] = {r["edge_type"]: r["n"] for r in con.execute(
-        "SELECT edge_type, COUNT(*) n FROM edges GROUP BY 1 ORDER BY n DESC")}
+        f"SELECT edge_type, COUNT(*) n FROM edges{edge_where}"
+        " GROUP BY 1 ORDER BY n DESC", edge_params)}
     s["llm_configured"] = llm_available()
+    s["scope"] = _scope()
+    s["corpus_total_standards"] = stats(con, None)["standards"]
     return s
 
 

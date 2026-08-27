@@ -60,6 +60,15 @@ export default function IngestionPanel() {
       <div className="panel">
         <h2>Corpus</h2>
         <p className="sub">Built entirely from the BIS catalogue and Internet Archive — nothing hand-curated.</p>
+        {stats.scope?.scoped && (
+          <p className="scope-note small">
+            <b>Scoped to {stats.scope.departments.join(' and ')}.</b>{' '}
+            {stats.corpus_total_standards?.toLocaleString()} standards are ingested in
+            total; the system answers only from the departments with full-text coverage,
+            because a title-only match cannot be verified. Nothing is deleted — set
+            <code> DEMO_STATUS=false</code> to use the whole catalogue.
+          </p>
+        )}
         <div className="tiles">
           <Tile n={stats.standards} l="Standards ingested" />
           <Tile n={stats.with_full_text} l={`Verifiable against full text (${ftPct}%)`} cls="good" />

@@ -123,17 +123,36 @@ def resolve_dangling_edges(con: sqlite3.Connection) -> int:
     return cur.rowcount
 
 
-def stats(con: sqlite3.Connection) -> dict[str, Any]:
-    q = lambda s: con.execute(s).fetchone()[0]
+def stats(con: sqlite3.Connection, departments: list[str] | None = None) -> dict[str, Any]:
+    """Corpus counts. `departments` scopes them to what the system will answer
+    from, so the dashboard never reports a corpus larger than it will use."""
+    if departments:
+        ph = ",".join("?" * len(departments))
+        w = f" WHERE department IN ({ph})"
+        ew = (f" WHERE src_standard_id IN (SELECT id FROM standards"
+              f" WHERE department IN ({ph}))")
+        q = lambda s: con.execute(
+            s.replace("{W}", w).replace("{EW}", ew),
+            departments * s.count("{W}") + departments * s.count("{EW}")).fetchone()[0]
+    else:
+        q = lambda s: con.execute(s.replace("{W}", "").replace("{EW}", "")).fetchone()[0]
     return {
-        "standards": q("SELECT COUNT(*) FROM standards"),
-        "with_full_text": q("SELECT COUNT(*) FROM standards WHERE has_full_text=1"),
-        "metadata_only": q("SELECT COUNT(*) FROM standards WHERE metadata_only=1"),
-        "active": q("SELECT COUNT(*) FROM standards WHERE is_active=1"),
-        "edges": q("SELECT COUNT(*) FROM edges"),
-        "edges_confirmed": q("SELECT COUNT(*) FROM edges WHERE confidence='confirmed'"),
-        "edges_inferred": q("SELECT COUNT(*) FROM edges WHERE confidence='inferred'"),
-        "edges_dangling": q("SELECT COUNT(*) FROM edges WHERE dst_standard_id IS NULL"),
-        "chunks": q("SELECT COUNT(*) FROM chunks"),
-        "departments": q("SELECT COUNT(DISTINCT department) FROM standards"),
+        "standards": q("SELECT COUNT(*) FROM standards{W}"),
+        "with_full_text": q("SELECT COUNT(*) FROM standards{W}" +
+                            (" AND" if departments else " WHERE") + " has_full_text=1"),
+        "metadata_only": q("SELECT COUNT(*) FROM standards{W}" +
+                           (" AND" if departments else " WHERE") + " metadata_only=1"),
+        "active": q("SELECT COUNT(*) FROM standards{W}" +
+                    (" AND" if departments else " WHERE") + " is_active=1"),
+        "edges": q("SELECT COUNT(*) FROM edges{EW}"),
+        "edges_confirmed": q("SELECT COUNT(*) FROM edges{EW}" +
+                             (" AND" if departments else " WHERE") + " confidence='confirmed'"),
+        "edges_inferred": q("SELECT COUNT(*) FROM edges{EW}" +
+                            (" AND" if departments else " WHERE") + " confidence='inferred'"),
+        "edges_dangling": q("SELECT COUNT(*) FROM edges{EW}" +
+                            (" AND" if departments else " WHERE") + " dst_standard_id IS NULL"),
+        "chunks": q("SELECT COUNT(*) FROM chunks c WHERE c.standard_id IN"
+                    " (SELECT id FROM standards{W})" if departments
+                    else "SELECT COUNT(*) FROM chunks"),
+        "departments": q("SELECT COUNT(DISTINCT department) FROM standards{W}"),
     }

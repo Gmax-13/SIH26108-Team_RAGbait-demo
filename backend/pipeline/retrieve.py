@@ -9,7 +9,7 @@ from typing import Any
 
 import re
 
-from backend.config import GRAPH_HOPS, RETRIEVAL_TOP_K
+from backend.config import GRAPH_HOPS, RETRIEVAL_TOP_K, active_departments
 from backend.kb.embedder import encode_query
 from backend.kb.vector_index import VectorIndex
 
@@ -18,9 +18,22 @@ _TITLE_STOP = set(
     "requirements requirement general methods test tests with rated up to".split())
 
 
+def _stem(w: str) -> str:
+    """Fold regular plurals. Titles are written in the plural ("Conduits for
+    electrical installations"), queries in the singular ("rigid conduit for..."),
+    so exact matching gave the conduit standard almost no credit."""
+    for suf in ("ies", "es", "s"):
+        if len(w) > 4 and w.endswith(suf):
+            return w[: -len(suf)] + ("y" if suf == "ies" else "")
+    return w
+
+
 def _title_terms(s: str) -> set[str]:
-    return {w for w in re.findall(r"[a-z0-9]+", (s or "").lower())
+    return {_stem(w) for w in re.findall(r"[a-z0-9]+", (s or "").lower())
             if len(w) > 3 and w not in _TITLE_STOP}
+
+
+TITLE_BOOST = 0.18   # measured: higher values did not change the golden-set outcome
 
 
 class Retriever:
@@ -34,6 +47,28 @@ class Retriever:
     def __init__(self, con, index: VectorIndex | None = None):
         self.con = con
         self._index = index
+        self._idf: dict[str, float] | None = None
+
+    def _term_idf(self) -> dict[str, float]:
+        """Inverse document frequency of every title term in the corpus.
+
+        Plain overlap counts "electrical" (in thousands of titles) the same as
+        "conduit" (in dozens), so a query for a rigid non-metallic conduit gave
+        a flexible-steel-conduit standard as much title credit as the right one
+        — they share "electrical wiring". Weighting by rarity makes the
+        distinguishing words decide the ranking.
+        """
+        if self._idf is None:
+            import math
+            df: dict[str, int] = {}
+            n = 0
+            for (title,) in self.con.execute("SELECT title FROM standards"):
+                n += 1
+                for t in _title_terms(title):
+                    df[t] = df.get(t, 0) + 1
+            self._idf = {t: math.log(1 + n / (1 + c)) for t, c in df.items()}
+            self._idf["__default__"] = math.log(1 + n)
+        return self._idf
 
     @property
     def index(self) -> VectorIndex:
@@ -45,19 +80,37 @@ class Retriever:
     def search_chunks(self, query: str, k: int = RETRIEVAL_TOP_K,
                       per_standard_cap: int = 3) -> list[dict[str, Any]]:
         """Retrieve chunks, capped per standard so one verbose document cannot
-        monopolise the candidate list and crowd out other relevant standards."""
-        hits = self.index.search(encode_query(query), k=k * 6)
-        if not hits:
-            return []
-        by_id = {cid: score for cid, score in hits}
-        rows = self.con.execute(
-            f"""SELECT c.id,c.text,c.section,c.chunk_index,
+        monopolise the candidate list and crowd out other relevant standards.
+
+        When a department scope is active the index is still searched whole and
+        out-of-scope hits are discarded afterwards, so the search widens until
+        enough in-scope chunks are found rather than returning a thin list.
+        """
+        depts = active_departments()
+        qvec = encode_query(query)
+        widths = [k * 6, k * 24, k * 80] if depts else [k * 6]
+
+        rows: list = []
+        by_id: dict[str, float] = {}
+        for width in widths:
+            hits = self.index.search(qvec, k=width)
+            if not hits:
+                return []
+            by_id = {cid: score for cid, score in hits}
+            sql = (f"""SELECT c.id,c.text,c.section,c.chunk_index,
                        s.is_number,s.is_base,s.title,s.department,s.aspect,
                        s.technical_committee,s.year,s.metadata_only,s.has_full_text,
                        s.is_active,s.withdrawn_status
                 FROM chunks c JOIN standards s ON s.id=c.standard_id
-                WHERE c.id IN ({','.join('?' * len(by_id))})""",
-            list(by_id)).fetchall()
+                WHERE c.id IN ({','.join('?' * len(by_id))})""")
+            params = list(by_id)
+            if depts:
+                sql += f" AND s.department IN ({','.join('?' * len(depts))})"
+                params += depts
+            rows = self.con.execute(sql, params).fetchall()
+            # Enough distinct standards to rank meaningfully? Then stop widening.
+            if len({r["is_number"] for r in rows}) >= k or width == widths[-1]:
+                break
         out = [dict(r) | {"score": by_id[r["id"]]} for r in rows]
         out.sort(key=lambda r: -r["score"])
         kept: list[dict[str, Any]] = []
@@ -94,6 +147,9 @@ class Retriever:
         # Ranking adjustments below affect ORDER ONLY. `best_score` keeps the
         # true similarity so the critic's confidence signals stay honest.
         qt = _title_terms(query)
+        idf = self._term_idf() if qt else {}
+        default_idf = idf.get("__default__", 1.0)
+        q_weight = sum(idf.get(t, default_idf) for t in qt) or 1.0
 
         def rank_key(r: dict[str, Any]) -> float:
             score = r["best_score"]
@@ -107,8 +163,9 @@ class Retriever:
             # IS 3043 "Code of practice for earthing", because the former had
             # more body text discussing earthing.
             if qt:
-                overlap = len(qt & _title_terms(r["title"])) / len(qt)
-                score *= 1.0 + 0.18 * min(1.0, overlap / 0.5)
+                shared = qt & _title_terms(r["title"])
+                overlap = sum(idf.get(t, default_idf) for t in shared) / q_weight
+                score *= 1.0 + TITLE_BOOST * min(1.0, overlap / 0.5)
             return -score
 
         ranked = sorted(agg.values(), key=rank_key)[:max_standards]

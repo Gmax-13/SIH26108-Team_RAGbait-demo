@@ -228,6 +228,12 @@ export default function App() {
           <span className="spacer" />
           <div className="corpus-chips">
             {health === false && <span className="badge danger"><b aria-hidden="true">!</b>API unreachable</span>}
+            {health?.scope?.scoped && (
+              <span className="badge info" title={health.scope.note}>
+                <b aria-hidden="true">◆</b>
+                {health.scope.departments.join(' + ')} scope
+              </span>
+            )}
             {health && (
               <>
                 <span className="badge muted"><CountUp value={health.standards} /> standards</span>

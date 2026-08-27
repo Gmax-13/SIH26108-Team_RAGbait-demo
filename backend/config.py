@@ -27,6 +27,34 @@ ARCHIVE_DELAY   = 0.30    # politeness delay between archive.org fetches (~3 req
 # Departments for the initial vertical slice (electrical / electronics).
 SUBSET_DEPARTMENTS = ["ETD", "LITD"]
 
+
+def _flag(name: str, default: bool) -> bool:
+    v = os.getenv(name)
+    if v is None:
+        return default
+    return v.strip().lower() in {"1", "true", "yes", "on"}
+
+
+# --- demo scoping -----------------------------------------------------------
+# The store can hold every BIS department while the running system answers from
+# only a slice of it. This is a QUERY-TIME filter, not a delete: the rest of the
+# corpus stays ingested and is restored by flipping one flag.
+#
+# Why it exists: full-text coverage is what the verification layer depends on.
+# Ingesting all 17 departments at metadata level dropped coverage from 58% to
+# 8.8%, so retrieval became title-matching across 33k titles and confident-but-
+# wrong answers appeared. Scoping to the departments that actually have text
+# restores the behaviour without throwing the wider catalogue away.
+DEMO_STATUS = _flag("DEMO_STATUS", True)
+DEMO_DEPARTMENTS = [d.strip().upper() for d in
+                    os.getenv("DEMO_DEPARTMENTS", ",".join(SUBSET_DEPARTMENTS)).split(",")
+                    if d.strip()]
+
+
+def active_departments() -> list[str] | None:
+    """Departments the running system may answer from; None means all of them."""
+    return DEMO_DEPARTMENTS if (DEMO_STATUS and DEMO_DEPARTMENTS) else None
+
 # --- knowledge base ---
 EMBED_MODEL   = os.getenv("EMBED_MODEL", "BAAI/bge-small-en-v1.5")
 EMBED_DIM     = 384
