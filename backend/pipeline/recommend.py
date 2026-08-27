@@ -15,6 +15,7 @@ from collections.abc import Iterator
 from typing import Any
 
 from backend.config import ABSTAIN_THRESHOLD, GRAPH_HOPS, RETRIEVAL_TOP_K
+from backend.textfmt import readable
 from backend.pipeline.certification import check_certification
 from backend.pipeline.critic import abstention_response, verify
 from backend.pipeline.currency import check_currency
@@ -162,7 +163,9 @@ def recommend_events(con, retriever: Retriever, query: str, *,
             if ch:
                 citations.append({
                     "chunk_id": cid, "is_number": src,
-                    "section": ch["section"], "excerpt": ch["text"][:500],
+                    "section": ch["section"],
+                    # Reflowed for reading; whitespace only, so still verbatim.
+                    "excerpt": readable(ch["text"], 700),
                     "similarity": round(ch["score"], 3),
                 })
 

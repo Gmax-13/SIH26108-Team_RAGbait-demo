@@ -25,6 +25,7 @@ from backend.pipeline.recommend import recommend, recommend_events
 from backend.kb.vector_index import VectorIndex
 from backend.pipeline.retrieve import Retriever
 from backend.store import connect, stats
+from backend.textfmt import readable
 
 app = FastAPI(title="Indian Standards Recommendation Engine",
               version="0.1.0",
@@ -172,7 +173,15 @@ def get_standard(is_number: str) -> dict[str, Any]:
     # Join through to the cited standard so the UI can name it, not just number
     # it. The join is LEFT because a standard may cite something outside the
     # ingested departments, and that gap should stay visible.
-    out["outgoing_edges"] = [dict(r) for r in con.execute(
+    def _tidy(rows):
+        out_rows = []
+        for r in rows:
+            d = dict(r)
+            d["evidence_snippet"] = readable(d.get("evidence_snippet"), 600)
+            out_rows.append(d)
+        return out_rows
+
+    out["outgoing_edges"] = _tidy(con.execute(
         """SELECT e.dst_is_base, e.edge_type, e.confidence,
                   e.evidence_section, e.evidence_snippet,
                   dst.is_number AS dst_is_number, dst.title AS dst_title
@@ -180,16 +189,16 @@ def get_standard(is_number: str) -> dict[str, Any]:
            LEFT JOIN standards dst ON dst.id = e.dst_standard_id
            WHERE e.src_standard_id = ?
            ORDER BY (e.confidence='confirmed') DESC LIMIT 60""",
-        (row["id"],))]
+        (row["id"],)))
     # Reverse dependencies: which standards cite THIS one. Useful for judging how
     # load-bearing a standard is, and for impact analysis when it is superseded.
-    out["incoming_edges"] = [dict(r) for r in con.execute(
+    out["incoming_edges"] = _tidy(con.execute(
         """SELECT src.is_number AS src_is_number, src.title AS src_title,
                   e.edge_type, e.confidence, e.evidence_section, e.evidence_snippet
            FROM edges e JOIN standards src ON src.id = e.src_standard_id
            WHERE e.dst_is_base = ?
            ORDER BY (e.confidence='confirmed') DESC LIMIT 60""",
-        (row["is_base"],))]
+        (row["is_base"],)))
     out["cited_by_count"] = con.execute(
         "SELECT COUNT(*) FROM edges WHERE dst_is_base=?", (row["is_base"],)).fetchone()[0]
     return out

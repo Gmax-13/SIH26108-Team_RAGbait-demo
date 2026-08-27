@@ -341,9 +341,11 @@ button.ghost.on { border-color: var(--accent); color: var(--accent-ink); backgro
 .cite .head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 7px; }
 .cite .excerpt {
   color: var(--ink-2);
-  font-size: 13.2px;
-  line-height: 1.6;
-  white-space: pre-wrap;
+  font-size: 13.4px;
+  line-height: 1.65;
+  /* Server-side reflow already turned the OCR's one-line-per-printed-line text
+     into prose, so preserving whitespace here would undo that. */
+  white-space: normal;
 }
 
 .claim {
@@ -612,8 +614,8 @@ button.linkish:hover { text-decoration-color: var(--accent); }
 .excerpt {
   color: var(--ink-2);
   font-size: 13px;
-  line-height: 1.6;
-  white-space: pre-wrap;
+  line-height: 1.65;
+  white-space: normal;
 }
 
 /* ---------------------------------------------------------- graph chrome */
