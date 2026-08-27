@@ -4,6 +4,7 @@ import BatchReport from './components/BatchReport'
 import IngestionPanel from './components/IngestionPanel'
 import ResultView from './components/ResultView'
 import StageProgress from './components/StageProgress'
+import SystemMap from './components/SystemMap'
 import StandardDetail from './components/StandardDetail'
 import { CountUp } from './anim'
 
@@ -77,6 +78,7 @@ function SingleQuery({ state, setState, onOpen }) {
       </div>
 
       {err && <div className="err">{err}</div>}
+      {anyStage && <SystemMap stages={stages} result={res} done={!busy} />}
       {anyStage && <StageProgress stages={stages} done={!busy} />}
 
       {!res && !busy && !err && !anyStage && (

@@ -893,3 +893,97 @@ button.primary { transition: background .15s, transform .08s, box-shadow .15s; }
   border-radius: 4px;
   border: 1px solid var(--line);
 }
+
+/* ---------------------------------------------------------- system map */
+.sysmap-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 14px;
+  display: block;
+}
+.sysmap-now b { animation: blink 1.1s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+
+/* --- boxes --- */
+.sysmap-node rect {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+  transition: fill .25s ease, stroke .25s ease, stroke-width .25s ease;
+}
+.sysmap-label {
+  text-anchor: middle;
+  font-size: 13px;
+  font-weight: 640;
+  fill: var(--ink-2);
+  transition: fill .25s ease;
+}
+.sysmap-sub {
+  text-anchor: middle;
+  font-size: 10.5px;
+  fill: var(--ink-muted);
+}
+
+/* stores read as cylinders-in-spirit: dashed edge, tinted fill */
+.sysmap-node.store rect { fill: #fff; stroke-dasharray: 4 3; }
+.sysmap-node.ext rect { stroke-dasharray: 5 3; }
+.sysmap-node.critic rect { stroke: var(--abstain); stroke-width: 2; }
+.sysmap-node.critic .sysmap-label { fill: var(--abstain-ink); letter-spacing: .04em; }
+
+/* --- states --- */
+.sysmap-node.live rect {
+  fill: var(--accent-wash);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  animation: nodePulse 1.2s ease-in-out infinite;
+}
+.sysmap-node.live .sysmap-label { fill: var(--accent-ink); }
+@keyframes nodePulse {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(42,120,214,0)); }
+  50%      { filter: drop-shadow(0 0 7px rgba(42,120,214,.55)); }
+}
+
+.sysmap-node.used rect { fill: var(--good-wash); stroke: #8fd694; }
+.sysmap-node.used .sysmap-label { fill: var(--good-ink); }
+
+.sysmap-node.good.fired rect { fill: var(--good-wash); stroke: var(--good); stroke-width: 2.5; }
+.sysmap-node.good.fired .sysmap-label { fill: var(--good-ink); }
+.sysmap-node.abstain.fired rect {
+  fill: var(--abstain-wash); stroke: var(--abstain); stroke-width: 2.5;
+  animation: nodePulseAbstain 1.4s ease-in-out 3;
+}
+.sysmap-node.abstain.fired .sysmap-label { fill: var(--abstain-ink); }
+@keyframes nodePulseAbstain {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(109,75,196,0)); }
+  50%      { filter: drop-shadow(0 0 9px rgba(109,75,196,.6)); }
+}
+
+/* --- edges --- */
+.sysmap-flow, .sysmap-read {
+  stroke-width: 1.6;
+  fill: none;
+  transition: stroke .25s ease, opacity .25s ease;
+}
+.sysmap-flow.idle, .sysmap-read.idle { stroke: var(--line-strong); color: var(--line-strong); opacity: .55; }
+.sysmap-flow.used, .sysmap-read.used { stroke: #8fd694; color: #8fd694; }
+.sysmap-read { stroke-dasharray: 3 4; }
+
+/* a dash travels along the active edge, so flow has direction */
+.sysmap-flow.live, .sysmap-read.live {
+  stroke: var(--accent);
+  color: var(--accent);
+  stroke-width: 2.2;
+  stroke-dasharray: 7 5;
+  animation: dashFlow .55s linear infinite;
+}
+@keyframes dashFlow { to { stroke-dashoffset: -24; } }
+.sysmap-flow.abstain { stroke: var(--abstain); color: var(--abstain); stroke-width: 2.4; }
+
+.sysmap-legend { margin-top: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sysmap-node.live rect,
+  .sysmap-node.abstain.fired rect,
+  .sysmap-flow.live, .sysmap-read.live,
+  .sysmap-now b { animation: none; }
+}
