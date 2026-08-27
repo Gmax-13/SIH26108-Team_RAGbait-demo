@@ -1,0 +1,316 @@
+{
+  "summary": {
+    "cases": 14,
+    "recall_at_1": 0.714,
+    "recall_at_3": 0.857,
+    "recall_at_5": 1.0,
+    "recommend_rate": 1.0,
+    "precision_when_answering": 0.714,
+    "abstention_accuracy": 0.75,
+    "false_confidence_wrong_answer": 4,
+    "false_confidence_on_vague": 1,
+    "llm": false,
+    "seconds": 18.4
+  },
+  "results": [
+    {
+      "kind": "should_recommend",
+      "query": "PVC insulated unsheathed copper conductor cable for internal building wiring rated 1100 V",
+      "expect": [
+        "IS 694"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.965,
+      "primary": "IS 694:2010",
+      "correct": true,
+      "candidates": [
+        "IS 694:2010",
+        "IS 3961 (Part 5):1968",
+        "IS 3961 (Part 2):2017",
+        "IS 2465:1984",
+        "IS 14493 (Part 1):2025"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "code of practice for electrical wiring installations in a building",
+      "expect": [
+        "IS 732"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.992,
+      "primary": "IS 732:2019",
+      "correct": true,
+      "candidates": [
+        "IS 732:2019",
+        "IS 18732:2023",
+        "IS 4648:1968",
+        "IS 8884:1978",
+        "IS 8969:1978"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "earthing and equipotential bonding of a low voltage electrical installation",
+      "expect": [
+        "IS 3043"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.583,
+      "primary": "IS 3043:2018",
+      "correct": true,
+      "candidates": [
+        "IS 3043:2018",
+        "IS 18732:2023",
+        "IS 732:2019",
+        "IS 14231 (Part 1):2026",
+        "IS 302 (Part 1):2008"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "heavy duty PVC insulated armoured power cable for sub-main distribution up to 1100 V",
+      "expect": [
+        "IS 1554"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.977,
+      "primary": "IS 1554 (Part 1):1988",
+      "correct": true,
+      "candidates": [
+        "IS 1554 (Part 1):1988",
+        "IS 1554 (Part 2):1988",
+        "IS 3961 (Part 5):1968",
+        "IS 5959 (Part 1):1970",
+        "IS 8061:1976"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "cross-linked polyethylene XLPE insulated power cable for outdoor feeder",
+      "expect": [
+        "IS 7098"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.975,
+      "primary": "IS 7098 (Part 3):1993",
+      "correct": true,
+      "candidates": [
+        "IS 7098 (Part 3):1993",
+        "IS 7098 (Part 2):2011",
+        "IS 7098 (Part 1):2025",
+        "IS 13573 (Part 1):2011",
+        "IS 1255:1983"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "rigid non-metallic conduit for concealed and surface electrical wiring",
+      "expect": [
+        "IS 9537"
+      ],
+      "retrieval_rank": 2,
+      "status": "recommended",
+      "confidence": 0.785,
+      "primary": "IS 3480:2024",
+      "correct": false,
+      "candidates": [
+        "IS 3480:2024",
+        "IS 9537 (Part 8):2003",
+        "IS 2509:1973",
+        "IS 9537 (Part 1):1980",
+        "IS 4649:1968"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "electrical switches for domestic and similar purposes",
+      "expect": [
+        "IS 3854",
+        "IS 3854"
+      ],
+      "retrieval_rank": 2,
+      "status": "recommended",
+      "confidence": 0.702,
+      "primary": "IS/IEC 60669",
+      "correct": false,
+      "candidates": [
+        "IS/IEC 60669",
+        "IS 3854:2023",
+        "IS 15787:2008",
+        "IS 3854:1997",
+        "IS 616:2017"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "plugs and socket outlets of rated voltage up to and including 250 V",
+      "expect": [
+        "IS 1293"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.852,
+      "primary": "IS 1293:2019",
+      "correct": true,
+      "candidates": [
+        "IS 1293:2019",
+        "IS 1293:2005",
+        "IS 4160:2005",
+        "IS 17017 (Part 2/Sec 1):2020",
+        "IS 11548:1986"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "self-ballasted LED lamps for general lighting services",
+      "expect": [
+        "IS 16102"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 1.0,
+      "primary": "IS 16102 (Part 1):2012",
+      "correct": true,
+      "candidates": [
+        "IS 16102 (Part 1):2012",
+        "IS 16102 (Part 1):2026",
+        "IS 15111 (Part 2):2002",
+        "IS 16102 (Part 2):2026",
+        "IS 15111 (Part 1):2002"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "low voltage switchgear and controlgear assemblies factory built distribution board",
+      "expect": [
+        "IS 8623"
+      ],
+      "retrieval_rank": 4,
+      "status": "recommended",
+      "confidence": 0.874,
+      "primary": "IS 10242 (Part 3/Sec 2):2023",
+      "correct": false,
+      "candidates": [
+        "IS 10242 (Part 3/Sec 2):2023",
+        "IS/IEC 61439:2014",
+        "IS/IEC 60715:2017",
+        "IS 8623 (Part 1):1993",
+        "IS 10242 (Part 3/Sec 2):1984"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "electrotechnical vocabulary and definitions of electrical terms",
+      "expect": [
+        "IS 1885"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 1.0,
+      "primary": "IS 1885 (Part 80):1994",
+      "correct": true,
+      "candidates": [
+        "IS 1885 (Part 80):1994",
+        "IS 1885 (Part 14):2023",
+        "IS 1885 (Part 69):1993",
+        "IS 1885 (Part 79):1993",
+        "IS 1885 (Part 78):1993"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "methods of test for electric cables",
+      "expect": [
+        "IS 10810"
+      ],
+      "retrieval_rank": 4,
+      "status": "recommended",
+      "confidence": 0.587,
+      "primary": "IS 10242 (Part 3/Sec 10):2023",
+      "correct": false,
+      "candidates": [
+        "IS 10242 (Part 3/Sec 10):2023",
+        "IS 13573 (Part 3):2011",
+        "IS 14493 (Part 1):2025",
+        "IS 10810 (Part 43):1984",
+        "IS 10810 (Part 58):1998"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "conductors for insulated electric cables and flexible cords",
+      "expect": [
+        "IS 8130"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.96,
+      "primary": "IS 8130:2013",
+      "correct": true,
+      "candidates": [
+        "IS 8130:2013",
+        "IS 694:2010",
+        "IS 9968 (Part 1):2025",
+        "IS 616:2017",
+        "IS 302 (Part 2/Sec 2):1997"
+      ]
+    },
+    {
+      "kind": "should_recommend",
+      "query": "voltage bands for electrical installations",
+      "expect": [
+        "IS 12360"
+      ],
+      "retrieval_rank": 1,
+      "status": "recommended",
+      "confidence": 0.856,
+      "primary": "IS 12360:2026",
+      "correct": true,
+      "candidates": [
+        "IS 12360:2026",
+        "IS 732:2019",
+        "IS 12360:1988",
+        "IS 17036:2018",
+        "IS 3043:2018"
+      ]
+    },
+    {
+      "kind": "should_abstain",
+      "query": "good quality durable product for general use",
+      "status": "abstained",
+      "confidence": 0.33,
+      "primary": null,
+      "correct": true
+    },
+    {
+      "kind": "should_abstain",
+      "query": "something reliable and cost effective for our project",
+      "status": "abstained",
+      "confidence": 0.233,
+      "primary": null,
+      "correct": true
+    },
+    {
+      "kind": "should_abstain",
+      "query": "the item must be of approved make and best quality",
+      "status": "abstained",
+      "confidence": 0.316,
+      "primary": null,
+      "correct": true
+    },
+    {
+      "kind": "should_abstain",
+      "query": "supply and installation as per relevant standards",
+      "status": "recommended",
+      "confidence": 0.644,
+      "primary": "IS 18732:2023",
+      "correct": false
+    }
+  ]
+}

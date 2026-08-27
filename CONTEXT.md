@@ -443,6 +443,14 @@ changes by gazette notification. Output is phrased as a flag to verify.
 phrasing poorly ("bulb that saves electricity"). It **abstains rather than
 answering wrongly**, so it fails safely — but it is a real boundary.
 
+**Ranking is imperfect, and it is measured.** The right standard reaches the top
+five for every golden-set query, but is ranked first only 71% of the time.
+Observed failures: a *rigid non-metallic* conduit query returning a *flexible
+steel* conduit standard, and a cable-test-methods query returning a
+ships-installation standard whose body text discusses cable testing. Full-text
+standards outrank title-only ones because they simply contain more matching
+prose — title matching is IDF-weighted to compensate, but only partly.
+
 **Inferred graph edges are heuristics.** Rendered dashed and labelled unverified.
 
 **Multilingual input is not implemented.** The standards themselves are published
@@ -484,10 +492,26 @@ procurement officer. The abstention is what makes it *trustworthy*.
 **Corpus as built:** 5,054 standards · 2,954 with full text (58%) · 87,117
 citable passages · 9,478 confirmed dependencies across all six allied categories.
 
-**Measured behaviour:** correct standards recommended with high confidence for
-procurement-language queries (IS 694 at 0.88, IS 3043 at 0.78, IS 16102 at 1.0),
-and clean abstention on vague input (0.30–0.43) — with zero confident-but-wrong
-answers in the evaluation set.
+**Measured behaviour** (`scripts/evaluate.py`, 14 procurement-language queries and
+4 deliberately vague ones, scoped to ETD/LITD):
+
+| Metric | Result |
+|---|---|
+| recall@1 / @3 / @5 | 71% / 86% / 100% |
+| Precision when answering | 71% |
+| Correct abstention on vague input | 3 of 4 |
+| Confident but wrong | **4** (one of which is a golden-set gap, see below) |
+| Confident on a vague query | **1** |
+
+The headline queries land well — IS 694 at 0.88, IS 3043 at 0.78, IS 16102 at
+1.00, IS 1554 at 0.98 — and the expected standard is in the top five every time.
+But ranking it *first* still fails on roughly a quarter of the set, and the
+system answers "supply and installation as per relevant standards" at 0.64 where
+it should decline.
+
+These are the real numbers, not aspirational ones. An earlier draft of this
+document claimed zero confident-but-wrong answers; that figure had never been
+measured and was wrong.
 
 > The goal was never a system that always answers. It was a system a procurement
 > officer can trust — which requires it to be willing to say "I don't know".

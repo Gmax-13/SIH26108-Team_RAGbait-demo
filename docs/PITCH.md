@@ -102,10 +102,17 @@ That "caught an outdated reference" line is concrete and lands well.
 
 Then open the **Dataset & ingestion log** tab. It's very hard to argue with.
 
-**"What's the accuracy?"**
-> "We measure it rather than guess." Run `python scripts/evaluate.py` beforehand
-> and quote the numbers. The two that matter are **confident-but-wrong** and
-> **confident-on-a-vague-query** — both should be zero.
+**"What's the accuracy?"** *(Quote the real numbers — they are defensible)*
+> "We measure it against a golden set rather than guess. The right standard is
+> in the top five every time, and ranked first about 70% of the time. Where it
+> ranks second or third, the officer still sees the correct standard in the
+> list — which is why the interface shows candidates rather than a single
+> answer."
+
+Run `python scripts/evaluate.py` before you present so you are quoting today's
+numbers. **Do not claim zero errors** — the set currently shows a few
+confident-but-wrong answers, and the honest framing is that the top-five recall
+is what makes it usable while the abstention is what makes it safe.
 
 **"Does it support multilingual input?"** *(Not built — answer it as scope, not as a miss)*
 > "Not in this prototype. The standards themselves are published in English, so
