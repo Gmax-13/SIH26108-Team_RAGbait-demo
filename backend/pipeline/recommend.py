@@ -41,6 +41,101 @@ def _no_candidates(query: str) -> dict[str, Any]:
     }
 
 
+# What a procurement officer has to write into the tender, grouped the way the
+# problem statement asks for it. Ordered by how load-bearing each kind is.
+ALLIED_GROUPS = [
+    ("normative_reference", "Normative references",
+     "Cited as requirements by the primary standard — these are binding."),
+    ("test_method", "Test methods",
+     "How conformity is demonstrated. Name these or acceptance criteria are ambiguous."),
+    ("safety", "Safety standards", "Safety requirements the primary standard relies on."),
+    ("terminology", "Terminology", "Defines the terms the specification uses."),
+    ("related", "Related standards", "Referenced, relationship unclassified."),
+]
+
+
+def allied_standards(con, primary: list[str], graph: dict[str, Any]) -> list[dict[str, Any]]:
+    """The standards a tender must reference alongside the primary one.
+
+    Taken from confirmed edges only — a tender clause should not be built on a
+    heuristic guess — and limited to one hop, because that is the set the
+    primary standard itself points at.
+    """
+    if not primary:
+        return []
+    wanted = set(primary)
+    seen: dict[str, dict[str, Any]] = {}
+    for e in graph.get("edges", []):
+        if e.get("hop") != 1 or e.get("confidence") != "confirmed":
+            continue
+        if e.get("source") not in wanted:
+            continue
+        tgt = e.get("target")
+        if not tgt or tgt in wanted:
+            continue
+        prev = seen.get(tgt)
+        if prev is None:
+            seen[tgt] = {"is_number": tgt, "edge_type": e.get("edge_type"),
+                         "evidence_section": e.get("evidence_section")}
+
+    if not seen:
+        return []
+    rows = {r["is_number"]: dict(r) for r in con.execute(
+        f"""SELECT is_number, is_base, title, year, is_active, metadata_only
+            FROM standards WHERE is_number IN ({','.join('?' * len(seen))})""",
+        list(seen))}
+    # Some cited standards sit outside the ingested departments; keep them and
+    # say so rather than dropping them from a tender checklist.
+    bases = {r["is_base"]: dict(r) for r in con.execute(
+        f"""SELECT is_base, is_number, title, year, is_active, metadata_only
+            FROM standards WHERE is_base IN ({','.join('?' * len(seen))})
+            ORDER BY year""", list(seen))}
+
+    out: list[dict[str, Any]] = []
+    for num, meta in seen.items():
+        info = rows.get(num) or bases.get(num) or {}
+        out.append({
+            "is_number": info.get("is_number", num),
+            "title": info.get("title"),
+            "edge_type": meta["edge_type"],
+            "in_corpus": bool(info),
+            "withdrawn": info.get("is_active") == 0,
+            "cited_at": meta["evidence_section"],
+        })
+    order = {k: i for i, (k, _, _) in enumerate(ALLIED_GROUPS)}
+    out.sort(key=lambda r: (order.get(r["edge_type"], 99), r["is_number"]))
+    return out
+
+
+def tender_clause(primary: list[dict[str, Any]], allied: list[dict[str, Any]],
+                  certification: dict[str, Any]) -> str:
+    """A paste-ready specification sentence.
+
+    The officer's actual deliverable is a line of tender text, so produce it
+    rather than making them assemble it from a dashboard.
+    """
+    if not primary:
+        return ""
+    p = primary[0]
+    parts = [f"The product shall conform to {p['is_number']}"
+             + (f" — {p['title']}." if p.get("title") else ".")]
+
+    cited = [a for a in allied if not a["withdrawn"]][:8]
+    if cited:
+        listed = "; ".join(
+            f"{a['is_number']}" + (f" ({a['title'][:60]})" if a.get("title") else "")
+            for a in cited)
+        parts.append(f"The following referenced standards shall be read with it: {listed}.")
+
+    schemes = [s for s in (certification or {}).get("schemes", []) if s.get("mandatory")]
+    if schemes:
+        names = ", ".join(dict.fromkeys(s["scheme"].replace("_", " ") for s in schemes))
+        parts.append(
+            f"The product shall carry valid {names} certification from the Bureau of "
+            f"Indian Standards, and the bidder shall submit a copy of the certificate.")
+    return " ".join(parts)
+
+
 STAGES = [
     ("retrieval", "Semantic retrieval"),
     ("graph", "Graph expansion"),
@@ -152,6 +247,14 @@ def recommend_events(con, retriever: Retriever, query: str, *,
     yield done("certification",
                f"{n_schemes} scheme flag(s)" if n_schemes else "no scheme matched")
 
+    allied = allied_standards(con, primaries, graph)
+    clause = tender_clause(
+        [{"is_number": n,
+          "title": next((c["title"] for c in candidates if c["is_number"] == n), None)}
+         for n in primaries],
+        allied,
+        certification.get(primaries[0]) if primaries else {})
+
     by_number = {c["is_number"]: c for c in candidates}
     citations = []
     for cl in report["claim_checks"]:
@@ -189,6 +292,8 @@ def recommend_events(con, retriever: Retriever, query: str, *,
         "claims": report["claim_checks"],
         "caveats": rec.get("caveats", []),
         "citations": {c["chunk_id"]: c for c in citations},
+        "allied_standards": allied,
+        "tender_clause": clause,
         "dependency_graph": graph,
         "verification": report,
         "elapsed_sec": round(time.time() - t0, 2),
