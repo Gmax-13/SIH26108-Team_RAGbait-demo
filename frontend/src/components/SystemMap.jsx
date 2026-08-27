@@ -1,104 +1,133 @@
 /** Live architecture diagram.
  *
- *  A layered view of the actual system — client, API, pipeline, knowledge base,
- *  and the offline ingestion that feeds it — rather than a sequence of steps.
- *  Components light up as the server reaches them, driven by the same SSE stage
- *  events as the checklist, so nothing here is on a timer.
+ *  Laid out spatially rather than in bands: the query path runs across the top
+ *  and right, the stores sit beneath what reads them, and ingestion occupies its
+ *  own corner because it is a separate, continuously running concern.
  *
- *  The ingestion tier deliberately never lights during a query: it runs offline,
- *  and showing that it sits outside the request path is part of the point.
+ *  Components light up from the same SSE stage events as the checklist, so what
+ *  is highlighted is what the server actually reached. The ingestion cluster
+ *  pulses on its own timer — it is genuinely always running, independent of any
+ *  query, which is the thing that diagram is there to communicate.
  */
 
-// Which components each pipeline stage engages.
 const ENGAGES = {
-  retrieval:     ['ui', 'api', 'retrieve', 'embed', 'faissdb', 'corpus'],
+  retrieval:     ['ui', 'api', 'embed', 'faiss', 'retrieve', 'corpus'],
   graph:         ['api', 'graphx', 'corpus'],
   synthesis:     ['api', 'synth', 'groq'],
   critic:        ['api', 'critic', 'corpus'],
-  currency:      ['api', 'currency', 'corpus'],
-  certification: ['api', 'cert', 'certdb'],
+  currency:      ['api', 'critic', 'corpus'],
+  certification: ['api', 'critic', 'certdb'],
 }
 
-const W = 1000
+const W = 1060, H = 690
 
-// Tiers: a titled boundary with components inside it.
-const TIERS = [
-  { id: 'client',  y: 14,  h: 74,  title: 'CLIENT',
-    note: 'browser', kind: 'client' },
-  { id: 'api',     y: 100, h: 74,  title: 'API  ·  FastAPI',
-    note: 'REST + server-sent events', kind: 'api' },
-  { id: 'pipe',    y: 186, h: 166, title: 'RECOMMENDATION PIPELINE',
-    note: 'six stages, in order', kind: 'pipe' },
-  { id: 'kb',      y: 364, h: 96,  title: 'KNOWLEDGE BASE  ·  local, no network',
-    note: 'read-only while answering', kind: 'kb' },
-  { id: 'ingest',  y: 472, h: 96,  title: 'INGESTION  ·  offline, outside the query path',
-    note: 'builds the knowledge base', kind: 'ingest' },
-  { id: 'src',     y: 580, h: 74,  title: 'PUBLIC DATA SOURCES',
-    note: 'nothing hand-curated', kind: 'src' },
-]
+// icon glyphs, drawn at the node's top-left + (14, 14), 20x20
+const ICON = {
+  browser: 'M2 3h16v12H2z M2 6h16 M4 4.5h1 M6 4.5h1',
+  server:  'M2 3h16v5H2z M2 11h16v5H2z M5 5.5h.01 M5 13.5h.01',
+  db:      'M3 4c0-1.1 3.1-2 7-2s7 .9 7 2v11c0 1.1-3.1 2-7 2s-7-.9-7-2z M3 4c0 1.1 3.1 2 7 2s7-.9 7-2',
+  chip:    'M5 5h10v10H5z M8 2v3 M12 2v3 M8 15v3 M12 15v3 M2 8h3 M2 12h3 M15 8h3 M15 12h3',
+  cloud:   'M5 14a3.5 3.5 0 0 1 .5-7 4.5 4.5 0 0 1 8.6 1.2A3 3 0 0 1 14.5 14z',
+  shield:  'M10 2l7 3v5c0 4.2-2.9 7.4-7 8.5C5.9 17.4 3 14.2 3 10V5z M7 10l2 2 4-4',
+  globe:   'M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16 M2 10h16 M10 2c2.5 2.6 2.5 13.4 0 16 M10 2C7.5 4.6 7.5 15.4 10 18',
+  gear:    'M10 7.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6 M10 1.5v2.2 M10 16.3v2.2 M3.9 3.9l1.6 1.6 M14.5 14.5l1.6 1.6 M1.5 10h2.2 M16.3 10h2.2 M3.9 16.1l1.6-1.6 M14.5 5.5l1.6-1.6',
+  doc:     'M5 2h7l3 3v13H5z M12 2v3h3 M7 9h6 M7 12h6 M7 15h4',
+}
 
 const NODES = {
-  // client
-  ui:       { x: 34,  y: 40,  w: 214, h: 38, label: 'Dashboard (React)', kind: 'proc' },
+  // --- request path ---
+  ui:       { x: 40,  y: 26,  w: 196, h: 58, icon: 'browser', label: 'Dashboard',
+              sub: 'React · Vite', step: 1, kind: 'proc' },
+  api:      { x: 40,  y: 128, w: 196, h: 58, icon: 'server', label: 'FastAPI',
+              sub: 'REST + streaming', step: 2, kind: 'proc' },
 
-  // api
-  api:      { x: 34,  y: 126, w: 214, h: 38, label: 'Routes + streaming', kind: 'proc' },
+  // --- engine ---
+  embed:    { x: 300, y: 26,  w: 178, h: 58, icon: 'chip', label: 'Embedder',
+              sub: 'bge-small · GPU', step: 3, kind: 'proc' },
+  faiss:    { x: 300, y: 128, w: 178, h: 58, icon: 'db', label: 'FAISS index',
+              sub: '87k passages', step: 4, kind: 'store' },
+  retrieve: { x: 540, y: 26,  w: 168, h: 58, icon: 'gear', label: 'Retrieval',
+              sub: 'semantic match', kind: 'proc' },
+  graphx:   { x: 540, y: 128, w: 168, h: 58, icon: 'gear', label: 'Graph walk',
+              sub: '1–2 hops', step: 5, kind: 'proc' },
+  synth:    { x: 772, y: 26,  w: 168, h: 58, icon: 'doc', label: 'Synthesis',
+              sub: 'cited claims', step: 6, kind: 'proc' },
+  groq:     { x: 772, y: 128, w: 168, h: 58, icon: 'cloud', label: 'Groq LLM',
+              sub: 'external service', kind: 'ext' },
 
-  // pipeline
-  retrieve: { x: 34,  y: 228, w: 138, h: 44, label: 'Retrieval',     sub: 'semantic', kind: 'proc' },
-  graphx:   { x: 184, y: 228, w: 138, h: 44, label: 'Graph',         sub: '1–2 hops', kind: 'proc' },
-  synth:    { x: 334, y: 228, w: 138, h: 44, label: 'Synthesis',     sub: 'cited',    kind: 'proc' },
-  critic:   { x: 484, y: 228, w: 150, h: 44, label: 'CRITIC',        sub: 'gates + signals', kind: 'critic' },
-  currency: { x: 646, y: 228, w: 138, h: 44, label: 'Currency',      sub: 'editions', kind: 'proc' },
-  cert:     { x: 796, y: 228, w: 138, h: 44, label: 'Certification', sub: 'BIS / CRS', kind: 'proc' },
-  // The one hosted dependency, drawn inside the tier that calls it but marked
-  // external: it is the only part of answering that leaves this machine.
-  groq:     { x: 334, y: 292, w: 138, h: 38, label: 'Groq LLM', sub: 'external', kind: 'ext' },
+  critic:   { x: 540, y: 246, w: 200, h: 70, icon: 'shield', label: 'CRITIC',
+              sub: 'gates · currency · certification', step: 7, kind: 'critic' },
 
-  // knowledge base
-  embed:    { x: 34,  y: 400, w: 172, h: 44, label: 'Embedder',   sub: 'bge-small · GPU', kind: 'proc' },
-  faissdb:  { x: 218, y: 400, w: 172, h: 44, label: 'FAISS index', sub: '87k passages',   kind: 'store' },
-  corpus:   { x: 402, y: 400, w: 218, h: 44, label: 'SQLite',      sub: 'standards · passages · edges', kind: 'store' },
-  certdb:   { x: 632, y: 400, w: 150, h: 44, label: 'Rule table',  sub: 'schemes',        kind: 'store' },
-  audit:    { x: 794, y: 400, w: 140, h: 44, label: 'Audit log',   sub: 'every step',     kind: 'store' },
+  // --- stores ---
+  corpus:   { x: 262, y: 250, w: 236, h: 62, icon: 'db', label: 'SQLite',
+              sub: 'standards · passages · edges', kind: 'store' },
+  certdb:   { x: 40,  y: 250, w: 178, h: 62, icon: 'db', label: 'Rule table',
+              sub: 'BIS · CRS schemes', kind: 'store' },
 
-  // ingestion
-  scraper:  { x: 34,  y: 508, w: 190, h: 44, label: 'Catalogue scraper', sub: 'digit seeds 0–9', kind: 'off' },
-  fetcher:  { x: 236, y: 508, w: 190, h: 44, label: 'Full-text fetcher', sub: 'exact identifier', kind: 'off' },
-  builder:  { x: 438, y: 508, w: 182, h: 44, label: 'Chunk + embed',     sub: 'index build',     kind: 'off' },
-  grapher:  { x: 632, y: 508, w: 182, h: 44, label: 'Graph builder',     sub: 'cited references', kind: 'off' },
+  // --- outcomes ---
+  answer:   { x: 800, y: 236, w: 190, h: 52, icon: null, label: 'Recommend',
+              sub: 'with citations', kind: 'good' },
+  abstain:  { x: 800, y: 302, w: 190, h: 52, icon: null, label: 'ABSTAIN',
+              sub: 'and say why', kind: 'abstain' },
 
-  // sources — data only; the hosted LLM is not a source of standards
-  bis:      { x: 34,  y: 606, w: 214, h: 38, label: 'BIS catalogue API', kind: 'ext' },
-  ia:       { x: 260, y: 606, w: 214, h: 38, label: 'Internet Archive',  kind: 'ext' },
+  // --- continuous ingestion (its own concern, always running) ---
+  // sources on the left, workers to their right, so ingestion reads L-to-R
+  bis:      { x: 66,  y: 470, w: 196, h: 52, icon: 'globe', label: 'BIS catalogue',
+              sub: 'services.bis.gov.in', kind: 'src' },
+  ia:       { x: 66,  y: 546, w: 196, h: 52, icon: 'globe', label: 'Internet Archive',
+              sub: 'public-domain scans', kind: 'src' },
+
+  scraper:  { x: 300, y: 470, w: 190, h: 52, icon: 'doc', label: 'Catalogue scraper',
+              sub: 'digit seeds 0–9', kind: 'ing' },
+  fetcher:  { x: 300, y: 546, w: 190, h: 52, icon: 'doc', label: 'Full-text fetcher',
+              sub: 'exact identifier', kind: 'ing' },
+  builder:  { x: 528, y: 470, w: 190, h: 52, icon: 'chip', label: 'Chunk + embed',
+              sub: 'rebuilds the index', kind: 'ing' },
+  grapher:  { x: 528, y: 546, w: 190, h: 52, icon: 'gear', label: 'Graph builder',
+              sub: 'reads citations', kind: 'ing' },
 }
 
-// Tier-to-tier calls, drawn as vertical connectors.
+// [from, to, kind, curve] — curve bends the path sideways so lines do not stack
 const LINKS = [
-  ['ui', 'api', 'call'],
-  ['api', 'retrieve', 'call'],
-  ['retrieve', 'embed', 'read'],
-  ['retrieve', 'faissdb', 'read'],
-  ['retrieve', 'corpus', 'read'],
-  ['graphx', 'corpus', 'read'],
-  ['critic', 'corpus', 'read'],
-  ['currency', 'corpus', 'read'],
-  ['cert', 'certdb', 'read'],
-  ['synth', 'groq', 'call'],
-  ['scraper', 'corpus', 'write'],
-  ['fetcher', 'corpus', 'write'],
-  ['builder', 'faissdb', 'write'],
-  ['grapher', 'corpus', 'write'],
-  ['bis', 'scraper', 'call'],
-  ['ia', 'fetcher', 'call'],
+  ['ui', 'api', 'call', 0],
+  ['api', 'embed', 'call', -30],
+  ['embed', 'faiss', 'call', 0],
+  ['faiss', 'retrieve', 'read', 20],
+  ['retrieve', 'graphx', 'call', 0],
+  ['retrieve', 'corpus', 'read', 0],
+  ['graphx', 'corpus', 'read', 0],
+  ['retrieve', 'synth', 'call', -20],
+  ['synth', 'groq', 'call', 0],
+  ['synth', 'critic', 'call', 30],
+  ['critic', 'corpus', 'read', 0],
+  ['critic', 'certdb', 'read', 40],
+  ['critic', 'answer', 'call', 0],
+  ['critic', 'abstain', 'call', 0],
+  // ingestion writes — always dashed, never lit by a query
+  ['bis', 'scraper', 'feed', 0],
+  ['ia', 'fetcher', 'feed', 0],
+  ['scraper', 'corpus', 'write', -40],
+  ['fetcher', 'corpus', 'write', -10],
+  ['builder', 'faiss', 'write', 60],
+  ['grapher', 'corpus', 'write', 40],
 ]
 
-const OFFLINE = new Set(['scraper', 'fetcher', 'builder', 'grapher', 'bis', 'ia'])
+const INGEST = new Set(['scraper', 'fetcher', 'builder', 'grapher', 'bis', 'ia'])
+
 const cx = (n) => n.x + n.w / 2
+const cy = (n) => n.y + n.h / 2
+
+/** Anchor on the edge of a box facing the other box, so arrows meet borders. */
+function anchor(a, b) {
+  const dx = cx(b) - cx(a), dy = cy(b) - cy(a)
+  if (Math.abs(dx) > Math.abs(dy)) {
+    return { x: dx > 0 ? a.x + a.w : a.x, y: cy(a) }
+  }
+  return { x: cx(a), y: dy > 0 ? a.y + a.h : a.y }
+}
 
 export default function SystemMap({ stages, result, done }) {
-  const live = new Set()
-  const used = new Set()
+  const live = new Set(), used = new Set()
   let liveStage = null
 
   for (const [key, s] of Object.entries(stages || {})) {
@@ -109,16 +138,22 @@ export default function SystemMap({ stages, result, done }) {
   if (Object.keys(stages || {}).length) { used.add('ui'); used.add('api') }
 
   const abstained = done && result?.status === 'abstained'
+  const recommended = done && result?.status === 'recommended'
 
-  const stateOf = (id) =>
-    OFFLINE.has(id) ? 'offline'
-      : live.has(id) ? 'live'
-        : used.has(id) ? 'used' : 'idle'
+  const stateOf = (id) => {
+    if (INGEST.has(id)) return 'ingest'
+    if (id === 'answer') return recommended ? 'fired' : 'idle'
+    if (id === 'abstain') return abstained ? 'fired' : 'idle'
+    return live.has(id) ? 'live' : used.has(id) ? 'used' : 'idle'
+  }
 
-  const linkState = (a, b, kind) =>
-    kind === 'write' || OFFLINE.has(a) || OFFLINE.has(b) ? 'offline'
-      : live.has(a) || live.has(b) ? 'live'
-        : used.has(a) && used.has(b) ? 'used' : 'idle'
+  const linkState = (a, b, kind) => {
+    if (kind === 'write' || kind === 'feed') return 'ingest'
+    if (b === 'answer') return recommended ? 'used' : 'idle'
+    if (b === 'abstain') return abstained ? 'abstain' : 'idle'
+    return live.has(a) || live.has(b) ? 'live'
+      : used.has(a) && used.has(b) ? 'used' : 'idle'
+  }
 
   return (
     <div className="panel sysmap">
@@ -126,8 +161,8 @@ export default function SystemMap({ stages, result, done }) {
         <div>
           <h2 style={{ margin: 0 }}>{done ? 'What just happened' : 'System, live'}</h2>
           <p className="sub" style={{ margin: '4px 0 0' }}>
-            The running architecture. Components light up as the server reaches them —
-            the ingestion tier stays grey because it runs offline, not per query.
+            Components light up as the server reaches them. Ingestion runs on its own
+            schedule, continuously — it is never in the query path.
           </p>
         </div>
         {liveStage && (
@@ -137,63 +172,70 @@ export default function SystemMap({ stages, result, done }) {
         )}
       </div>
 
-      <svg className="sysmap-svg" viewBox={`0 0 ${W} 668`} role="img"
-           aria-label="Layered architecture diagram with live component activity">
+      <svg className="sysmap-svg" viewBox={`0 0 ${W} ${H}`} role="img"
+           aria-label="Architecture diagram with live component activity">
         <defs>
-          <marker id="amk" markerWidth="7" markerHeight="7" refX="6" refY="3.5"
+          <marker id="mk" markerWidth="8" markerHeight="8" refX="7" refY="4"
                   orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" />
+            <path d="M0,0.5 L8,4 L0,7.5 z" fill="currentColor" />
           </marker>
         </defs>
 
-        {/* tier boundaries */}
-        {TIERS.map((t) => (
-          <g key={t.id} className={`sysmap-tier ${t.kind}`}>
-            <rect x={10} y={t.y} width={W - 20} height={t.h} rx="12" />
-            <text className="sysmap-tier-title" x={24} y={t.y + 19}>{t.title}</text>
-            <text className="sysmap-tier-note" x={W - 24} y={t.y + 19}>{t.note}</text>
+        {/* ingestion boundary — its own concern, always on */}
+        <g className="sysmap-zone">
+          <rect x={40} y={424} width={700} height={200} rx="14" />
+          <text className="sysmap-zone-title" x={62} y={450}>
+            CONTINUOUS INGESTION
+          </text>
+          <text className="sysmap-zone-note" x={716} y={450}>
+            keeps the corpus current · never in the query path
+          </text>
+          <g className="sysmap-live-dot" transform="translate(228, 444)">
+            <circle r="4" />
+            <text x="12" y="4">running</text>
           </g>
-        ))}
+        </g>
 
-        {/* connectors */}
-        {LINKS.map(([a, b, kind]) => {
+        {LINKS.map(([a, b, kind, bend]) => {
           const A = NODES[a], B = NODES[b]
-          const st = linkState(a, b, kind)
-          const down = B.y > A.y
-          const y1 = down ? A.y + A.h : A.y
-          const y2 = down ? B.y - 5 : B.y + B.h + 5
-          const mx = (cx(A) + cx(B)) / 2
-          const my = (y1 + y2) / 2
+          const p1 = anchor(A, B), p2 = anchor(B, A)
+          const mx = (p1.x + p2.x) / 2 + (bend || 0)
+          const my = (p1.y + p2.y) / 2
           return (
-            <path key={`${a}-${b}`} className={`sysmap-link ${kind} ${st}`}
-                  d={`M ${cx(A)} ${y1} C ${cx(A)} ${my}, ${mx} ${my}, ${cx(B)} ${y2}`}
-                  fill="none" markerEnd="url(#amk)" />
+            <path key={`${a}-${b}`} className={`sysmap-link ${kind} ${linkState(a, b, kind)}`}
+                  d={`M ${p1.x} ${p1.y} Q ${mx} ${my} ${p2.x} ${p2.y}`}
+                  fill="none" markerEnd="url(#mk)" />
           )
         })}
 
-        {/* components */}
         {Object.entries(NODES).map(([id, n]) => (
           <g key={id} className={`sysmap-node ${n.kind} ${stateOf(id)}`}>
-            <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="8" />
-            <text className="sysmap-label" x={cx(n)} y={n.y + (n.sub ? 20 : 24)}>{n.label}</text>
-            {n.sub && <text className="sysmap-sub" x={cx(n)} y={n.y + 34}>{n.sub}</text>}
+            <rect x={n.x} y={n.y} width={n.w} height={n.h} rx="10" />
+            {n.icon && (
+              <path className="sysmap-icon" transform={`translate(${n.x + 14},${n.y + n.h / 2 - 10})`}
+                    d={ICON[n.icon]} />
+            )}
+            <text className="sysmap-label" x={n.x + (n.icon ? 44 : 16)} y={n.y + n.h / 2 - 3}>
+              {n.label}
+            </text>
+            <text className="sysmap-sub" x={n.x + (n.icon ? 44 : 16)} y={n.y + n.h / 2 + 13}>
+              {n.sub}
+            </text>
+            {n.step && (
+              <g className="sysmap-step">
+                <circle cx={n.x + n.w - 16} cy={n.y + 16} r="10" />
+                <text x={n.x + n.w - 16} y={n.y + 20}>{n.step}</text>
+              </g>
+            )}
           </g>
         ))}
-
-        {/* the outcome, stated where the critic decides it */}
-        {done && (
-          <g className={`sysmap-verdict ${abstained ? 'abstain' : 'good'}`}>
-            <rect x={484} y={292} width={150} height={24} rx="12" />
-            <text x={559} y={308}>{abstained ? 'ABSTAINED' : 'RECOMMENDED'}</text>
-          </g>
-        )}
       </svg>
 
       <div className="legend sysmap-legend">
         <span><i className="dot" style={{ background: 'var(--accent)' }} /> working now</span>
         <span><i className="dot" style={{ background: 'var(--good)' }} /> used this query</span>
-        <span><i className="dot" style={{ background: 'var(--line-strong)' }} /> idle</span>
-        <span><i className="dash" /> offline — not in the query path</span>
+        <span><i className="dot" style={{ background: 'var(--warn)' }} /> ingestion, always on</span>
+        <span><i className="dash" /> reads and writes to storage</span>
       </div>
     </div>
   )

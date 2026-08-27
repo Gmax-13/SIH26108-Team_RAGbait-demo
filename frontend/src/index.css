@@ -899,89 +899,107 @@ button.primary { transition: background .15s, transform .08s, box-shadow .15s; }
 .sysmap-now b { animation: blink 1.1s ease-in-out infinite; }
 @keyframes blink { 50% { opacity: .25; } }
 
-/* --- tier boundaries --- */
-.sysmap-tier rect {
-  fill: #fbfcfe;
-  stroke: var(--line);
-  stroke-width: 1.2;
+/* --- ingestion zone: always on, so it always breathes --- */
+.sysmap-zone rect {
+  fill: #fffdf7;
+  stroke: #ecd9a8;
+  stroke-width: 1.4;
+  stroke-dasharray: 7 5;
+  animation: zoneBreathe 4s ease-in-out infinite;
 }
-.sysmap-tier.pipe rect  { fill: #f7faff; stroke: #cddffa; }
-.sysmap-tier.kb rect    { fill: #f8fbf8; stroke: #cfe6d0; }
-.sysmap-tier.ingest rect,
-.sysmap-tier.src rect   { fill: #fafafa; stroke: var(--line); stroke-dasharray: 6 4; }
-.sysmap-tier-title {
-  font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
-  fill: var(--ink-muted);
+@keyframes zoneBreathe { 50% { stroke-dashoffset: -24; } }
+.sysmap-zone-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .11em; fill: var(--warn);
 }
-.sysmap-tier-note {
+.sysmap-zone-note {
   font-size: 10px; fill: var(--ink-muted); text-anchor: end; font-style: italic;
 }
+.sysmap-live-dot circle { fill: var(--warn); animation: blink 1.6s ease-in-out infinite; }
+.sysmap-live-dot text { font-size: 10px; font-weight: 650; fill: var(--warn); }
 
 /* --- components --- */
 .sysmap-node rect {
-  fill: #fff;
-  stroke: var(--line-strong);
-  stroke-width: 1.5;
+  fill: #fff; stroke: var(--line-strong); stroke-width: 1.5;
   transition: fill .25s ease, stroke .25s ease, stroke-width .25s ease;
 }
-.sysmap-label {
-  text-anchor: middle; font-size: 12.5px; font-weight: 620;
-  fill: var(--ink-2); transition: fill .25s ease;
+.sysmap-icon {
+  fill: none; stroke: var(--ink-muted); stroke-width: 1.4;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .25s ease;
 }
-.sysmap-sub { text-anchor: middle; font-size: 10px; fill: var(--ink-muted); }
+.sysmap-label {
+  font-size: 13px; font-weight: 650; fill: var(--ink); transition: fill .25s ease;
+}
+.sysmap-sub { font-size: 10.5px; fill: var(--ink-muted); }
 
-.sysmap-node.store rect { stroke-dasharray: 4 3; }
-.sysmap-node.ext rect   { stroke-dasharray: 5 3; fill: var(--surface-2); }
-.sysmap-node.critic rect { stroke: var(--abstain); stroke-width: 2; }
-.sysmap-node.critic .sysmap-label { fill: var(--abstain-ink); letter-spacing: .04em; }
-.sysmap-node.off rect { fill: #fafafa; stroke: var(--line); stroke-dasharray: 4 3; }
-.sysmap-node.off .sysmap-label { fill: var(--ink-muted); font-weight: 550; }
+.sysmap-step circle { fill: var(--surface-3); stroke: none; }
+.sysmap-step text {
+  font-size: 10.5px; font-weight: 700; fill: var(--ink-2); text-anchor: middle;
+}
 
-/* --- live states --- */
+.sysmap-node.store rect { stroke-dasharray: 5 3; fill: var(--surface-2); }
+.sysmap-node.ext rect   { stroke-dasharray: 5 3; }
+.sysmap-node.critic rect { stroke: var(--abstain); stroke-width: 2.2; fill: #fbf9ff; }
+.sysmap-node.critic .sysmap-label { fill: var(--abstain-ink); letter-spacing: .05em; }
+.sysmap-node.critic .sysmap-icon { stroke: var(--abstain); }
+
+/* ingestion nodes sit in their own colour so they read as a separate concern */
+.sysmap-node.ing rect, .sysmap-node.src rect {
+  fill: #fffdf7; stroke: #e5cf9a; stroke-dasharray: 4 3;
+}
+.sysmap-node.ing .sysmap-label, .sysmap-node.src .sysmap-label { fill: #8a6416; }
+.sysmap-node.ing .sysmap-icon, .sysmap-node.src .sysmap-icon { stroke: #b7791f; }
+
+/* --- query-path states --- */
 .sysmap-node.live rect {
-  fill: var(--accent-wash); stroke: var(--accent); stroke-width: 2.5;
+  fill: var(--accent-wash); stroke: var(--accent); stroke-width: 2.6;
   animation: nodePulse 1.2s ease-in-out infinite;
 }
 .sysmap-node.live .sysmap-label { fill: var(--accent-ink); }
+.sysmap-node.live .sysmap-icon  { stroke: var(--accent); }
 @keyframes nodePulse {
   0%, 100% { filter: drop-shadow(0 0 0 rgba(42,120,214,0)); }
-  50%      { filter: drop-shadow(0 0 7px rgba(42,120,214,.55)); }
+  50%      { filter: drop-shadow(0 0 8px rgba(42,120,214,.6)); }
 }
 .sysmap-node.used rect { fill: var(--good-wash); stroke: #8fd694; }
 .sysmap-node.used .sysmap-label { fill: var(--good-ink); }
+.sysmap-node.used .sysmap-icon  { stroke: var(--good); }
+
+.sysmap-node.good.fired rect { fill: var(--good-wash); stroke: var(--good); stroke-width: 2.6; }
+.sysmap-node.good.fired .sysmap-label { fill: var(--good-ink); }
+.sysmap-node.abstain.fired rect {
+  fill: var(--abstain-wash); stroke: var(--abstain); stroke-width: 2.6;
+  animation: nodePulseAbstain 1.4s ease-in-out 3;
+}
+.sysmap-node.abstain.fired .sysmap-label { fill: var(--abstain-ink); }
+@keyframes nodePulseAbstain {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(109,75,196,0)); }
+  50%      { filter: drop-shadow(0 0 10px rgba(109,75,196,.65)); }
+}
 
 /* --- connectors --- */
-.sysmap-link { stroke-width: 1.5; transition: stroke .25s ease, opacity .25s ease; }
-.sysmap-link.idle    { stroke: var(--line-strong); color: var(--line-strong); opacity: .5; }
-.sysmap-link.used    { stroke: #8fd694; color: #8fd694; }
-.sysmap-link.offline { stroke: var(--line-strong); color: var(--line-strong);
-                       opacity: .45; stroke-dasharray: 4 4; }
-.sysmap-link.read    { stroke-dasharray: 3 4; }
+.sysmap-link { stroke-width: 1.6; transition: stroke .25s ease, opacity .25s ease; }
+.sysmap-link.idle  { stroke: var(--line-strong); color: var(--line-strong); opacity: .5; }
+.sysmap-link.used  { stroke: #8fd694; color: #8fd694; }
+.sysmap-link.read  { stroke-dasharray: 3 4; }
+.sysmap-link.abstain { stroke: var(--abstain); color: var(--abstain); stroke-width: 2.4; }
 .sysmap-link.live {
-  stroke: var(--accent); color: var(--accent); stroke-width: 2.2;
+  stroke: var(--accent); color: var(--accent); stroke-width: 2.4;
   stroke-dasharray: 7 5; animation: dashFlow .55s linear infinite;
 }
 @keyframes dashFlow { to { stroke-dashoffset: -24; } }
 
-/* --- verdict pill under the critic --- */
-.sysmap-verdict text {
-  text-anchor: middle; font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
-}
-.sysmap-verdict.good rect { fill: var(--good-wash); stroke: var(--good); stroke-width: 1.5; }
-.sysmap-verdict.good text { fill: var(--good-ink); }
-.sysmap-verdict.abstain rect {
-  fill: var(--abstain-wash); stroke: var(--abstain); stroke-width: 1.5;
-  animation: nodePulseAbstain 1.4s ease-in-out 3;
-}
-.sysmap-verdict.abstain text { fill: var(--abstain-ink); }
-@keyframes nodePulseAbstain {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(109,75,196,0)); }
-  50%      { filter: drop-shadow(0 0 9px rgba(109,75,196,.6)); }
+/* ingestion links crawl slowly and never stop */
+.sysmap-link.write, .sysmap-link.feed {
+  stroke: #dcbc72; color: #dcbc72;
+  stroke-dasharray: 5 6; opacity: .85;
+  animation: dashFlow 2.6s linear infinite;
 }
 
 .sysmap-legend { margin-top: 12px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .sysmap-node.live rect, .sysmap-verdict.abstain rect,
-  .sysmap-link.live, .sysmap-now b { animation: none; }
+  .sysmap-node.live rect, .sysmap-node.abstain.fired rect,
+  .sysmap-link.live, .sysmap-link.write, .sysmap-link.feed,
+  .sysmap-zone rect, .sysmap-live-dot circle, .sysmap-now b { animation: none; }
 }
