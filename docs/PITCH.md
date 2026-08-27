@@ -107,6 +107,16 @@ Then open the **Dataset & ingestion log** tab. It's very hard to argue with.
 > and quote the numbers. The two that matter are **confident-but-wrong** and
 > **confident-on-a-vague-query** — both should be zero.
 
+**"Does it support multilingual input?"** *(Not built — answer it as scope, not as a miss)*
+> "Not in this prototype. The standards themselves are published in English, so
+> the design is translate-then-retrieve: detect the input language, translate the
+> requirement, run the same pipeline, answer in the original language. It's a
+> layer on top of what you're seeing rather than a change to it — we prioritised
+> getting the verification right first, because that's the part that's hard."
+
+Do not pretend it works. If you type Hindi into the demo it will most likely
+abstain — which is the system behaving correctly, but it is not a feature.
+
 **"What are the limitations?"** *(Answer this honestly — it builds credibility)*
 > "Three. We've ingested the electrical and electronics departments, not all
 > 24,000 standards. About 45% of standards have full text — the rest we can only
