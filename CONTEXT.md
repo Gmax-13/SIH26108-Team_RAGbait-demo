@@ -98,8 +98,8 @@ a critical defect, and abstention is a first-class outcome.
 | Full text | **Internet Archive `_djvu.txt`** | Public.Resource.Org mirrors BIS standards already OCR'd. Fetching plain text avoids downloading PDFs and running OCR ourselves. CC0 / RTI-released |
 | Store | **SQLite** | Single-file, zero-admin, transactional. The corpus is ~5k rows and ~250 MB of text — Postgres would add operational cost for no benefit at this scale |
 | Embeddings | **`BAAI/bge-small-en-v1.5`**, local | Runs offline with no API key and no per-query cost, which matters when a demo venue's network is unreliable. 384-dim, strong retrieval quality for its size |
-| Vector index | **FAISS** (`IndexFlatIP`) | The brief suggested ChromaDB, but `chroma-hnswlib` has **no prebuilt Windows wheel** and needs MSVC build tools — the install silently rolled back the whole environment. FAISS ships Windows wheels. Flat inner-product on normalised vectors gives exact cosine, and at 65k vectors exact search is instant |
-| Graph | **SQLite `edges` table** + traversal in SQL | The graph is ~10k edges. NetworkX or Neo4j would add a component without adding capability; SQL traversal keeps one source of truth and works before the vector index exists |
+| Vector index | **FAISS** (`IndexFlatIP`) | The brief suggested ChromaDB, but `chroma-hnswlib` has **no prebuilt Windows wheel** and needs MSVC build tools — the install silently rolled back the whole environment. FAISS ships Windows wheels. Flat inner-product on normalised vectors gives exact cosine, and at 87k vectors exact search is instant |
+| Graph | **SQLite `edges` table** + traversal in SQL | The graph is ~10.4k edges. NetworkX or Neo4j would add a component without adding capability; SQL traversal keeps one source of truth and works before the vector index exists |
 | LLM | **Groq, `openai/gpt-oss-120b`** | Fast hosted inference, generous free tier. Used only for synthesis, requirement extraction and entailment checking — never as the source of an IS number |
 | API | **FastAPI** | Typed request models, automatic OpenAPI docs, and native streaming for live pipeline progress |
 | Frontend | **React + Vite**, `react-force-graph-2d` | Vite for instant rebuilds; force-graph because the dependency web is the one thing genuinely better shown than described |
@@ -158,7 +158,7 @@ the system would otherwise make silently and wrongly:
 
 - `metadata_only` — we matched on a title, never on content
 - `full_text_year` — the text we hold is from a *different edition* than the one
-  being cited (true for roughly 80% of full-text standards)
+  being cited (true for 16% of full-text standards)
 - edge `confidence` — this relationship was read from the standard, or guessed
 
 ---
@@ -317,7 +317,7 @@ flowchart TB
 
     subgraph STORE["Knowledge base"]
         DB[("SQLite<br/>standards · chunks<br/>edges · cert rules")]
-        FAISS[("FAISS index<br/>65k passages")]
+        FAISS[("FAISS index<br/>87k passages")]
         GRAPH["Dependency graph<br/>confirmed vs inferred"]
     end
 
@@ -418,17 +418,16 @@ Stated plainly, because volunteering them is what makes the rest credible.
 (electrical and electronics), not all ~24,000 standards. Scaling is re-running
 the scraper without the department filter — the pipeline does not change.
 
-**Full-text coverage is partial.** Roughly **56%** of standards have ingested
-text. The rest are matched on catalogue metadata only, are flagged
+**Full-text coverage is partial.** **58%** of standards (2,954 of 5,054) have ingested text. The rest are matched on catalogue metadata only, are flagged
 `metadata only — unverified` everywhere they appear, and carry reduced
 confidence. They are not presented as verified.
 
-**Most held text is from an earlier edition.** Around **80%** of full-text
-standards hold text from a *different edition* than the catalogue lists, with
-gaps of 13–39 years, because the Public.Resource.Org scanning effort predates
-current BIS editions. This is tracked per standard (`full_text_year`), surfaced
-as a currency flag, and it lowers confidence — but it means "verified against
-source text" often means verified against an **older edition** of that standard.
+**16% of held text is from an earlier edition.** After identifier matching was
+anchored to number + part + section, **84% of full-text standards hold their exact
+catalogue edition**. The remaining 16% hold an older one — occasionally much
+older (IS 2264:2026 is backed by 1963 text) — because Public.Resource.Org's
+scanning effort predates current BIS editions. This is tracked per standard
+(`full_text_year`), surfaced as a currency flag, and lowers confidence.
 
 **43% of the catalogue is withdrawn.** Those entries are kept deliberately (a
 tender may cite one, and the user must be warned), but they are demoted in
@@ -482,10 +481,13 @@ Everything else — the dependency graph, the currency checks, the certification
 flags, the tender-ready clause — exists to make a correct answer *usable* by a
 procurement officer. The abstention is what makes it *trustworthy*.
 
-Measured behaviour on the current corpus: correct standards recommended with high
-confidence for procurement-language queries (IS 694 at 0.88, IS 3043 at 0.78,
-IS 16102 at 1.0), and clean abstention on vague input (0.30–0.43) — with zero
-confident-but-wrong answers in the evaluation set.
+**Corpus as built:** 5,054 standards · 2,954 with full text (58%) · 87,117
+citable passages · 9,478 confirmed dependencies across all six allied categories.
+
+**Measured behaviour:** correct standards recommended with high confidence for
+procurement-language queries (IS 694 at 0.88, IS 3043 at 0.78, IS 16102 at 1.0),
+and clean abstention on vague input (0.30–0.43) — with zero confident-but-wrong
+answers in the evaluation set.
 
 > The goal was never a system that always answers. It was a system a procurement
 > officer can trust — which requires it to be willing to say "I don't know".

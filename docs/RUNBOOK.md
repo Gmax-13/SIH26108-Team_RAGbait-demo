@@ -246,9 +246,9 @@ Delete `data\store\standards.db*` and `data\store\faiss\`, then run
 
 - Certification flags come from a **curated seed table**, not a legal source.
   They are prompts to verify against current BIS/MeitY notifications.
-- Roughly **80% of full-text standards hold text from an earlier edition** than
-  the catalogue lists. The system flags this per standard, but "verified against
-  source text" often means verified against an older edition.
+- **84% of full-text standards hold their exact catalogue edition; 16% hold an
+  earlier one.** The system flags every mismatch per standard, so "verified
+  against source text" means the exact edition in most cases but not all.
 - **43% of the ETD/LITD catalogue is withdrawn.** Those are kept deliberately so
   a tender citing one can be warned, not because they are recommendable.
 - The corpus is the **ETD/LITD electrical & electronics subset**, not all ~24k

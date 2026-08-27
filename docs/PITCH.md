@@ -97,7 +97,7 @@ That "caught an outdated reference" line is concrete and lands well.
 
 **"Where did the data come from?"**
 > "Two public sources: the BIS catalogue for the 5,054 standards, and the
-> Internet Archive's public-domain mirror for the full text of 2,314 of them.
+> Internet Archive's public-domain mirror for the full text of 2,954 of them.
 > The Dataset tab shows every single ingestion step — it's all logged."
 
 Then open the **Dataset & ingestion log** tab. It's very hard to argue with.
@@ -119,7 +119,7 @@ abstain — which is the system behaving correctly, but it is not a feature.
 
 **"What are the limitations?"** *(Answer this honestly — it builds credibility)*
 > "Three. We've ingested the electrical and electronics departments, not all
-> 24,000 standards. About 45% of standards have full text — the rest we can only
+> 24,000 standards. About 58% of standards have full text — the rest we can only
 > match on title, and we label those clearly. And the certification rules are a
 > curated table that needs checking against current government notifications."
 

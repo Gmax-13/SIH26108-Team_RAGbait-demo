@@ -19,7 +19,7 @@ cosmetic one.
 
 | Capability | How it works |
 |---|---|
-| Semantic matching | Local `bge-small-en-v1.5` embeddings over 9.4k+ citable chunks in FAISS |
+| Semantic matching | Local `bge-small-en-v1.5` embeddings over 87k citable passages in FAISS |
 | Dependency graph | Edges extracted from each standard's own full text, carrying the verbatim sentence as proof |
 | Currency check | Cited edition compared against every edition in the BIS catalogue |
 | Certification flags | Curated BIS Product Certification / CRS / Hallmarking rule table |
@@ -194,12 +194,9 @@ two numbers that matter most for this project:
 - **The corpus is the ETD/LITD (electrical & electronics) subset**, not all
   ~24k standards. Scaling is a matter of re-running the scraper without the
   department filter.
-- **Most ingested full text is from an earlier edition than the catalogue lists**
-  (~80% of full-text standards, gaps of 13-39 years), because the archive.org
-  scanning effort predates current BIS editions. This is tracked per standard and
-  surfaced as a currency flag, and it lowers confidence — but it means "verified
-  against source text" often means verified against an older edition of that
-  standard.
+- **16% of ingested full text is from an earlier edition than the catalogue
+  lists.** Anchoring identifier matching to number + part + section brought exact
+  edition fidelity to 84%; the rest are flagged per standard and lower confidence.
 - **43% of the ETD/LITD catalogue is withdrawn.** Those entries are kept (a
   tender may cite one) but demoted in retrieval and near-vetoed as a
   recommendation, so they surface as warnings rather than answers.

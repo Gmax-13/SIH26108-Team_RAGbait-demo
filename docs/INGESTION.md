@@ -153,11 +153,16 @@ flag:
 Without this, the system would cite 1989 text as though it were the 2019
 standard — precisely the kind of unverifiable claim this project must not make.
 
-This is **not** an edge case. Measured across the ingested corpus, roughly
-**80% of full-text standards carry text from an earlier edition** than the one
-the catalogue lists, with gaps of 13–39 years, because the Public.Resource.Org
-scanning effort predates the current editions. The flag is therefore load-
-bearing, not decorative.
+Measured across the ingested corpus after strict identifier matching: **84% of
+full-text standards hold their exact catalogue edition**, and **16% hold an
+earlier one** — occasionally much earlier (IS 2264:2026 is backed by 1963 text),
+because the Public.Resource.Org scanning effort predates current editions. The
+flag is load-bearing, not decorative.
+
+An earlier measurement put the mismatch near 80%. That figure came from a sample
+collected *before* identifier matching was anchored to number + part + section,
+when a loose prefix match would accept any edition — and any sibling part — that
+shared the base number. Tightening the match is what moved it.
 
 ---
 

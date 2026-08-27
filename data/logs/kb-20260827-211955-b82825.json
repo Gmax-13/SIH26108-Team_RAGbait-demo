@@ -1,0 +1,21 @@
+{
+  "run_id": "kb-20260827-211955-b82825",
+  "seconds": 561.1,
+  "standards": 5054,
+  "chunks": 87117,
+  "fulltext_standards": 2954,
+  "metadata_only_standards": 2100,
+  "index_vectors": 87117,
+  "db": {
+    "standards": 5054,
+    "with_full_text": 2954,
+    "metadata_only": 2100,
+    "active": 2864,
+    "edges": 501,
+    "edges_confirmed": 501,
+    "edges_inferred": 0,
+    "edges_dangling": 111,
+    "chunks": 87117,
+    "departments": 2
+  }
+}
