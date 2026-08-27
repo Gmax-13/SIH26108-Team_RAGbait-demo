@@ -49,6 +49,10 @@ ALLIED_GROUPS = [
     ("test_method", "Test methods",
      "How conformity is demonstrated. Name these or acceptance criteria are ambiguous."),
     ("safety", "Safety standards", "Safety requirements the primary standard relies on."),
+    ("installation", "Installation and practice",
+     "Codes of practice for installing or applying the product."),
+    ("related_product", "Related product standards",
+     "Other product specifications the primary standard depends on."),
     ("terminology", "Terminology", "Defines the terms the specification uses."),
     ("related", "Related standards", "Referenced, relationship unclassified."),
 ]

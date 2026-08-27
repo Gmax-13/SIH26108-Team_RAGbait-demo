@@ -32,14 +32,19 @@ _CUES: list[tuple[str, re.Pattern[str]]] = [
 ]
 
 # Aspect (from the BIS catalogue) is a stronger signal than local wording.
+# BIS's own `aspect` taxonomy maps almost one-to-one onto the categories a
+# procurement officer needs to list, so use it rather than inventing our own.
+# A Code of Practice IS the installation/practice standard; a Product
+# Specification cited by another product standard is an allied product standard.
+# Collapsing both to "normative reference" threw that distinction away.
 ASPECT_TO_EDGE = {
     "Methods of tests": "test_method",
     "Terminology": "terminology",
     "Safety Standard": "safety",
-    "Code of Practice": "normative_reference",
-    "Product Specification": "normative_reference",
-    "Dimensions": "normative_reference",
-    "Service Specification": "normative_reference",
+    "Code of Practice": "installation",
+    "Product Specification": "related_product",
+    "Dimensions": "related_product",
+    "Service Specification": "installation",
 }
 
 _ROMAN = {"i": "1", "ii": "2", "iii": "3", "iv": "4", "v": "5",
