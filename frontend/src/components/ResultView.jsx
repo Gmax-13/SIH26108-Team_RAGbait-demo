@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CertBadges, Citation, CurrencyBadge, Meter, MetaOnlyBadge, WithdrawnBadge, confColor } from './Common'
 import OfficerView from './OfficerView'
+import { useCountUp } from '../anim'
 import GraphView from './GraphView'
 
 /** The abstention response. Deliberately prominent — it is the key behaviour,
@@ -16,12 +17,7 @@ function Abstention({ r }) {
             No IS number is returned. Guessing one here would be worse than answering nothing.
           </div>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <div className="confval" style={{ color: confColor(r.confidence) }}>
-            {(r.confidence ?? 0).toFixed(2)}
-          </div>
-          <div className="small muted">threshold {r.threshold}</div>
-        </div>
+        <Confidence value={r.confidence} label={`threshold ${r.threshold}`} />
         <Meter value={r.confidence} />
       </div>
 
@@ -63,6 +59,20 @@ function Abstention({ r }) {
       </div>
       <Signals v={r.verification} />
     </>
+  )
+}
+
+/** Confidence counts up to its value, so the number registers instead of
+ *  appearing fully formed. */
+function Confidence({ value, label }) {
+  const scaled = useCountUp(Math.round((value ?? 0) * 100), 800)
+  return (
+    <div style={{ textAlign: 'right' }}>
+      <div className="confval" style={{ color: confColor(value) }}>
+        {(scaled / 100).toFixed(2)}
+      </div>
+      <div className="small muted">{label}</div>
+    </div>
   )
 }
 
@@ -161,12 +171,7 @@ export default function ResultView({ result, onOpen }) {
             {r.llm_error ? 'LLM unavailable — rule-based' : 'rule-based synthesis'}
           </span>
         )}
-        <div style={{ textAlign: 'right' }}>
-          <div className="confval" style={{ color: confColor(r.confidence) }}>
-            {r.confidence?.toFixed(2)}
-          </div>
-          <div className="small muted">confidence</div>
-        </div>
+        <Confidence value={r.confidence} label="confidence" />
         <Meter value={r.confidence} />
       </div>
 

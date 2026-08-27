@@ -5,6 +5,7 @@ import IngestionPanel from './components/IngestionPanel'
 import ResultView from './components/ResultView'
 import StageProgress from './components/StageProgress'
 import StandardDetail from './components/StandardDetail'
+import { CountUp } from './anim'
 
 const EXAMPLES = [
   { label: 'PVC insulated copper cable, 1100 V', q: 'PVC insulated unsheathed copper conductor cable for internal wiring, rated 1100 V' },
@@ -229,9 +230,9 @@ export default function App() {
             {health === false && <span className="badge danger"><b aria-hidden="true">!</b>API unreachable</span>}
             {health && (
               <>
-                <span className="badge muted">{fmt(health.standards)} standards</span>
-                <span className="badge muted">{fmt(health.with_full_text)} full text</span>
-                <span className="badge muted">{fmt(health.edges_confirmed)} verified links</span>
+                <span className="badge muted"><CountUp value={health.standards} /> standards</span>
+                <span className="badge muted"><CountUp value={health.with_full_text} /> full text</span>
+                <span className="badge muted"><CountUp value={health.edges_confirmed} /> verified links</span>
                 <span className={`badge ${health.llm_configured ? 'ok' : 'warn'}`}>
                   <b aria-hidden="true">{health.llm_configured ? '✓' : '!'}</b>
                   {health.llm_configured ? 'LLM ready' : 'No LLM key'}

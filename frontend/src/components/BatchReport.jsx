@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { downloadCSV, downloadJSON, stamp } from '../download'
+import { CountUp } from '../anim'
 import { CurrencyBadge } from './Common'
 import ResultView from './ResultView'
 
@@ -8,7 +9,7 @@ const fmt = (n) => (n ?? 0).toLocaleString()
 function Tile({ n, l, cls = '' }) {
   return (
     <div className={`tile ${cls}`}>
-      <div className="n">{fmt(n)}</div>
+      <div className="n"><CountUp value={n} /></div>
       <div className="l">{l}</div>
     </div>
   )

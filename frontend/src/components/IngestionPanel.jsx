@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import { getLogs, getStats } from '../api'
 import { downloadCSV, downloadJSON, stamp } from '../download'
+import { CountUp } from '../anim'
 
 const fmt = (n) => (n ?? 0).toLocaleString()
 
 function Tile({ n, l, cls = '' }) {
-  return <div className={`tile ${cls}`}><div className="n">{fmt(n)}</div><div className="l">{l}</div></div>
+  return (
+    <div className={`tile ${cls}`}>
+      <div className="n"><CountUp value={n} /></div>
+      <div className="l">{l}</div>
+    </div>
+  )
 }
 
 /** Magnitude comparison across categories: bars, sorted, one hue. A bare number

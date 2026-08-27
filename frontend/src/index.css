@@ -756,3 +756,122 @@ button.linkish:hover { text-decoration-color: var(--accent); }
   padding: 13px 18px;
 }
 .stage-summary .spacer { flex: 1 1 auto; }
+
+/* ============================================================
+   Motion
+
+   Short, purposeful, and entirely decorative — every rule here is
+   disabled wholesale under prefers-reduced-motion at the end of this
+   block, and nothing depends on an animation having run.
+   ============================================================ */
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn {
+  0%   { transform: scale(.4); opacity: 0; }
+  60%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes sweep {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+@keyframes answerGlow {
+  0%   { box-shadow: 0 0 0 0 rgba(42,120,214,.30); }
+  70%  { box-shadow: 0 0 0 14px rgba(42,120,214,0); }
+  100% { box-shadow: 0 0 0 0 rgba(42,120,214,0); }
+}
+@keyframes abstainPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(109,75,196,.35); }
+  70%  { box-shadow: 0 0 0 16px rgba(109,75,196,0); }
+  100% { box-shadow: 0 0 0 0 rgba(109,75,196,0); }
+}
+
+/* --- panels arrive in sequence rather than all at once ------------ */
+.app .panel,
+.app .answer,
+.app .statusbar,
+.app .detail-grid {
+  animation: riseIn .34s cubic-bezier(.22,.61,.36,1) both;
+}
+/* a short stagger so the eye follows the page down; capped so a long
+   result never keeps the reader waiting */
+.app > *:nth-child(1) { animation-delay: 0ms; }
+.app > *:nth-child(2) { animation-delay: 45ms; }
+.app > *:nth-child(3) { animation-delay: 90ms; }
+.app > *:nth-child(4) { animation-delay: 135ms; }
+.app > *:nth-child(5) { animation-delay: 170ms; }
+.app > *:nth-child(n+6) { animation-delay: 200ms; }
+
+/* --- the answer, and the refusal, each get one deliberate beat ----- */
+.answer { animation: riseIn .4s cubic-bezier(.22,.61,.36,1) both, answerGlow 1.5s ease-out .3s; }
+.statusbar.abstain { animation: riseIn .4s cubic-bezier(.22,.61,.36,1) both, abstainPulse 1.7s ease-out .25s; }
+
+/* --- tab switching ------------------------------------------------ */
+.tabs button.active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: var(--accent);
+  animation: fadeIn .25s ease both;
+}
+
+/* --- pipeline stages ---------------------------------------------- */
+.stage { transition: background .25s ease; }
+.stage.running { background: linear-gradient(90deg, var(--accent-wash) 0%, transparent 60%); }
+.stage.done .stage-mark { animation: popIn .32s cubic-bezier(.34,1.56,.64,1) both; }
+.stage.done .stage-detail { animation: fadeIn .4s ease both; }
+
+/* the running row shows a travelling sheen so it reads as working */
+.stage.running .stage-label {
+  background: linear-gradient(90deg,
+      var(--accent-ink) 20%, var(--accent) 40%, var(--accent-ink) 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sweep 1.6s linear infinite;
+}
+
+/* --- meters and bars fill rather than appear ----------------------- */
+.meter > i { transition: width .7s cubic-bezier(.22,.61,.36,1); }
+.bar-track > i { animation: barGrow .7s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bar-track > i { transform-origin: left center; }
+
+/* --- stat tiles ---------------------------------------------------- */
+.tile { transition: transform .18s ease, box-shadow .18s ease; }
+.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.tile .n { font-variant-numeric: tabular-nums; }
+
+/* --- small interactions -------------------------------------------- */
+.examples button { transition: transform .14s ease, border-color .15s, color .15s, background .15s; }
+.examples button:hover { transform: translateY(-1px); }
+.allied-item { transition: border-color .16s ease, transform .16s ease; }
+.allied-item:hover { border-color: var(--line-strong); transform: translateX(2px); }
+.cite { transition: border-left-color .2s ease, background .2s ease; }
+.cite:hover { background: var(--surface-3); }
+button.linkish { transition: color .15s ease; }
+
+/* copy confirmation */
+button.primary { transition: background .15s, transform .08s, box-shadow .15s; }
+
+/* --- respect the OS setting, wholesale ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .app .panel, .app .answer, .app .statusbar, .app .detail-grid,
+  .answer, .statusbar.abstain,
+  .stage.done .stage-mark, .stage.done .stage-detail,
+  .bar-track > i, .tabs button.active::after {
+    animation: none !important;
+  }
+  .stage.running .stage-label {
+    animation: none;
+    -webkit-text-fill-color: var(--accent-ink);
+    color: var(--accent-ink);
+  }
+  .meter > i, .tile, .examples button, .allied-item { transition: none; }
+}
