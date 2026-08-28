@@ -9,9 +9,10 @@ build is inspectable rather than a black box.
 """
 from __future__ import annotations
 import json
+import re
 from typing import Any
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -196,6 +197,123 @@ def get_logs(phase: str | None = None, status: str | None = None,
     return {"runs": runs, "events": rows}
 
 
+_IS_PREFIX = re.compile(r"^(?:IS\s*)?(\d[\d.]*)", re.I)
+
+
+# Declared BEFORE /api/standards/{is_number:path}: FastAPI matches routes in
+# definition order, and the path converter would otherwise swallow "search".
+@app.get("/api/standards/search")
+def search_standards(q: str, limit: int = 12, scope: str = "demo") -> dict[str, Any]:
+    """Type-ahead over the catalogue.
+
+    Typing "IS 64" has to offer IS 645 and IS 649 as well as IS 64 itself, so a
+    numeric fragment is matched as a PREFIX of the number rather than as an
+    equality test. Results are ordered numerically — IS 645 before IS 6450 —
+    because string ordering puts "IS 6450" before "IS 649", which is nonsense
+    to a reader.
+
+    `scope=demo` (the default) restricts results to the departments the system
+    answers from, so everything offered is also present in the dependency graph.
+    `scope=all` searches the whole ingested catalogue; those records are
+    viewable but have no graph, and the count is reported either way so the UI
+    can say what is being hidden rather than silently dropping matches.
+    """
+    q = " ".join((q or "").split())
+    if len(q) < 2:
+        return {"query": q, "results": [], "out_of_scope": 0}
+    con = connect()
+    depts = active_departments() if scope != "all" else None
+
+    m = _IS_PREFIX.match(q)
+    if m:
+        num = m.group(1)
+        match_sql = "(is_number LIKE ? OR is_base LIKE ?)"
+        match_params = [f"IS {num}%", f"IS {num}%"]
+    else:
+        match_sql = "title LIKE ?"
+        match_params = [f"%{q}%"]
+
+    def fetch(with_depts):
+        where, params = [match_sql], list(match_params)
+        if with_depts:
+            where.append(f"department IN ({','.join('?' * len(with_depts))})")
+            params += with_depts
+        return [dict(r) for r in con.execute(
+            f"""SELECT is_number, is_base, title, department, aspect, year,
+                       is_active, metadata_only, has_full_text
+                FROM standards WHERE {' AND '.join(where)}""", params)]
+
+    rows = fetch(depts)
+    # How many matches the demo scope is hiding, so the UI can offer to widen.
+    out_of_scope = 0
+    if depts:
+        out_of_scope = max(0, len(fetch(None)) - len(rows))
+
+    ql = q.lower()
+
+    def order(r: dict[str, Any]):
+        if m:
+            mm = _IS_PREFIX.match(r["is_base"] or "")
+            head = mm.group(1) if mm else ""
+            bits = tuple(int(x) for x in head.split(".") if x.isdigit())
+            return (0, bits, -(r["year"] or 0))
+        # Title search: a title that STARTS with the query beats one that merely
+        # contains it, so "earthing" surfaces the earthing code of practice
+        # rather than a socket-outlet standard that mentions earthing contacts.
+        t = (r["title"] or "").lower()
+        return (0 if t.startswith(ql) else 1, len(t), -(r["year"] or 0))
+
+    rows.sort(key=order)
+    return {"query": q, "results": rows[:limit], "out_of_scope": out_of_scope,
+            "total_matches": len(rows), "scope": "all" if depts is None else "demo"}
+
+
+@app.get("/api/graph")
+def get_full_graph(min_degree: int = 1, limit: int = 5000) -> dict[str, Any]:
+    """The whole dependency graph in scope, for the graph explorer's default view.
+
+    Only edges whose target resolved to an ingested standard are returned: a
+    dangling citation has no node to attach to and would render as a stub with
+    no title. `min_degree` drops isolated standards, which otherwise fill the
+    canvas with thousands of unconnected dots and slow the layout down for
+    nothing.
+    """
+    con = connect()
+    depts = active_departments()
+    scope, params = "", []
+    if depts:
+        scope = (f" AND src.department IN ({','.join('?' * len(depts))})")
+        params = depts
+    edges = [dict(r) for r in con.execute(
+        f"""SELECT src.is_number AS source, dst.is_number AS target,
+                   e.edge_type, e.confidence
+            FROM edges e
+            JOIN standards src ON src.id = e.src_standard_id
+            JOIN standards dst ON dst.id = e.dst_standard_id
+            WHERE e.dst_standard_id IS NOT NULL{scope}
+            LIMIT ?""", params + [limit * 4])]
+
+    deg: dict[str, int] = {}
+    for e in edges:
+        deg[e["source"]] = deg.get(e["source"], 0) + 1
+        deg[e["target"]] = deg.get(e["target"], 0) + 1
+    keep = {k for k, v in deg.items() if v >= min_degree}
+    if len(keep) > limit:
+        keep = set(sorted(keep, key=lambda k: -deg[k])[:limit])
+    edges = [e for e in edges if e["source"] in keep and e["target"] in keep]
+
+    nodes = []
+    if keep:
+        ph = ",".join("?" * len(keep))
+        nodes = [dict(r) | {"degree": deg.get(r["is_number"], 0)}
+                 for r in con.execute(
+                     f"""SELECT is_number, is_base, title, department, aspect,
+                                year, is_active, metadata_only
+                         FROM standards WHERE is_number IN ({ph})""", list(keep))]
+    return {"nodes": nodes, "edges": edges,
+            "truncated": len(deg) > len(keep), "total_nodes": len(deg)}
+
+
 @app.get("/api/standards/{is_number:path}")
 def get_standard(is_number: str) -> dict[str, Any]:
     con = connect()
@@ -294,12 +412,18 @@ def post_batch(b: BatchText) -> dict[str, Any]:
 
 @app.post("/api/batch/upload")
 async def post_batch_upload(file: UploadFile = File(...),
-                            max_requirements: int = 0) -> dict[str, Any]:
+                            max_requirements: int = Form(0)) -> dict[str, Any]:
+    """A tender document, uploaded rather than pasted.
+
+    `max_requirements` is declared as Form, not a bare int: a bare int becomes a
+    QUERY parameter, so a multipart upload that sent it in the form body had the
+    cap silently ignored and processed the whole document.
+    """
     raw = await file.read()
     name = (file.filename or "").lower()
     if name.endswith(".pdf"):
-        import fitz
-        with fitz.open(stream=raw, filetype="pdf") as doc:
+        import pymupdf
+        with pymupdf.open(stream=raw, filetype="pdf") as doc:
             text = "\n".join(page.get_text() for page in doc)
     else:
         text = raw.decode("utf-8", "ignore")
