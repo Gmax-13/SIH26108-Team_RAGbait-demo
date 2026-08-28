@@ -3,22 +3,31 @@ import ForceGraph2D from 'react-force-graph-2d'
 import { getFullGraph, searchStandards } from '../api'
 import StandardDetail from './StandardDetail'
 
+/* Six categories on one canvas, so hue alone was not separating them: the old
+ * blue/indigo pair and green/teal pair read as the same colour at 1px on a
+ * white ground. These are spread around the wheel AND across lightness, so a
+ * light amber never has to be told apart from a dark green by hue alone — which
+ * is also what keeps them separable for red-green colour blindness. Identity
+ * never rests on colour regardless: each type is a labelled filter chip. */
 const EDGE_COLOR = {
-  normative_reference: '#2a78d6',
-  test_method: '#1baf7a',
-  terminology: '#eb6834',
-  safety: '#4a3aa7',
-  installation: '#0e7490',
-  related: '#7b8798',
+  normative_reference: '#1d4ed8',   // blue, dark
+  test_method:         '#15803d',   // green, dark
+  terminology:         '#f59e0b',   // amber, light
+  safety:              '#dc2626',   // red, mid
+  installation:        '#7c3aed',   // violet, mid
+  related_product:     '#0891b2',   // cyan, mid
 }
+const FALLBACK = '#94a3b8'
 const EDGE_LABEL = {
   normative_reference: 'normative reference',
   test_method: 'test method',
   terminology: 'terminology',
   safety: 'safety',
   installation: 'installation',
-  related: 'related',
+  related_product: 'related product',
 }
+const colourOf = (type) => EDGE_COLOR[type] || FALLBACK
+const labelOf = (type) => EDGE_LABEL[type] || (type || 'unclassified').replace(/_/g, ' ')
 
 const DIM_NODE = 'rgba(148,163,184,0.30)'
 const DIM_LINK = 'rgba(148,163,184,0.13)'
@@ -143,9 +152,15 @@ export default function GraphExplorer({ focus, setFocus }) {
   const [hovered, setHovered] = useState(null)
   const [scope, setScope] = useState('demo')
   const [settled, setSettled] = useState(false)
+  // Which relationship types are drawn. All on by default — the filter is for
+  // answering "show me only the test methods", not a wall the reader must climb.
+  const [types, setTypes] = useState(null)   // null = every type, set once the graph arrives
 
   useEffect(() => {
-    getFullGraph(5000).then(setGraph).catch((e) => setErr(String(e)))
+    getFullGraph(5000).then((g) => {
+      setGraph(g)
+      setTypes(new Set(g.edges.map((e) => e.edge_type)))
+    }).catch((e) => setErr(String(e)))
   }, [])
 
   useEffect(() => {
@@ -166,10 +181,10 @@ export default function GraphExplorer({ focus, setFocus }) {
     }))
     const ids = new Set(nodes.map((n) => n.id))
     const links = graph.edges
-      .filter((e) => ids.has(e.source) && ids.has(e.target))
+      .filter((e) => ids.has(e.source) && ids.has(e.target) && (!types || types.has(e.edge_type)))
       .map((e) => ({ source: e.source, target: e.target, type: e.edge_type, confidence: e.confidence }))
     return { nodes, links }
-  }, [graph])
+  }, [graph, types])
 
   /** The selected standard plus everything one edge away. Computed off the raw
    *  edge list rather than the rendered links, because force-graph mutates
@@ -179,12 +194,13 @@ export default function GraphExplorer({ focus, setFocus }) {
     const near = new Set([focus])
     const edges = new Set()
     graph.edges.forEach((e, i) => {
+      if (types && !types.has(e.edge_type)) return
       if (e.source === focus || e.target === focus) {
         near.add(e.source); near.add(e.target); edges.add(i)
       }
     })
     return { near, edges }
-  }, [focus, graph])
+  }, [focus, graph, types])
 
   const linkKey = (l) => `${typeof l.source === 'object' ? l.source.id : l.source}->${typeof l.target === 'object' ? l.target.id : l.target}`
   const focusLinks = useMemo(() => {
@@ -193,6 +209,27 @@ export default function GraphExplorer({ focus, setFocus }) {
     graph.edges.forEach((e, i) => { if (neighbourhood.edges.has(i)) s.add(`${e.source}->${e.target}`) })
     return s
   }, [neighbourhood, graph])
+
+  // Derived from the edges actually present rather than from a fixed list. A
+  // type the map does not know still gets a chip and a fallback colour, instead
+  // of disappearing from the filter while its edges stay on the canvas.
+  const counts = useMemo(() => {
+    const c = {}
+    graph?.edges.forEach((e) => { c[e.edge_type] = (c[e.edge_type] || 0) + 1 })
+    return c
+  }, [graph])
+  const presentTypes = useMemo(
+    () => Object.keys(counts).sort((a, b) => counts[b] - counts[a]), [counts])
+
+  const toggle = (k) => setTypes((prev) => {
+    const next = new Set(prev)
+    // Turning the last one off would leave an empty canvas with no way back
+    // that is obvious, so the last active type stays on.
+    if (next.has(k)) { if (next.size > 1) next.delete(k) } else next.add(k)
+    return next
+  })
+  const onlyType = (k) => setTypes(new Set([k]))
+  const allTypes = () => setTypes(new Set(presentTypes))
 
   // A 4,000-node graph knots into an unreadable ball on default forces. Spread
   // it hard and cap the link distance so clusters stay distinguishable.
@@ -262,7 +299,8 @@ export default function GraphExplorer({ focus, setFocus }) {
 
         <div className="graph-toolbar">
           <span className="small muted">
-            {graph ? <>{total.toLocaleString()} standards · {data.links.length.toLocaleString()} relationships</> : 'Loading graph…'}
+            {graph ? <>{total.toLocaleString()} standards · {data.links.length.toLocaleString()} relationships
+              {types && types.size < presentTypes.length && <> shown of {graph.edges.length.toLocaleString()}</>}</> : 'Loading graph…'}
             {focus && neighbourhood && (
               <> · <b style={{ color: SEL }}>{focus}</b> and {neighbourhood.near.size - 1} directly connected</>
             )}
@@ -295,8 +333,8 @@ export default function GraphExplorer({ focus, setFocus }) {
               onNodeClick={(n) => setFocus(n.id)}
               onBackgroundClick={() => setFocus(null)}
               linkColor={(l) => {
-                if (!dimmed) return (EDGE_COLOR[l.type] || EDGE_COLOR.related) + '55'
-                return focusLinks?.has(linkKey(l)) ? (EDGE_COLOR[l.type] || EDGE_COLOR.related) : DIM_LINK
+                if (!dimmed) return colourOf(l.type) + '55'
+                return focusLinks?.has(linkKey(l)) ? colourOf(l.type) : DIM_LINK
               }}
               linkWidth={(l) => (dimmed && focusLinks?.has(linkKey(l)) ? 2.2 : 0.5)}
               linkDirectionalArrowLength={(l) => (dimmed && focusLinks?.has(linkKey(l)) ? 5 : 0)}
@@ -362,6 +400,26 @@ export default function GraphExplorer({ focus, setFocus }) {
           )}
         </div>
 
+        {/* The legend IS the filter: a reader who wants only test methods clicks
+            the one they mean rather than hunting for a separate control. */}
+        <div className="edge-filter">
+          <span className="ef-label">Relationships</span>
+          {presentTypes.map((k) => (
+            <button key={k}
+                    className={`ef-chip ${!types || types.has(k) ? 'on' : ''}`}
+                    onClick={() => toggle(k)}
+                    onDoubleClick={() => onlyType(k)}
+                    title={`${counts[k].toLocaleString()} ${labelOf(k)} links — click to toggle, double-click to show only this`}>
+              <i style={{ background: colourOf(k) }} />
+              {labelOf(k)}
+              <b>{counts[k].toLocaleString()}</b>
+            </button>
+          ))}
+          {types && types.size < presentTypes.length && (
+            <button className="ef-all" onClick={allTypes}>show all</button>
+          )}
+        </div>
+
         <div className="legend">
           {focus ? (
             <>
@@ -372,9 +430,7 @@ export default function GraphExplorer({ focus, setFocus }) {
           ) : (
             <span><i className="dot" style={{ background: BASE }} /> node size follows how often a standard is cited</span>
           )}
-          {Object.entries(EDGE_COLOR).map(([k, v]) => (
-            <span key={k}><i className="dot" style={{ background: v }} /> {EDGE_LABEL[k]}</span>
-          ))}
+          <span className="muted">Drag to pan · scroll to zoom · click a node to isolate it</span>
         </div>
       </div>
 
