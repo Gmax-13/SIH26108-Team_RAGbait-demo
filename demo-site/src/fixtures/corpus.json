@@ -1,0 +1,31 @@
+{
+ "scoped_departments": [
+  "ETD",
+  "LITD"
+ ],
+ "scoped": {
+  "standards": 5053,
+  "with_full_text": 2954,
+  "metadata_only": 2099,
+  "active": 2859,
+  "edges": 10377,
+  "edges_confirmed": 9463,
+  "edges_inferred": 914,
+  "edges_dangling": 60,
+  "chunks": 87116,
+  "departments": 2
+ },
+ "whole_catalogue": {
+  "standards": 33509,
+  "with_full_text": 9769,
+  "metadata_only": 23740,
+  "active": 22679,
+  "edges": 25545,
+  "edges_confirmed": 9463,
+  "edges_inferred": 16082,
+  "edges_dangling": 60,
+  "chunks": 115572,
+  "departments": 17
+ },
+ "captured_at": "2026-08-28"
+}

@@ -1,0 +1,3746 @@
+[
+ {
+  "slug": "earthing",
+  "query": "Earthing and equipotential bonding for a 33 kV distribution substation",
+  "events": [
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "running",
+    "elapsed": 0.0
+   },
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "done",
+    "detail": "5 candidate standards",
+    "elapsed": 0.21
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "running",
+    "elapsed": 0.21
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "done",
+    "detail": "47 standards, 50 links",
+    "elapsed": 0.21
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "running",
+    "elapsed": 0.21
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "done",
+    "detail": "LLM unavailable \u2014 fell back to rule-based",
+    "elapsed": 0.53
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "running",
+    "elapsed": 0.53
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "done",
+    "detail": "confidence 0.726",
+    "elapsed": 0.55
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "running",
+    "elapsed": 0.55
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "done",
+    "detail": "IS 3043:2018 current",
+    "elapsed": 0.55
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "running",
+    "elapsed": 0.55
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "done",
+    "detail": "no scheme matched",
+    "elapsed": 0.56
+   }
+  ],
+  "result": {
+   "status": "recommended",
+   "synthesis_method": "rule_based",
+   "llm_error": "PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}",
+   "query": "Earthing and equipotential bonding for a 33 kV distribution substation",
+   "confidence": 0.726,
+   "threshold": 0.55,
+   "primary_standards": [
+    {
+     "is_number": "IS 3043:2018",
+     "role": "Closest semantic match to the requirement (similarity 0.826).",
+     "title": "Code of practice for earthing (Second Revision)",
+     "metadata_only": false,
+     "currency": {
+      "is_number": "IS 3043:2018",
+      "is_base": "IS 3043",
+      "year": 2018,
+      "amendment_count": 0,
+      "withdrawn": false,
+      "catalogue_note": "(Active)",
+      "editions_known": [
+       {
+        "is_number": "IS 3043:2018",
+        "year": 2018
+       }
+      ],
+      "latest_known_edition": "IS 3043:2018",
+      "flags": [],
+      "status": "current",
+      "full_text_year": 2018,
+      "archive_identifier": "gov.in.is.3043.2018",
+      "text_edition_mismatch": false
+     },
+     "certification": {
+      "schemes": [],
+      "note": "Certification flags come from a curated seed table and may be out of date; verify against the current BIS/MeitY notifications before relying on them."
+     }
+    }
+   ],
+   "supporting_standards": [
+    {
+     "is_number": "IS 14231 (Part 1):2026",
+     "role": "Also matched this requirement (Safety Standard)."
+    },
+    {
+     "is_number": "IS 732:2019",
+     "role": "Also matched this requirement (Code of Practice)."
+    },
+    {
+     "is_number": "IS 18732:2023",
+     "role": "Also matched this requirement (Code of Practice)."
+    }
+   ],
+   "summary": "IS 3043:2018 \u2014 Code of practice for earthing (Second Revision) \u2014 is the closest match in the ingested corpus for this requirement.",
+   "claims": [
+    {
+     "claim": "IS 3043:2018 covers Code of practice for earthing (Second Revision).",
+     "citations": [
+      "IS 3043:2018#c138",
+      "IS 3043:2018#c045"
+     ],
+     "lexical_support": 0.375,
+     "llm_verdict": null,
+     "llm_reason": null,
+     "support_score": 0.75,
+     "uncited": false
+    }
+   ],
+   "caveats": [
+    "Generated without an LLM: this is rule-based synthesis from catalogue titles plus semantic retrieval, not a reasoned reading of the standard."
+   ],
+   "citations": {
+    "IS 3043:2018#c138": {
+     "chunk_id": "IS 3043:2018#c138",
+     "is_number": "IS 3043:2018",
+     "section": "Clause 25.1 General",
+     "excerpt": "(mA) (Q) RCD 30 1666 RCD \u2014 500 25 EARTHING IN POWER STATIONS AND SUBSTATIONS 25.1 General In general earthing installations will be required at power stations and substations for: a) Theneutral points of each separate electricity IS 3043: 2018 system which has to be earthed at the power station or substation; b) Apparatus framework or cladding or other non-current carrying metalwork associated with each system, for example, transformer tanks, power cable sheaths; and c) Extraneous metalwork not associated with the power systems, for example boundary fences, sheaths of control or communication cables. For safety, the objective of earth bonding is to ensure that, in normal or abnormal\u2026",
+     "similarity": 0.826
+    },
+    "IS 3043:2018#c045": {
+     "chunk_id": "IS 3043:2018#c045",
+     "is_number": "IS 3043:2018",
+     "section": "Clause 11.1.3 Installation Earthing \u2014 250 V but not Exceeding",
+     "excerpt": "n the event of a fault to exposed conductive parts, and b) limit the rise of potential under earth-fault conditions of non-current carrying metal work with respect to earth to increase safety of persons and animals in proximity to such metal work. Extending the earth arrangement of an installation within a building by use of protective equipotential bonding of exposed-conductive parts and extraneousconductive parts increases safety of persons and animals by reducing touch voltage between such parts and it can eliminate dangerous sparking. The performance requirements for earthing of 250 V but not exceeding 650 V installation (for example disconnection times, conductor sizes) are specified\u2026",
+     "similarity": 0.81
+    }
+   },
+   "allied_standards": [
+    {
+     "is_number": "IS 8437 (Part 2):1993",
+     "title": "Guide on effects of current passing through human body: Part 2 Special aspects",
+     "edge_type": "safety",
+     "in_corpus": true,
+     "withdrawn": true,
+     "cited_at": "Clause 23.0.6 It is necessary, therefore, to apply these results"
+    },
+    {
+     "is_number": "IS 11353:2023",
+     "title": "Basic and Safety Principles for Man-Machine Interface Marking and Identification - Identification of Equipment Terminals Conductor Terminations and Conductors (First Revision)",
+     "edge_type": "installation",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 11.2.1 The earthing and protective conductor shall be"
+    },
+    {
+     "is_number": "IS 732:2019",
+     "title": "Code of practice for electrical wiring installations (Fourth Revision)",
+     "edge_type": "installation",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": null
+    },
+    {
+     "is_number": "IS 9409:2023",
+     "title": "Protection Against Electric Shock - Common Aspects for Installation and Equipment (First Revision)",
+     "edge_type": "installation",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 3.3 Class I Equipment \u2014 Equipment in which"
+    },
+    {
+     "is_number": "IS 13234 (Part 2):2017",
+     "title": "Short - Circuit currents in three - Phase A.C. systems: Part 2 data of electrical equipment for short - Circuit current calculations",
+     "edge_type": "related_product",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 2.1 The standards listed below contain provisions"
+    },
+    {
+     "is_number": "IS 13252 (Part 22):2019",
+     "title": "Information Technology Equipment - Safety Part 22: Equipment to be Installed Outdoors (First Revision)",
+     "edge_type": "related_product",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 43.1.1 This clause covers the special requirements for"
+    },
+    {
+     "is_number": "IS 4736:1986",
+     "title": "Specification for hot - Dip zinc coatings on mild steel tubes (Fist Revision)",
+     "edge_type": "related_product",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 13.6.1 Corrosion Allowance"
+    },
+    {
+     "is_number": "IS 1885 (Part 90):2025",
+     "title": "Electrotechnical Vocabulary Part 89 Magnetic Materials and Components",
+     "edge_type": "terminology",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 3.34 Switchgear \u2014 An assembly of main and auxiliary"
+    }
+   ],
+   "tender_clause": "The product shall conform to IS 3043:2018 \u2014 Code of practice for earthing (Second Revision). The following referenced standards shall be read with it: IS 11353:2023 (Basic and Safety Principles for Man-Machine Interface Markin); IS 732:2019 (Code of practice for electrical wiring installations (Fourth); IS 9409:2023 (Protection Against Electric Shock - Common Aspects for Insta); IS 13234 (Part 2):2017 (Short - Circuit currents in three - Phase A.C. systems: Part); IS 13252 (Part 22):2019 (Information Technology Equipment - Safety Part 22: Equipment); IS 4736:1986 (Specification for hot - Dip zinc coatings on mild steel tube); IS 1885 (Part 90):2025 (Electrotechnical Vocabulary Part 89 Magnetic Materials and C).",
+   "dependency_graph": {
+    "nodes": [
+     {
+      "is_number": "IS 14231 (Part 1):2026",
+      "is_base": "IS 14231",
+      "title": "Cable networks for television signals sound signals and interactive services Part 1: System performance of forward paths First Revision",
+      "department": "LITD",
+      "aspect": "Safety Standard",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 3043:2018",
+      "is_base": "IS 3043",
+      "title": "Code of practice for earthing (Second Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2018,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 732:2019",
+      "is_base": "IS 732",
+      "title": "Code of practice for electrical wiring installations (Fourth Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2019,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 616:2017",
+      "is_base": "IS 616",
+      "title": "Audio, video and similar electronic apparatus - Safety requirements (Fifth Revision)",
+      "department": "LITD",
+      "aspect": "Product Specification",
+      "year": 2017,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2309:1989",
+      "is_base": "IS 2309",
+      "title": "Code of practice for the protection of buildings and allied structures against lightning",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 1989,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13252 (Part 22):2019",
+      "is_base": "IS 13252",
+      "title": "Information Technology Equipment - Safety Part 22: Equipment to be Installed Outdoors (First Revision)",
+      "department": "LITD",
+      "aspect": "Product Specification",
+      "year": 2019,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9409:2023",
+      "is_base": "IS 9409",
+      "title": "Protection Against Electric Shock - Common Aspects for Installation and Equipment (First Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2023,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13234 (Part 2):2017",
+      "is_base": "IS 13234",
+      "title": "Short - Circuit currents in three - Phase A.C. systems: Part 2 data of electrical equipment for short - Circuit current calculations",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2017,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1885 (Part 90):2025",
+      "is_base": "IS 1885",
+      "title": "Electrotechnical Vocabulary Part 89 Magnetic Materials and Components",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2025,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 11353:2023",
+      "is_base": "IS 11353",
+      "title": "Basic and Safety Principles for Man-Machine Interface Marking and Identification - Identification of Equipment Terminals Conductor Terminations and Conductors (First Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2023,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 4736:1986",
+      "is_base": "IS 4736",
+      "title": "Specification for hot - Dip zinc coatings on mild steel tubes (Fist Revision)",
+      "department": "MTD",
+      "aspect": "Product Specification",
+      "year": 1986,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 8437 (Part 2):1993",
+      "is_base": "IS 8437",
+      "title": "Guide on effects of current passing through human body: Part 2 Special aspects",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 1993,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13736 (Part 2/Sec 1):2020",
+      "is_base": "IS 13736",
+      "title": "Classification of Environmental Conditions Part 2 Environmental Conditions Appearing in Nature Section 1 Temperature and humidity ( First Revision )",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 10322 (Part 1):2026",
+      "is_base": "IS 10322",
+      "title": "Luminaires Part 1 General Requirements and Tests (second revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14930 (Part 1):2001",
+      "is_base": "IS 14930",
+      "title": "Conduit systems or electrical installations: Part 1 general requirements",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2001,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14700 (Part 1/Sec 1):2026",
+      "is_base": "IS 14700",
+      "title": "Electromagnetic Compatibility EMC Part 1: General Section 1: Application and Interpretation of Fundamental Definitions and Terms First Revision",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14772:2020",
+      "is_base": "IS 14772",
+      "title": "Boxes and Enclosures for Electrical Accessories for Household and Similar Fixed Electrical Installations \u2014 General Requirements ( First Revision )",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14297:2024",
+      "is_base": "IS 14297",
+      "title": "Corrosion of Metals and Alloys \u00e2\u20ac\u201d Corrosivity of Atmospheres \u00e2\u20ac\u201d Determination of Corrosion Rate of Standard Specimens for the Evaluation of Corrosivity (First Revision)",
+      "department": "MTD",
+      "aspect": "Methods of tests",
+      "year": 2024,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 8623 (Part 3):1993",
+      "is_base": "IS 8623",
+      "title": "Specification for low - Voltage switchgear and controlgear assemblies: Part 3 particular requirements for equipment where unskilled persons have access for their use",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1993,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12360:2026",
+      "is_base": "IS 12360",
+      "title": "VOLTAGE BANDS FOR ELECTRICAL INSTALLATIONS INCLUDING PREFERRED VOLTAGE AND FREQUENCY",
+      "department": "ETD",
+      "aspect": "Terminology",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12640 (Part 1):2024",
+      "is_base": "IS 12640",
+      "title": "Residual current operated circuitBreakers without integral overcurrent protection for household and similar uses Rccbs: Part 1 general rules (Third Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15382 (Part 1):2022",
+      "is_base": "IS 15382",
+      "title": "Insulation Coordination for Equipment Within Low-Voltage Systems Part 1 Principles Requirements and Tests",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2022,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12032 (Part 12):1994",
+      "is_base": "IS 12032",
+      "title": "Graphical symbols for diagrams in the field of electrotechnology: Part 12 binary logic elements",
+      "department": "LITD",
+      "aspect": "Others",
+      "year": 1994,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14927 (Part 2/Sec 1):2023",
+      "is_base": "IS 14927",
+      "title": "Cable trunking systems and cable ducting Systems for electrical installations Part 2-1: particular requirements cable trunking systems and cable Ducting systems intended for mounting on walls and ceilings first revision",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2023,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12063:1987",
+      "is_base": "IS 12063",
+      "title": "Classification of Degrees of Protection Provided by Enclosures of Electrical Equipment",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1987,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2824:2007",
+      "is_base": "IS 2824",
+      "title": "Method for the determination of the proof and the comparative tracking indices of solid insulating materials (Second Revision)",
+      "department": "ETD",
+      "aspect": "Others",
+      "year": 2007,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 3323:1980",
+      "is_base": "IS 3323",
+      "title": "Specification for bi-pin landholders for tubular fluorescent lamps (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1980,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 694:2010",
+      "is_base": "IS 694",
+      "title": "Polyvinyl chloride insulated unsheathed and sheathed cables/cords with rigid and flexible conductor for rated voltages up to and including 1 100 V (Fourth Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2010,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1271:2012",
+      "is_base": "IS 1271",
+      "title": "Electrical insulation - Thermal evaluation and designation (Second Revision)",
+      "department": "ETD",
+      "aspect": "Others",
+      "year": 2012,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1401:2008",
+      "is_base": "IS 1401",
+      "title": "Protection of persons and equipment by enclosures - Probes for verification (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2008,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1416:1972",
+      "is_base": "IS 1416",
+      "title": "Specification for safety transformers (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1972,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12948:1990",
+      "is_base": "IS 12948",
+      "title": "Tungsten halogen lamps (Non - Vehicle) - Specification",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1990,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9968 (Part 1):2025",
+      "is_base": "IS 9968",
+      "title": "Elastomer Insulated Cables - Specification Part 1 for Working Voltages up to and including 1100 volts (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2025,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1258:2024",
+      "is_base": "IS 1258",
+      "title": "Bayonet lampholders (Fifth Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 10276 (Part 1):2024",
+      "is_base": "IS 10276",
+      "title": "Edison Screw Lampholders (first revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2215:2006",
+      "is_base": "IS 2215",
+      "title": "Starters for fluorescent lamps (Third Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2006,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 7809 (Part 3/Sec 1):1986",
+      "is_base": "IS 7809",
+      "title": "Specification for pressure sensitive adhesive insulating tapes for electrical purposes: Part 3 requirements or individual materials: Sec 1 plasticized polyvinylchloride tapes with non - Thermosetting adhesive (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1986,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 11000 (Part 2/Sec 1):2018",
+      "is_base": "IS 11000",
+      "title": "Fire hazard testing: Part 2 test methods: Sec 1 glow - Wire apparatus and common test procedure (Second Revision)",
+      "department": "LITD",
+      "aspect": "Methods of tests",
+      "year": 2018,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15118:2014",
+      "is_base": "IS 15118",
+      "title": "Hydrometry - Water level measuring devices (First Revision)",
+      "department": "WRD",
+      "aspect": "Code of Practice",
+      "year": 2014,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9974 (Part 1):1981",
+      "is_base": "IS 9974",
+      "title": "Specification for high pressure sodium vapour lamps: Part 1 general requirements and tests",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1981,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 11654 (Part 1):2024",
+      "is_base": "IS 11654",
+      "title": "Flexible Insulating Sleeving Part 1 Definitions and General Requirements (First Revision)",
+      "department": "ETD",
+      "aspect": "Terminology",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9000 (Part 4):2020",
+      "is_base": "IS 9000",
+      "title": "Environmental Testing Part 4 Tests - Test Cab: Damp Heat, Steady State ( Second Revision )",
+      "department": "LITD",
+      "aspect": "Methods of tests",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1293:2019",
+      "is_base": "IS 1293",
+      "title": "Plugs and Socket-Outlets for Household and Similar Purposes of Rated Voltage up to and Including 250 V and Rated Current up to and Including 16 A - Specification ( Fourth Revision )",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2019,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 3010 (Part 1):1965",
+      "is_base": "IS 3010",
+      "title": "Specification for appliance - connectors and appliance - Inlets (Non - Reversible Three - Pin Type): Part 1 appliance - Connectors",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1965,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 6616:1982",
+      "is_base": "IS 6616",
+      "title": "Ballasts for high pressure mercury vapour lamps",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1982,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15687 (Part 1):2006",
+      "is_base": "IS 15687",
+      "title": "Single - Capped fluorescent lamps: Part 1 safety requirements",
+      "department": "ETD",
+      "aspect": "Safety Standard",
+      "year": 2006,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 5921 (Part 1):1993",
+      "is_base": "IS 5921",
+      "title": "Metal-clad base materials for printed circuits for use in electronic and telecommunication equipment: Part 1 General requirements and test",
+      "department": "LITD",
+      "aspect": "Product Specification",
+      "year": 1993,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     }
+    ],
+    "edges": [
+     {
+      "source": "IS 14231 (Part 1):2026",
+      "target": "IS 616:2017",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2 Access",
+      "evidence_snippet": "ible to the general public without first removing a protective cover by the use of a tool. The standard test finger is defined in IS 616: 1986. 5 WEATHER PROTECTION All equipment and cables exposed to weather, especially corrosive atmosphere, adverse tem- perature or ot",
+      "hop": 1
+     },
+     {
+      "source": "IS 14231 (Part 1):2026",
+      "target": "IS 2309:1989",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.1.1 Building Equipped with a Lightning Protec",
+      "evidence_snippet": "tem 11.1.1 Building Equipped with a Lightning Protec- tion System (LPS) If the building is equipped with an LPS con- forming to IS 2309 : 1989, the antenna mast, being a metal installation, shall be connected to the building's LPS, via the shortest possible path and using",
+      "hop": 1
+     },
+     {
+      "source": "IS 14231 (Part 1):2026",
+      "target": "IS 732:2019",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.1 General Requirements",
+      "evidence_snippet": "AND EARTHING 6.1 General Requirements The cabled distribution system shall be designed and constructed with the requirements of IS 732 : 1989 so that no hazardous voltages can be present on the outer conductors of any cable or accessible metalwork of any equip- ment, inc",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 732:2019",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "leakages. The rules given in the Code should be read in conjunction with corresponding regulations given in the wiring code (see IS 732). (iii) IS 3043 : 2018 Protection against shock, both in normal service (direct contact) and in case of fault (indirect contac",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 13252 (Part 22):2019",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 43.1.1 This clause covers the special requirements for",
+      "evidence_snippet": "l power installation of buildings, where the data processing equipment has earth leakage current exceeding the limit specified in IS 13252 for equipment connected via a plug and socket. These requirements are intended to ensure the safety of personal in the presence",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 9409:2023",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 3.3 Class I Equipment \u2014 Equipment in which",
+      "evidence_snippet": ". NOTE \u2014 For information on classification of equipment with regard to means provided for protection against electric shock (see IS 9409). 3.4 Dead \u2014 The term used to describe a device or circuit to indicate that a voltage is not applied. 3.5 Double Insulation \u2014 I",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 13234 (Part 2):2017",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 2.1 The standards listed below contain provisions",
+      "evidence_snippet": "rents in three- phase a.c. systems: Calculation of currents Factors for the calculation of short-circuit currents according to IS 13234 (Part 0) Data of electrical equipment for short-circuit current calculations Current during two separate simultaneous line-to-earth short",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 1885 (Part 90):2025",
+      "edge_type": "terminology",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 3.34 Switchgear \u2014 An assembly of main and auxiliary",
+      "evidence_snippet": "on or other control of electrical installations. NOTE \u2014 A more comprehensive definition of the term *Switchgear' can be had from IS 1885 (Part 17). 3.35 Voltage, Nominal \u2014 Voltage by which an installation (or part of an installation) is designated. 3.36 Touch Voltage \u2014 Volt",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 11353:2023",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.2.1 The earthing and protective conductor shall be",
+      "evidence_snippet": "king of Earthing/Protective Conductor 11.2.1 The earthing and protective conductor shall be marked as given in Table 1 (see also IS 11353). IS 3043 : 2018 Table 1 Marking of Conductors (Clause 11.2.1) Designation Identification by Colour of Alphanumeric | Graphica",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 4736:1986",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.6.1 Corrosion Allowance",
+      "evidence_snippet": "ting, corrosion resistant coating on steel (for example, zinc coating). The zinc coating on the tubes shall be in accordance with IS 4736 with coating thickness 150 microns, Min; and Table 4 Soil Resistivity and Corrosion (Clause 13.6.1) SI Range of Soil Class of S",
+      "hop": 1
+     },
+     {
+      "source": "IS 3043:2018",
+      "target": "IS 8437 (Part 2):1993",
+      "edge_type": "safety",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 23.0.6 It is necessary, therefore, to apply these results",
+      "evidence_snippet": "given touch voltages for two most common conditions. 23.0.6 It is necessary, therefore, to apply these results emanating out of IS 8437 to the various earthing systems. The disconnecting times specified for different Table 13 Disconnecting Times for Different Touc",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 13736 (Part 2/Sec 1):2020",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.1.3.5 Environmental conditions",
+      "evidence_snippet": "ations subject to severe conditions Specially designed equipment or special arrangements Presence of flora and/or moulds growth IS 13736 (\u0410\u041f Parts) IS 13736 (\u0410\u041f Parts) No hazard Hazard No harmful hazard from flora and/or mould growth. Normal Harmful hazard from",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 10322 (Part 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.3.2.3 Locations with risks of fire due to the nature of",
+      "evidence_snippet": "inherently or non-inherently) safety isolating transformer (IS/IEC 61558-2-6 : 2009) Luminaire with limited surface temperature (IS 10322 series) Luminaire not suitable for covering with thermally insulating material (IS 10322 series) Recessed luminaire not suitabl",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14930 (Part 1):2001",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2.12.2 Requirements for basic protection and fault",
+      "evidence_snippet": "itions specified in the IEC 60332 series; Conduit systems shall satisfy the test for resistance to flame propagation specified in IS 14930 (Parts 1 and 2); Cable trunking systems and cable ducting systems shall satisfy the test for resistance to flame propagation spe",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14700 (Part 1/Sec 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "ctromagnetic environment has levels of disturbance less than the test levels for conducted and radiated disturbances contained in IS 14700(Part 4/Sec 1), IEC 61000-6-2, IS 14700 (Part 4/Sec 3) and IS 14700 (Part 4/Sec 4). For parallel power and information technology cabling, the",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 3043:2018",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.2 Initial Verification \u0430",
+      "evidence_snippet": "e 2011, for 415 V systems, double earthing is mandatory. Also a section on earthing will follow in the National Electric Code and IS 3043. d) IEC 60364 -5- 52 wiring Installation: Minimum nominal cross-sectional area of Conductors has been changed as per National El",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14772:2020",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 1.2.1 This standard applies to items of electrical",
+      "evidence_snippet": "of fire, for example, the closing of fire-proof shutters in ducts, building voids and the like. Boxes and enclosures according to IS 14772 for hollow walls and cables in accordance with the IEC 60332-3 series can be used. IS 14772 includes marking with the symbol H fo",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14297:2024",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2.12.2 Requirements for basic protection and fault",
+      "evidence_snippet": "and 2); Cable trunking systems and cable ducting systems shall satisfy the test for resistance to flame propagation specified in IS 14297 (Part 1) and IS 14297 (Part 2/Section 1); Cable tray systems and cable ladder systems shall satisfy the test for resistance to flame propa",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 8623 (Part 3):1993",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.6.3 The appropriate values of current-carrying",
+      "evidence_snippet": "ot pass from one fire-segregated compartment to another. 5.2.10.1.5 Products classified as non-flame propagating as specified in IS 8623 (Part 2), IEC 61537 and in the following series: IS 14297 (Part 1) and (Part 2/ Section 1), IS 14930 (Parts 1 & 2) and IEC 61534, may be i",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 12360:2026",
+      "edge_type": "terminology",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.1.3.2 Characteristics of available supply or supplies",
+      "evidence_snippet": "stream of the origin of the installation; and f) prospective short-circuit currents. For standard voltages and frequencies, see IS 12360. 4.1.3.2.4 Protective provisions inherent in the supply, for example, system earthing or mid-point earthing. 4.1.3.2.5 Particul",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 12640 (Part 1):2024",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.4.3.4 Characteristics of protective devices",
+      "evidence_snippet": "ercurrent protective devices shall comply with those specified in, for example, IS/IEC 60898, IS/IEC 60947-2, IS/IEC 60947-6-2, IS 12640 (Part 2), IS 13703 (Part 2), IEC 60269-3, IS 13730 (Part 4) or 15\u041b\u0415\u0421 60947-3. NOTE \u2014 The use of other devices is not excluded provided th",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 15382 (Part 1):2022",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.5.2.2 Overvoltages in LV-systems during a high",
+      "evidence_snippet": "gether are relevant design criteria for insulation of low-voltage equipment with regard to temporary power frequency overvoltage, IS 15382 (Part 1). 2 In a system whose neutral is connected to the earthing arrangement of the transformer substation, such temporary power-freque",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 12032 (Part 12):1994",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.1.5.8 Conductor arrangement and system earthing",
+      "evidence_snippet": "m are considered Explanation of symbols for Fig. 9 to Fig. 26 according to the arrangement of neutral and protective according to IS 12032 (all parts) conductors, as follows: \u00bb Neutral conductor (N); 1) TN-S system in which, throughout the system, a f f separate prote",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14927 (Part 2/Sec 1):2023",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2.12.2 Requirements for basic protection and fault",
+      "evidence_snippet": "f the following: the non-metallic sheath of the cable, or non-metallic trunking or ducting complying with IS 14297 (Part 1) and IS 14927 (Part 2/Section 1), or non- metallic conduit complying with either is IS 9537 or \u0428\u0435 IS 14930 (Parts 1 and 2). NOTES 1 Cable product standards do n",
+      "hop": 1
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 13252 (Part 22):2019",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "be designed to withstand such a voltage between line conductor and exposed-conductive-parts; see corresponding requirement from IS 13252 (Part 1) for information technology equipment. 4.5.4.4.6 Multiple-source supply For multiple-source power supplies, the provisions given",
+      "hop": 1
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 12063:1987",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 2.3 Classification According to Degree of Protection",
+      "evidence_snippet": "lid Objects and Moisture Luminaires shall be classified in accordance with the \u2018IP number\u2019 system of classification described in IS 12063. Symbols for the degrees of protection are given in Section 3. Tests for the degrees of protection are given in Section 9. NOT",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 2824:2007",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.1 Minimum Distances for ac (50 Hz) Sinusoidal Voltag",
+      "evidence_snippet": "places on the test sample. For materials other than ceramic, compliance is checked by the proof tracking test in accordance with IS 2824 subject to the following details: a) Ifthe specimen has no flat surface of at least 15 mm x 15 mm, the test may be carried out o",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 3323:1980",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.4.4 Lampholders which are put into position by the",
+      "evidence_snippet": "t lamps (G23, G10q, GR8, etc). After the test, the distance between the holders shall comply with the relevant Standard Sheet of IS 3323 and the lampholder shall show no damage. The test- cap for his test shall comply with the IS 3323 for G 5 and G 13 lampholders.",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 694:2010",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.2 Flexible cables or cord used as a means of",
+      "evidence_snippet": "example, draught- proof enclosure and test supply voltage above the rated value for the luminaire. It is important to note that, IS 694 on PVC insulated cables specify a temperature of 70\u00b0C to be the maximum that PVC fixed wiring can sustain in normal continuous op",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1271:2012",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "of doubt, the average of the contact temperature measurements should be used. The material classification is in accordance with IS 1271 and IS 7809 series. IS 10322 (Part 1) : 2014 Table 12.2 Maximum Temperature Under the Test Conditions of 12.4.2, for Common Mat",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1401:2008",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.10.2 Any assembly gap with a width greater than",
+      "evidence_snippet": "hall not give straight access to live parts, so that the live parts can be touched with the conical pin of test probe as given in IS 1401. In addition, compliance shall be ensured with the required degree of protection against electric shock in accordance with the I",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1416:1972",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.15 Flammable Materials",
+      "evidence_snippet": "nts, of this clause do not apply to a transformer supplied within an enclosure of its own, that is IP20 or higher, complying with IS 1416. Compliance is checked by inspection, by measurement and by operating the luminaires in the abnormal condition with a slowly and",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 12948:1990",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.21.1 Luminaires incorporating tungsten halogen",
+      "evidence_snippet": "lamp is, a mains voltage (general lighting source) replacement lamp, or b) a low pressure tungsten halogen lamp as specified in IS 12948. 4.21.2 Parts of the lamp compartment shall so be designed that particles from a shattering lamp cannot impair safety. 4.21.3 A",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9968 (Part 1):2025",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.2 Flexible cables or cord used as a means of",
+      "evidence_snippet": "e luminaires manufacturer, shall be at least equal in their mechanical and electrical properties to those specified in IS 694 and IS 9968 (Part 1), as indicated in Table 5.1, and shall be capable of withstanding, without deterioration, the highest temperature to which they ma",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1258:2024",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "ntacts of ceramic lampholders and insulating material of lampholders and starterholders: vii) T, or T, marked (B15 and B22)\u201d (See IS 1258) 165 for T, and 210 for T, viii) Other types without T marking: ix) (See IS 10276 (Part 2), IS 3323: IS...for miscellaneous lamp",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 10276 (Part 1):2024",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "6 (Part 2), IS 3323: IS...for miscellaneous lampholders\u201d and IS T marking 1258) x) Other types without T marking:(E14, B15) (See IS 10276 and IS 1258) 135 xi) (E27, B22) (See IS 10276 and IS 1258) 165 xii) (E40) (See IS 10276) 225 xiii) Fluorescent lamp holder/start",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 2215:2006",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.5 Starter Holders",
+      "evidence_snippet": "4.4.1. to 4.4.7. 4.5 Starter Holders Starter holders the luminaires other than Class II shall accept starters which comply with IS 2215. Class II luminaires may require starters of Class II construction. For Class II luminaires where the starter can be touched wi",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 7809 (Part 3/Sec 1):1986",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "he average of the contact temperature measurements should be used. The material classification is in accordance with IS 1271 and IS 7809 series. IS 10322 (Part 1) : 2014 Table 12.2 Maximum Temperature Under the Test Conditions of 12.4.2, for Common Materials Used",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 11000 (Part 2/Sec 1):2018",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.3.1 Parts of insulating material retaining current",
+      "evidence_snippet": "carrying parts in position shall withstand the following tests: The parts to be tested are subjected to the needle-flame test of IS 11000 (Part 2/Sec 2), the test flame being applied to the sample for 10 s at the point where the highest temperatures are likely to occur, measured if",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15118:2014",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Annex B",
+      "evidence_snippet": "which have: a) a white coated or dark coloured bulb; b) asmaller bulb; and Small differences from the specified At, Table 3 of IS 15118 (Part 1) are corrected for the adjustment of the HTS lamp by the test voltage, but such adjustment shall not cause the wattage to exceed 1",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9974 (Part 1):1981",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 3.2.10 Information Concerning Special Lamps, if",
+      "evidence_snippet": "ternal starting device or requiring an external ignitor where the lamp is required to be marked with the same symbol according to IS 9974 (Part 1). 3.2.11 Symbol (see Fig. 1), if applicable, for luminaires for lamps of similar shape to \u2018cool beam\u2019 lamps but where the use of",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 11654 (Part 1):2024",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.9.2 Insulated linings, sleeves and similar parts shall",
+      "evidence_snippet": "ng for wires attaining a temperature exceeding the values given in Table 12.2 of Section 12 shall comply with the requirements of IS 11654, taking into account the temperature measured on the wire in question. The sleeve shall be resistant to a temperature exceeding t",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 616:2017",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.10.1 For metal encased Class II luminaires, contact",
+      "evidence_snippet": "acitors shall comply with the requirements of ISQC 302400 and the method of their connection shall be in accordance with 9.3.4 of IS 616. NOTE \u2014 Contact between accessible metal parts and the basic insulation of internal wiring may be prevented by sleeves or simila",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9000 (Part 4):2020",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.13.1 Luminaires shall have adequate mechanical",
+      "evidence_snippet": "al use. Compliance is checked by applying blows to the sample by means of the spring-operated impact test apparatus specified in IS 9000 (Part 7/Sec 1 to 5) or by other suitable means giving equivalent results. NOTE \u2014 Equivalent impact energies obtained by differen",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1293:2019",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.14 If a plug is supplied with the luminaire by the",
+      "evidence_snippet": "he luminaire. A Class III luminaire shall not be provided with a plug which permits connection with a socket-outlet according to IS 1293. 5.2.15 Non-detachable flexible cables and cords and connecting leads (tails) of extra-low voltage d.c. supplied fluorescent lum",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 3010 (Part 1):1965",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.16 Appliance inlets incorporated into luminaires",
+      "evidence_snippet": "2.16 Appliance inlets incorporated into luminaires as the means of connection to the supply shall comply with the requirements of IS 3010 (Part 2). Looping-in of luminaires shall be achieved by appliance couplers, which, if of the Class II type, shall not accept Class I type",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 6616:1982",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 10.2 Insulation Resistance and Electric Strength",
+      "evidence_snippet": "shall be pressed together with a force of 2 + 0.5 N. The conditions of test for transistorized ballasts shall be as specified in IS 6616. NOTE \u2014 The insulation between live parts and the body, as well as between accessible metal parts and metal foil on the inside o",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15382 (Part 1):2022",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.2 Creepage Distances and Clearances",
+      "evidence_snippet": "ity shall comply with the requirements for basic insulation. NOTE \u2014 For details of pollution degrees or over voltage categories, IS 15382 (Part 1) should be consulted. For ordinary luminaires, the minimum distances specified in Tables 11.1 and 11.3 are based on the following",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15687 (Part 1):2006",
+      "edge_type": "safety",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.3 Maximum Temperatures Under the Test Conditions of",
+      "evidence_snippet": "dance with IS 1271 and IS 7809 (all parts). \u00bb) Information regarding point(s) of measurement and temperature limits are given in IS 15687 (Part 1) (Single capped lamps, Safety requirements. Table 12.4 Maximum Temperature of Windings Under Abnormal Operating Conditions and at",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 5921 (Part 1):1993",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.1 General",
+      "evidence_snippet": "f certain parts of insulating material of luminaries. For printed wiring boards, reference should be made to the requirements of IS 5921 (Part 1). 13.2 Resistance to Heat External parts of insulating material providing protection against electric shock, and parts of insula",
+      "hop": 2
+     }
+    ]
+   },
+   "verification": {
+    "hard_failures": [],
+    "claim_checks": [
+     {
+      "claim": "IS 3043:2018 covers Code of practice for earthing (Second Revision).",
+      "citations": [
+       "IS 3043:2018#c138",
+       "IS 3043:2018#c045"
+      ],
+      "lexical_support": 0.375,
+      "llm_verdict": null,
+      "llm_reason": null,
+      "support_score": 0.75,
+      "uncited": false
+     }
+    ],
+    "fabricated_standards": [],
+    "invalid_citations": [],
+    "signals": {
+     "grounding_rate": 0.75,
+     "primary_withdrawn": false,
+     "query_relevance": 0.5,
+     "retrieval_strength": 1.0,
+     "top_similarity": 0.826,
+     "candidate_margin": 0.0,
+     "discrimination": 0.553,
+     "verification_depth": 1.0,
+     "claims_checked": 1
+    },
+    "withdrawn_standards": [],
+    "reasons": [],
+    "confidence": 0.726,
+    "threshold": 0.55,
+    "abstain": false
+   },
+   "elapsed_sec": 0.56
+  }
+ },
+ {
+  "slug": "conduit",
+  "query": "Rigid non-metallic conduit for electrical wiring installations",
+  "events": [
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "running",
+    "elapsed": 0.0
+   },
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "done",
+    "detail": "6 candidate standards",
+    "elapsed": 0.19
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "running",
+    "elapsed": 0.19
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "done",
+    "detail": "37 standards, 36 links",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "running",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "done",
+    "detail": "LLM unavailable \u2014 fell back to rule-based",
+    "elapsed": 0.5
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "running",
+    "elapsed": 0.5
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "done",
+    "detail": "confidence 1.0",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "running",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "done",
+    "detail": "IS 9537 (Part 8):2003 current",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "running",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "done",
+    "detail": "1 scheme flag(s)",
+    "elapsed": 0.52
+   }
+  ],
+  "result": {
+   "status": "recommended",
+   "synthesis_method": "rule_based",
+   "llm_error": "PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}",
+   "query": "Rigid non-metallic conduit for electrical wiring installations",
+   "confidence": 1.0,
+   "threshold": 0.55,
+   "primary_standards": [
+    {
+     "is_number": "IS 9537 (Part 8):2003",
+     "role": "Closest semantic match to the requirement (similarity 0.807).",
+     "title": "Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy",
+     "metadata_only": false,
+     "currency": {
+      "is_number": "IS 9537 (Part 8):2003",
+      "is_base": "IS 9537",
+      "year": 2003,
+      "amendment_count": 0,
+      "withdrawn": false,
+      "catalogue_note": "(Active)",
+      "editions_known": [
+       {
+        "is_number": "IS 9537 (Part 8):2003",
+        "year": 2003
+       }
+      ],
+      "latest_known_edition": "IS 9537 (Part 8):2003",
+      "flags": [],
+      "status": "current",
+      "full_text_year": 2003,
+      "archive_identifier": "gov.in.is.9537.8.2003",
+      "text_edition_mismatch": false
+     },
+     "certification": {
+      "schemes": [
+       {
+        "scheme": "BIS_PRODUCT_CERT",
+        "mandatory": true,
+        "match": "exact standard match on IS 9537",
+        "authority": "Electrical Accessories QCO",
+        "notes": "Conduits for electrical installations.",
+        "confidence": "high",
+        "source_url": "https://www.bis.gov.in/product-certification/products-under-compulsory-certification/"
+       }
+      ],
+      "note": "Certification flags come from a curated seed table and may be out of date; verify against the current BIS/MeitY notifications before relying on them."
+     }
+    }
+   ],
+   "supporting_standards": [
+    {
+     "is_number": "IS 3480:2024",
+     "role": "Also matched this requirement (Product Specification)."
+    },
+    {
+     "is_number": "IS 3419:1988",
+     "role": "Also matched this requirement (Product Specification)."
+    },
+    {
+     "is_number": "IS 9537 (Part 3):1983",
+     "role": "Also matched this requirement (Product Specification)."
+    }
+   ],
+   "summary": "IS 9537 (Part 8):2003 \u2014 Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy \u2014 is the closest match in the ingested corpus for this requirement.",
+   "claims": [
+    {
+     "claim": "IS 9537 (Part 8):2003 covers Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy.",
+     "citations": [
+      "IS 9537 (Part 8):2003#meta"
+     ],
+     "lexical_support": 0.917,
+     "llm_verdict": null,
+     "llm_reason": null,
+     "support_score": 1.0,
+     "uncited": false
+    }
+   ],
+   "caveats": [
+    "Generated without an LLM: this is rule-based synthesis from catalogue titles plus semantic retrieval, not a reasoned reading of the standard."
+   ],
+   "citations": {
+    "IS 9537 (Part 8):2003#meta": {
+     "chunk_id": "IS 9537 (Part 8):2003#meta",
+     "is_number": "IS 9537 (Part 8):2003",
+     "section": "catalogue metadata",
+     "excerpt": "IS 9537 (Part 8):2003 \u2014 Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy Aspect: Product Specification. Technical committee: ETD 14.",
+     "similarity": 0.807
+    }
+   },
+   "allied_standards": [
+    {
+     "is_number": "IS 2500 (Part 5):2021",
+     "title": "Sampling procedures for inspection by attributes -- Part 4: Procedures for assessment of declared quality levels ( First Revision)",
+     "edge_type": "test_method",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Annex B"
+    },
+    {
+     "is_number": "IS 9000 (Part 4):2020",
+     "title": "Environmental Testing Part 4 Tests - Test Cab: Damp Heat, Steady State ( Second Revision )",
+     "edge_type": "test_method",
+     "in_corpus": true,
+     "withdrawn": false,
+     "cited_at": "Clause 13.4 Replacement"
+    }
+   ],
+   "tender_clause": "The product shall conform to IS 9537 (Part 8):2003 \u2014 Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy. The following referenced standards shall be read with it: IS 2500 (Part 5):2021 (Sampling procedures for inspection by attributes -- Part 4: ); IS 9000 (Part 4):2020 (Environmental Testing Part 4 Tests - Test Cab: Damp Heat, St). The product shall carry valid BIS PRODUCT CERT certification from the Bureau of Indian Standards, and the bidder shall submit a copy of the certificate.",
+   "dependency_graph": {
+    "nodes": [
+     {
+      "is_number": "IS 3419:1988",
+      "is_base": "IS 3419",
+      "title": "Specification for Fittings for Rigid Non - Metallic Conduits (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1988,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 3480:2024",
+      "is_base": "IS 3480",
+      "title": "FLEXIBLE STEEL CONDUITS FOR ELECTRICAL WIRING-SPECIFICATION (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 9537 (Part 8):2003",
+      "is_base": "IS 9537",
+      "title": "Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2003,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 3413:2025",
+      "is_base": "IS 3413",
+      "title": "Base Paper for Carbon Paper Specification",
+      "department": "CHD",
+      "aspect": "Product Specification",
+      "year": 2025,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 732:2019",
+      "is_base": "IS 732",
+      "title": "Code of practice for electrical wiring installations (Fourth Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2019,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 4218 (Part 1):2025",
+      "is_base": "IS 4218",
+      "title": "ISO general purpose metric screw threads : Part 1 Basic and design profile (third revision)",
+      "department": "PGD",
+      "aspect": "Others",
+      "year": 2025,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 335:2018",
+      "is_base": "IS 335",
+      "title": "New insulating oils - Specification (Fifth Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2018,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1653:1972",
+      "is_base": "IS 1653",
+      "title": "Rigid steel conduits for electrical wiring",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1972,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2509:1973",
+      "is_base": "IS 2509",
+      "title": "Rigid non-metallic conduits for electrical installations",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1973,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2667:1988",
+      "is_base": "IS 2667",
+      "title": "Fittings for rigid steel conduits for electrical wiring",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1988,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9000 (Part 4):2020",
+      "is_base": "IS 9000",
+      "title": "Environmental Testing Part 4 Tests - Test Cab: Damp Heat, Steady State ( Second Revision )",
+      "department": "LITD",
+      "aspect": "Methods of tests",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2500 (Part 5):2021",
+      "is_base": "IS 2500",
+      "title": "Sampling procedures for inspection by attributes -- Part 4: Procedures for assessment of declared quality levels ( First Revision)",
+      "department": "MSD",
+      "aspect": "Methods of tests",
+      "year": 2021,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13631:2017",
+      "is_base": "IS 13631",
+      "title": "Detection and determination of specified additives in mineral insulating oils (First Revision)",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2017,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16310:2017",
+      "is_base": "IS 16310",
+      "title": "Insulating liquids - Test method for detection of potentially corrosive sulphur in used and unused insulating oil",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2017,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12422:2023",
+      "is_base": "IS 12422",
+      "title": "Unused Hydrocarbon Based Insulating Liquids \u00ef\u00bf\u00bd Test Methods for \u00ef\u00bf\u00bd Evaluating the Oxidation Stability ( Second Revision )",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2023,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1448 (Part 1/Sec 2):2026",
+      "is_base": "IS 1448",
+      "title": "PETROLEUM AND ITS PRODUCTS TEST METHODS PART 1 DETERMINATION OF BASE NUMBER OF PETROLEUM PRODUCTS SECTION 2 POTENTIOMETRIC TITRATION",
+      "department": "PCD",
+      "aspect": "Methods of tests",
+      "year": 2026,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1866:2017",
+      "is_base": "IS 1866",
+      "title": "Mineral insulating oils in electrical equipment supervision and maintenance guidance (Fourth Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2017,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16084:2013",
+      "is_base": "IS 16084",
+      "title": "Mineral insulating oils - Determination of kinematic viscosity at very low temperatures",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2013,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 6792:2023",
+      "is_base": "IS 6792",
+      "title": "Insulating liquids - Determination of the breakdown voltage at power frequency - Test method",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2023,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16086:2013",
+      "is_base": "IS 16086",
+      "title": "Insulating liquids - Determination of the dielectric dissipation factor by measurement of the conductance and capacitance - Test method",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2013,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13236:2013",
+      "is_base": "IS 13236",
+      "title": "Insulating liquids - Methods for counting and sizing particles (First Revision)",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2013,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16497 (Part 1):2017",
+      "is_base": "IS 16497",
+      "title": "Test methods for quantitative determination of corrosive sulphur compounds in unused and used insulating liquids: Part 1 test method for quantitative determination of dibenzyldisulfide (Dbds)",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2017,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15668:2006",
+      "is_base": "IS 15668",
+      "title": "Mineral insulating oils - Methods for the determination of 2 - Furural and related compounds",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2006,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16082:2013",
+      "is_base": "IS 16082",
+      "title": "Insulating liquids - Contamination by polychlorinated biphenyls (PCBS) - Method of determination by capillary column gas chromatography",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2013,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12463:1988",
+      "is_base": "IS 12463",
+      "title": "Inhibited Mineral Insulating Oils",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1988,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 6855:2023",
+      "is_base": "IS 6855",
+      "title": "Method of sampling insulating liquids",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2023,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1363 (Part 1):2023",
+      "is_base": "IS 1363",
+      "title": "Hexagon head bolts, screws and nuts of product grade C Part 1 Hexagon head bolts (Size range M5 to M64) (sixth revision)",
+      "department": "PGD",
+      "aspect": "Product Specification",
+      "year": 2023,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2026 (Part 10):2025",
+      "is_base": "IS 2026",
+      "title": "Power transformers: Part 10 determination of sound levels ( First Revision )",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2025,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13736 (Part 2/Sec 1):2020",
+      "is_base": "IS 13736",
+      "title": "Classification of Environmental Conditions Part 2 Environmental Conditions Appearing in Nature Section 1 Temperature and humidity ( First Revision )",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 10322 (Part 1):2026",
+      "is_base": "IS 10322",
+      "title": "Luminaires Part 1 General Requirements and Tests (second revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14930 (Part 1):2001",
+      "is_base": "IS 14930",
+      "title": "Conduit systems or electrical installations: Part 1 general requirements",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2001,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14700 (Part 1/Sec 1):2026",
+      "is_base": "IS 14700",
+      "title": "Electromagnetic Compatibility EMC Part 1: General Section 1: Application and Interpretation of Fundamental Definitions and Terms First Revision",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 3043:2018",
+      "is_base": "IS 3043",
+      "title": "Code of practice for earthing (Second Revision)",
+      "department": "ETD",
+      "aspect": "Code of Practice",
+      "year": 2018,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14772:2020",
+      "is_base": "IS 14772",
+      "title": "Boxes and Enclosures for Electrical Accessories for Household and Similar Fixed Electrical Installations \u2014 General Requirements ( First Revision )",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14297:2024",
+      "is_base": "IS 14297",
+      "title": "Corrosion of Metals and Alloys \u00e2\u20ac\u201d Corrosivity of Atmospheres \u00e2\u20ac\u201d Determination of Corrosion Rate of Standard Specimens for the Evaluation of Corrosivity (First Revision)",
+      "department": "MTD",
+      "aspect": "Methods of tests",
+      "year": 2024,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 8623 (Part 3):1993",
+      "is_base": "IS 8623",
+      "title": "Specification for low - Voltage switchgear and controlgear assemblies: Part 3 particular requirements for equipment where unskilled persons have access for their use",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1993,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12360:2026",
+      "is_base": "IS 12360",
+      "title": "VOLTAGE BANDS FOR ELECTRICAL INSTALLATIONS INCLUDING PREFERRED VOLTAGE AND FREQUENCY",
+      "department": "ETD",
+      "aspect": "Terminology",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     }
+    ],
+    "edges": [
+     {
+      "source": "IS 3419:1988",
+      "target": "IS 9537 (Part 8):2003",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.3 The non-metallic conduit fittings covered in",
+      "evidence_snippet": "etallic conduit fittings covered in this standard are intended to be suitable for use with rigid non-metallic conduits covered by IS : 9537 ( Part 3) - 1983*, using plain joints ( with or without cement ). 0.4 This standard was published in 1965 and was first revised in 1976. The pres",
+      "hop": 1
+     },
+     {
+      "source": "IS 3419:1988",
+      "target": "IS 3413:2025",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "- 1 \u00a9 Copyright 1989 BUREAU OF INDIAN STANDARDS MANAK BHAVAN, 9 BAHADUR SHAH ZAFAR MARG NEW DELHI 110002 - Gr 7 December 1989 IS : 3413 - 1988 Indian Standard SPECIFICATION FOR FITTINGS FOR RIGID NON-METALLIC CONDUITS 4 Second Revision ) 0. FOREWORD 0.1 This Indian S",
+      "hop": 1
+     },
+     {
+      "source": "IS 3419:1988",
+      "target": "IS 732:2019",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.6 Care should be exercised in the choice and",
+      "evidence_snippet": "be exercised in the choice and use of fittings for rigid non-metallic conduits with cables having aluminium conductor ( see also IS : 732-19631 ). 0,7 While preparing this revision, assistance has been derived from BS 4607 (Part I ) : 1984 \u201cRigid PVC conduits and conduit",
+      "hop": 1
+     },
+     {
+      "source": "IS 3419:1988",
+      "target": "IS 4218 (Part 1):2025",
+      "edge_type": "normative_reference",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.3.1 The cover of the circular box may be",
+      "evidence_snippet": "made of the same material boxes and shall have a minimum thickness of 1:6 mm. They shall be fixed to the box by means of M4 (see IS : 4218\u201d) fixing screws. 5.3.2 The covers shall be of the following two sizes: a) Diameter equal to the external diameter of the box, an",
+      "hop": 1
+     },
+     {
+      "source": "IS 3419:1988",
+      "target": "IS 335:2018",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 15.1 The external diameters of the sample",
+      "evidence_snippet": "ple ( external dimensiohs in case of boxes ) shall be measured. The sample shall then be immersed in insulation oil conforming to IS : 335-1983* for a period of 48 hours, the temperature of the oil being maintained at 60 + 1\u00b0C throughout this period. 15.2 At the completio",
+      "hop": 1
+     },
+     {
+      "source": "IS 3480:2024",
+      "target": "IS 1653:1972",
+      "edge_type": "normative_reference",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.5 This standard is one of a series of Indian Standar",
+      "evidence_snippet": "ries of Indian Standards relating to con- duits for electrical wiring. Other specifications published so far in the series are: \u2666IS : 1653-1964 Rigid steel conduits for electrical wiring ( revised ) \u2022IS : 2509-1963 Rigid non-metallic conduits for electrical installations I",
+      "hop": 1
+     },
+     {
+      "source": "IS 3480:2024",
+      "target": "IS 2509:1973",
+      "edge_type": "normative_reference",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.5 This standard is one of a series of Indian Standar",
+      "evidence_snippet": "Other specifications published so far in the series are: \u2666IS : 1653-1964 Rigid steel conduits for electrical wiring ( revised ) \u2022IS : 2509-1963 Rigid non-metallic conduits for electrical installations IS : 2667-1964 Fittings for rigid steel conduits for electrical wiring I",
+      "hop": 1
+     },
+     {
+      "source": "IS 3480:2024",
+      "target": "IS 2667:1988",
+      "edge_type": "normative_reference",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.5 This standard is one of a series of Indian Standar",
+      "evidence_snippet": "4 Rigid steel conduits for electrical wiring ( revised ) \u2022IS : 2509-1963 Rigid non-metallic conduits for electrical installations IS : 2667-1964 Fittings for rigid steel conduits for electrical wiring IS : 3419-1965 Fittings for rigid non-metallic conduits 0.6 Assistance h",
+      "hop": 1
+     },
+     {
+      "source": "IS 3480:2024",
+      "target": "IS 3419:1988",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 0.5 This standard is one of a series of Indian Standar",
+      "evidence_snippet": "3 Rigid non-metallic conduits for electrical installations IS : 2667-1964 Fittings for rigid steel conduits for electrical wiring IS : 3419-1965 Fittings for rigid non-metallic conduits 0.6 Assistance has been derived from the following while preparing this standard: B. S",
+      "hop": 1
+     },
+     {
+      "source": "IS 9537 (Part 8):2003",
+      "target": "IS 9000 (Part 4):2020",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.4 Replacement",
+      "evidence_snippet": "13.4 Replacement Resistance to corrosion for conduits according to this standard is checked by the relevant tests specified in IS 9000 (Part 11). 13.5 Not applicable. 101 CLASSIFICATION OF TESTS 101.1 Type Tests The following shall constitute the type tests: a) Checkin",
+      "hop": 1
+     },
+     {
+      "source": "IS 9537 (Part 8):2003",
+      "target": "IS 2500 (Part 5):2021",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Annex B",
+      "evidence_snippet": "l.2.1 These conduits shall be selected from the lot at random. In order to ensure the randomness of selection, procedure given in IS 2500 (Part 1) may be followed. B-2 NUMBER OF TESTS AND CRITERIA FOR CONFORMITY B-2.1 All the conduits selected in the first sample at random",
+      "hop": 1
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 13631:2017",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 3.5.1 Inhibitor \u2014 Antioxidant additives of the phenolic\u2014",
+      "evidence_snippet": "01%) IS 1363 1/IEC 60666 (T) Trace inhibited oil: < 0.08% (D Inhibited oils : 0.08% \u20140.40% (see 3.6 to 3.8) xix) Metal passivator IS 13631 Not detectable (< 5mg/kg), or as agreed upon with the purchaser IS 335 : 2018 Table 2 \u2014 (Concluded) SI Property Test Method Li",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 16310:2017",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "pted as it is known to be corrosive to copper and will likely result in the oil failing the potentially corrosive sulphur test of IS 16310. Test methods are in preparation only for DBDS (see 6.21) and not for other antioxidant additives of this type. c) Metal passiva",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 12422:2023",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "ated IS 15668 Not detectable ( < 0.05 mg/kg) for each individual compound compounds content C Performance Oxidation stability IS 12422 (Method C) Test duration!\u201d (U) Uninhibited oil: 164 h (T) Trace inhibited oil: 332 h (D Inhibited oil: 500 h For oils with othe",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 1448 (Part 1/Sec 2):2026",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.1 Viscosity",
+      "evidence_snippet": "ined with 40\u00b0C but other LCSET may be agreed to between the supplier and the purchaser. Viscosity shall be measured according to IS 1448 (Part 25), viscosity at very low temperatures according to IS 16084. 6.2 Pour Point Pour point of mineral insulating oil is the lowest te",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 1866:2017",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "o this standard and used in transformers, switchgear and certain other similar oil immersed equipment, reference shall be made to IS 1866 : 2000 \u2018Code of practice for maintenance and supervision of mineral insulating oil in equipment (third revision )\u2019. For the purpose of",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 16084:2013",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.1 Viscosity",
+      "evidence_snippet": "r and the purchaser. Viscosity shall be measured according to IS 1448 (Part 25), viscosity at very low temperatures according to IS 16084. 6.2 Pour Point Pour point of mineral insulating oil is the lowest temperature at which the oil will just flow. It is recommend",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 6792:2023",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.4 Breakdown Voltage",
+      "evidence_snippet": "indicates its ability to resist electrical stress in electrical equipment. Breakdown voltage shall be measured in accordance with IS 6792. The supplier shall demonstrate that after Table 1 Maximum Viscosity and Pour Point of Transformer Oil at Lowest Cold Start Ener",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 16086:2013",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.5 Dielectric Dissipation Factor (DDF)",
+      "evidence_snippet": "2 can indicate contamination of the oil by polar contaminants or poor refining quality. DDF shall be measured in accordance with IS 16086 at 90\u00b0C. In case of dispute, IEC 60247 at 90\u00b0C should be used. SI Property NOTE \u2014 By agreement between parties, DDF may be mea",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 13236:2013",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "0 kV/70 kV >, Min viii) Density at 20\u00b0C IS 1448 (Part 16) 0.895 g/ml, Max ix) DDF at 90\u00b0C IS 16086 0.005, Max x) Particle content IS 13236 No general requirement\u201d B Refining/stability xi) Appearance = Clear, free from sediment and suspended matter xii) Acidity IEC 620",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 16497 (Part 1):2017",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "produce copper sulphide. It therefore shall not be present in unused oil (see 6.10). For the test method for measuring DBDS, see IS 16497 (Part 1). 6.22 Stray Gassing of Oil Some oils can produce gases such as hydrogen, hydrocarbons and carbon oxides at low temperatures (<",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 15668:2006",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "chaser IS 335 : 2018 Table 2 \u2014 (Concluded) SI Property Test Method Limits xx) Other additives See\u201d xxi) 2-Furfural and related IS 15668 Not detectable ( < 0.05 mg/kg) for each individual compound compounds content C Performance Oxidation stability IS 12422 (Met",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 16082:2013",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "ations. 6.18 Polychlorinated Biphenyls (PCB) Unused mineral insulating oil shall be free from PCB. The reference test method is IS 16082. 6.19 2-Furfural (2-FAL) and Related Compounds Content 2-FAL and related compounds in unused mineral insulating oils can result",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 12463:1988",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "dation stability). This standard also covers the requirements of inhibited mineral insulating oils which were earlier covered in IS 12463 : 1988. With the publication of this standard IS 12463 is superseded and hence shall be withdrawn. For the maintenance and supervision",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 6855:2023",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.5 Sampling",
+      "evidence_snippet": "d from the Bureau of Indian Standards. 5.5 Sampling Sampling shall be carried out in accordance with the procedure described in IS 6855. 6 PROPERTIES, THEIR SIGNIFICANCE AND TEST METHODS 6.0 General The properties, test methods and limits shall be in accordance",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 1363 (Part 1):2023",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.7 Acidity",
+      "evidence_snippet": "16497 (Part 1) Not detectable (< 5 mg/kg) xviii) Inhibitors according toj IS 13631 (U) Uninhibited oil: not detectable (< 0.01%) IS 1363 1/IEC 60666 (T) Trace inhibited oil: < 0.08% (D Inhibited oils : 0.08% \u20140.40% (see 3.6 to 3.8) xix) Metal passivator IS 13631 Not",
+      "hop": 2
+     },
+     {
+      "source": "IS 335:2018",
+      "target": "IS 2026 (Part 10):2025",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 7.2 Electrostatic Charging Tendency (ECT)",
+      "evidence_snippet": "ic Charging Tendency (ECT) a) Total acidity For equipment with high oil circulation speed (OF -or OD-cooled power transformers [IS 2026 (Part 2)]), as for example HV/DC transformers, a limit may be agreed between purchaser and manufacturer. 7.3 Gassing Tendency For equipm",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 13736 (Part 2/Sec 1):2020",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.1.3.5 Environmental conditions",
+      "evidence_snippet": "ations subject to severe conditions Specially designed equipment or special arrangements Presence of flora and/or moulds growth IS 13736 (\u0410\u041f Parts) IS 13736 (\u0410\u041f Parts) No hazard Hazard No harmful hazard from flora and/or mould growth. Normal Harmful hazard from",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 10322 (Part 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.3.2.3 Locations with risks of fire due to the nature of",
+      "evidence_snippet": "inherently or non-inherently) safety isolating transformer (IS/IEC 61558-2-6 : 2009) Luminaire with limited surface temperature (IS 10322 series) Luminaire not suitable for covering with thermally insulating material (IS 10322 series) Recessed luminaire not suitabl",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14930 (Part 1):2001",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2.12.2 Requirements for basic protection and fault",
+      "evidence_snippet": "itions specified in the IEC 60332 series; Conduit systems shall satisfy the test for resistance to flame propagation specified in IS 14930 (Parts 1 and 2); Cable trunking systems and cable ducting systems shall satisfy the test for resistance to flame propagation spe",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14700 (Part 1/Sec 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "ctromagnetic environment has levels of disturbance less than the test levels for conducted and radiated disturbances contained in IS 14700(Part 4/Sec 1), IEC 61000-6-2, IS 14700 (Part 4/Sec 3) and IS 14700 (Part 4/Sec 4). For parallel power and information technology cabling, the",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 3043:2018",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 6.2 Initial Verification \u0430",
+      "evidence_snippet": "e 2011, for 415 V systems, double earthing is mandatory. Also a section on earthing will follow in the National Electric Code and IS 3043. d) IEC 60364 -5- 52 wiring Installation: Minimum nominal cross-sectional area of Conductors has been changed as per National El",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14772:2020",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 1.2.1 This standard applies to items of electrical",
+      "evidence_snippet": "of fire, for example, the closing of fire-proof shutters in ducts, building voids and the like. Boxes and enclosures according to IS 14772 for hollow walls and cables in accordance with the IEC 60332-3 series can be used. IS 14772 includes marking with the symbol H fo",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 14297:2024",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.2.12.2 Requirements for basic protection and fault",
+      "evidence_snippet": "and 2); Cable trunking systems and cable ducting systems shall satisfy the test for resistance to flame propagation specified in IS 14297 (Part 1) and IS 14297 (Part 2/Section 1); Cable tray systems and cable ladder systems shall satisfy the test for resistance to flame propa",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 8623 (Part 3):1993",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.6.3 The appropriate values of current-carrying",
+      "evidence_snippet": "ot pass from one fire-segregated compartment to another. 5.2.10.1.5 Products classified as non-flame propagating as specified in IS 8623 (Part 2), IEC 61537 and in the following series: IS 14297 (Part 1) and (Part 2/ Section 1), IS 14930 (Parts 1 & 2) and IEC 61534, may be i",
+      "hop": 2
+     },
+     {
+      "source": "IS 732:2019",
+      "target": "IS 12360:2026",
+      "edge_type": "terminology",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.1.3.2 Characteristics of available supply or supplies",
+      "evidence_snippet": "stream of the origin of the installation; and f) prospective short-circuit currents. For standard voltages and frequencies, see IS 12360. 4.1.3.2.4 Protective provisions inherent in the supply, for example, system earthing or mid-point earthing. 4.1.3.2.5 Particul",
+      "hop": 2
+     }
+    ]
+   },
+   "verification": {
+    "hard_failures": [],
+    "claim_checks": [
+     {
+      "claim": "IS 9537 (Part 8):2003 covers Conduits for electrical installations - Specification: Part 8 rigid non - Threadable conduits of aluminium alloy.",
+      "citations": [
+       "IS 9537 (Part 8):2003#meta"
+      ],
+      "lexical_support": 0.917,
+      "llm_verdict": null,
+      "llm_reason": null,
+      "support_score": 1.0,
+      "uncited": false
+     }
+    ],
+    "fabricated_standards": [],
+    "invalid_citations": [],
+    "signals": {
+     "grounding_rate": 1.0,
+     "primary_withdrawn": false,
+     "query_relevance": 1.0,
+     "retrieval_strength": 1.0,
+     "top_similarity": 0.818,
+     "candidate_margin": 0.012,
+     "discrimination": 1.0,
+     "verification_depth": 1.0,
+     "claims_checked": 1
+    },
+    "withdrawn_standards": [],
+    "reasons": [],
+    "confidence": 1.0,
+    "threshold": 0.55,
+    "abstain": false
+   },
+   "elapsed_sec": 0.52
+  }
+ },
+ {
+  "slug": "led",
+  "query": "LED luminaires for public street lighting, with photometric test methods",
+  "events": [
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "running",
+    "elapsed": 0.0
+   },
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "done",
+    "detail": "6 candidate standards",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "running",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "done",
+    "detail": "40 standards, 38 links",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "running",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "done",
+    "detail": "LLM unavailable \u2014 fell back to rule-based",
+    "elapsed": 0.5
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "running",
+    "elapsed": 0.5
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "done",
+    "detail": "confidence 0.984",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "running",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "done",
+    "detail": "IS 13383 (Part 2):1992 current",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "running",
+    "elapsed": 0.52
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "done",
+    "detail": "no scheme matched",
+    "elapsed": 0.52
+   }
+  ],
+  "result": {
+   "status": "recommended",
+   "synthesis_method": "rule_based",
+   "llm_error": "PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}",
+   "query": "LED luminaires for public street lighting, with photometric test methods",
+   "confidence": 0.984,
+   "threshold": 0.55,
+   "primary_standards": [
+    {
+     "is_number": "IS 13383 (Part 2):1992",
+     "role": "Closest semantic match to the requirement (similarity 0.839).",
+     "title": "Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting",
+     "metadata_only": false,
+     "currency": {
+      "is_number": "IS 13383 (Part 2):1992",
+      "is_base": "IS 13383",
+      "year": 1992,
+      "amendment_count": 1,
+      "withdrawn": false,
+      "catalogue_note": "(Active)",
+      "editions_known": [
+       {
+        "is_number": "IS 13383 (Part 2):1992",
+        "year": 1992
+       }
+      ],
+      "latest_known_edition": "IS 13383 (Part 2):1992",
+      "flags": [
+       "1 amendment(s) issued against this edition \u2014 check the amendment text, it is not part of the base document."
+      ],
+      "status": "current",
+      "full_text_year": 1992,
+      "archive_identifier": "gov.in.is.13383.2.1992",
+      "text_edition_mismatch": false
+     },
+     "certification": {
+      "schemes": [],
+      "note": "Certification flags come from a curated seed table and may be out of date; verify against the current BIS/MeitY notifications before relying on them."
+     }
+    }
+   ],
+   "supporting_standards": [
+    {
+     "is_number": "IS 16107 (Part 2/Sec 2):2017",
+     "role": "Also matched this requirement (Product Specification)."
+    },
+    {
+     "is_number": "IS 10322 (Part 5/Sec 3):2026",
+     "role": "Also matched this requirement (Product Specification)."
+    },
+    {
+     "is_number": "IS 10322 (Part 5/Sec 3):2012",
+     "role": "Also matched this requirement (Product Specification)."
+    }
+   ],
+   "summary": "IS 13383 (Part 2):1992 \u2014 Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting \u2014 is the closest match in the ingested corpus for this requirement.",
+   "claims": [
+    {
+     "claim": "IS 13383 (Part 2):1992 covers Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting.",
+     "citations": [
+      "IS 13383 (Part 2):1992#c001",
+      "IS 13383 (Part 2):1992#c000"
+     ],
+     "lexical_support": 1.0,
+     "llm_verdict": null,
+     "llm_reason": null,
+     "support_score": 1.0,
+     "uncited": false
+    }
+   ],
+   "caveats": [
+    "Generated without an LLM: this is rule-based synthesis from catalogue titles plus semantic retrieval, not a reasoned reading of the standard."
+   ],
+   "citations": {
+    "IS 13383 (Part 2):1992#c001": {
+     "chunk_id": "IS 13383 (Part 2):1992#c001",
+     "is_number": "IS 13383 (Part 2):1992",
+     "section": null,
+     "excerpt": "g; Part 2 Luminaires for road and street lighting; and Part 3 Luminaires for floodlighting. In the formulation of this standard, assistance has been derived from CIE Publication No. 27 (TC-2.4) 1973 on Photometry of luminaires for street lighting. This standard supersedes IS 7678: 1975 'Method of photometric testing of incandescent type luminaires for general lighting services* which covers the method for photometric testing of filament type general lighting luminaires. AMENDMENT NO. 1 OCTOBER 2000 IS 13383 (PART 2): 1992 PHOTOMETRY OF LUMINAIRES \u2014 METHOD OF MEASUREMENT PART 2 LUMINAIRES FOR ROAD AND STREET LIGHTING [Page 11, clause 95(a), last line] \u2014 Substitute clause reference '4.5' for\u2026",
+     "similarity": 0.839
+    },
+    "IS 13383 (Part 2):1992#c000": {
+     "chunk_id": "IS 13383 (Part 2):1992#c000",
+     "is_number": "IS 13383 (Part 2):1992",
+     "section": null,
+     "excerpt": "\u25a0K^y / 1 juaaaws^fea rs^^TTF^ 2*S< W I *>S*V2^NK^ ^frcvvv^ Satyanarayan Gangaram Pitroda Invent a New India Using Knowledge Bhartrhari \u2014 Nitisatakam \"Knowledge is such a treasure which cannot be stolen\" *rt*2V^ REAFFIR\u00abED^O\u00a9$ IS 13383 (Part 2): 1992 (Superseding 18 7878: 1875) Indian Standard PHOTOMETRY OF LUMIN AIRES\u2014 METHOD OF MEASUREMENT PART 2 LUMINAIP.ES FOR ROAD AND STREET LIGHTING UDC 628-971-6: 535-24 \u00a9 BIS 1992 BUREAU OF INDIAN STANDARDS MANAK BHAVAN, 9 BAHADUR SHAH ZAFAR MARO NEW DELHI 110002 Juty 1992 Price Group 6 Illumination Engineering and Luminaires Sectional Committee, ETD 24 FOREWORD This Indian Standard (Part 2) was adopted by the Bureau of Indian Standards after the\u2026",
+     "similarity": 0.831
+    }
+   },
+   "allied_standards": [
+    {
+     "is_number": "IS 7678:1975",
+     "title": "Method of photometric testing of incandescent type luminaires for general lighting service",
+     "edge_type": "test_method",
+     "in_corpus": true,
+     "withdrawn": true,
+     "cited_at": null
+    }
+   ],
+   "tender_clause": "The product shall conform to IS 13383 (Part 2):1992 \u2014 Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting.",
+   "dependency_graph": {
+    "nodes": [
+     {
+      "is_number": "IS 10322 (Part 5/Sec 3):2026",
+      "is_base": "IS 10322",
+      "title": "Luminaires Part 5: Particular requirements Section 3: Luminaires for road and street lighting (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 13383 (Part 2):1992",
+      "is_base": "IS 13383",
+      "title": "Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 1992,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 16107 (Part 2/Sec 2):2017",
+      "is_base": "IS 16107",
+      "title": "Luminaries Performance Part 2 Particular Requirements Section 2 LED Street Lighting Luminarie",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2017,
+      "metadata_only": 0,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 9000 (Part 4):2020",
+      "is_base": "IS 9000",
+      "title": "Environmental Testing Part 4 Tests - Test Cab: Damp Heat, Steady State ( Second Revision )",
+      "department": "LITD",
+      "aspect": "Methods of tests",
+      "year": 2020,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 13383 (Part 1):1992",
+      "is_base": "IS 13383",
+      "title": "Photometry of luminaires - Method of measurement: Part 1 luminaires for use in interior lighting",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 1992,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 7678:1975",
+      "is_base": "IS 7678",
+      "title": "Method of photometric testing of incandescent type luminaires for general lighting service",
+      "department": null,
+      "aspect": null,
+      "year": 1975,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16103 (Part 1):2025",
+      "is_base": "IS 16103",
+      "title": "LED Modules for General Lighting Part 1 Safety Specifications (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2025,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 10322 (Part 1):2026",
+      "is_base": "IS 10322",
+      "title": "Luminaires Part 1 General Requirements and Tests (second revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1885 (Part 90):2025",
+      "is_base": "IS 1885",
+      "title": "Electrotechnical Vocabulary Part 89 Magnetic Materials and Components",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2025,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16106:2012",
+      "is_base": "IS 16106",
+      "title": "Method of electrical and photometric measurements of solid state lighting (Led) products",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2012,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16101:2012",
+      "is_base": "IS 16101",
+      "title": "General lighting - Leds and led modules - Terms and definitions",
+      "department": "ETD",
+      "aspect": "Terminology",
+      "year": 2012,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 14700 (Part 1/Sec 1):2026",
+      "is_base": "IS 14700",
+      "title": "Electromagnetic Compatibility EMC Part 1: General Section 1: Application and Interpretation of Fundamental Definitions and Terms First Revision",
+      "department": "LITD",
+      "aspect": "Terminology",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16102 (Part 1):2026",
+      "is_base": "IS 16102",
+      "title": "Self-Ballasted LED Lamps for General Lighting Services Part 1 Safety Requirements (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2026,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 4905:2015",
+      "is_base": "IS 4905",
+      "title": "Random sampling and randomization procedures (First Revision)",
+      "department": "MSD",
+      "aspect": "Methods of tests",
+      "year": 2015,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2500 (Part 5):2021",
+      "is_base": "IS 2500",
+      "title": "Sampling procedures for inspection by attributes -- Part 4: Procedures for assessment of declared quality levels ( First Revision)",
+      "department": "MSD",
+      "aspect": "Methods of tests",
+      "year": 2021,
+      "metadata_only": 1,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 16105:2012",
+      "is_base": "IS 16105",
+      "title": "Method of measurement of lumen maintenance of solid state light (Led) sources",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2012,
+      "metadata_only": 0,
+      "hop": 1,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12063:1987",
+      "is_base": "IS 12063",
+      "title": "Classification of Degrees of Protection Provided by Enclosures of Electrical Equipment",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1987,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2824:2007",
+      "is_base": "IS 2824",
+      "title": "Method for the determination of the proof and the comparative tracking indices of solid insulating materials (Second Revision)",
+      "department": "ETD",
+      "aspect": "Others",
+      "year": 2007,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 3323:1980",
+      "is_base": "IS 3323",
+      "title": "Specification for bi-pin landholders for tubular fluorescent lamps (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1980,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 694:2010",
+      "is_base": "IS 694",
+      "title": "Polyvinyl chloride insulated unsheathed and sheathed cables/cords with rigid and flexible conductor for rated voltages up to and including 1 100 V (Fourth Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2010,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1271:2012",
+      "is_base": "IS 1271",
+      "title": "Electrical insulation - Thermal evaluation and designation (Second Revision)",
+      "department": "ETD",
+      "aspect": "Others",
+      "year": 2012,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1401:2008",
+      "is_base": "IS 1401",
+      "title": "Protection of persons and equipment by enclosures - Probes for verification (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2008,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1416:1972",
+      "is_base": "IS 1416",
+      "title": "Specification for safety transformers (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1972,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 12948:1990",
+      "is_base": "IS 12948",
+      "title": "Tungsten halogen lamps (Non - Vehicle) - Specification",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1990,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9968 (Part 1):2025",
+      "is_base": "IS 9968",
+      "title": "Elastomer Insulated Cables - Specification Part 1 for Working Voltages up to and including 1100 volts (Second Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2025,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1258:2024",
+      "is_base": "IS 1258",
+      "title": "Bayonet lampholders (Fifth Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 10276 (Part 1):2024",
+      "is_base": "IS 10276",
+      "title": "Edison Screw Lampholders (first revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 2215:2006",
+      "is_base": "IS 2215",
+      "title": "Starters for fluorescent lamps (Third Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2006,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 7809 (Part 3/Sec 1):1986",
+      "is_base": "IS 7809",
+      "title": "Specification for pressure sensitive adhesive insulating tapes for electrical purposes: Part 3 requirements or individual materials: Sec 1 plasticized polyvinylchloride tapes with non - Thermosetting adhesive (First Revision)",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1986,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 11000 (Part 2/Sec 1):2018",
+      "is_base": "IS 11000",
+      "title": "Fire hazard testing: Part 2 test methods: Sec 1 glow - Wire apparatus and common test procedure (Second Revision)",
+      "department": "LITD",
+      "aspect": "Methods of tests",
+      "year": 2018,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15118:2014",
+      "is_base": "IS 15118",
+      "title": "Hydrometry - Water level measuring devices (First Revision)",
+      "department": "WRD",
+      "aspect": "Code of Practice",
+      "year": 2014,
+      "metadata_only": 1,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 9974 (Part 1):1981",
+      "is_base": "IS 9974",
+      "title": "Specification for high pressure sodium vapour lamps: Part 1 general requirements and tests",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1981,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 11654 (Part 1):2024",
+      "is_base": "IS 11654",
+      "title": "Flexible Insulating Sleeving Part 1 Definitions and General Requirements (First Revision)",
+      "department": "ETD",
+      "aspect": "Terminology",
+      "year": 2024,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 616:2017",
+      "is_base": "IS 616",
+      "title": "Audio, video and similar electronic apparatus - Safety requirements (Fifth Revision)",
+      "department": "LITD",
+      "aspect": "Product Specification",
+      "year": 2017,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 1293:2019",
+      "is_base": "IS 1293",
+      "title": "Plugs and Socket-Outlets for Household and Similar Purposes of Rated Voltage up to and Including 250 V and Rated Current up to and Including 16 A - Specification ( Fourth Revision )",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 2019,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 3010 (Part 1):1965",
+      "is_base": "IS 3010",
+      "title": "Specification for appliance - connectors and appliance - Inlets (Non - Reversible Three - Pin Type): Part 1 appliance - Connectors",
+      "department": "ETD",
+      "aspect": "Product Specification",
+      "year": 1965,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 6616:1982",
+      "is_base": "IS 6616",
+      "title": "Ballasts for high pressure mercury vapour lamps",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1982,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15382 (Part 1):2022",
+      "is_base": "IS 15382",
+      "title": "Insulation Coordination for Equipment Within Low-Voltage Systems Part 1 Principles Requirements and Tests",
+      "department": "ETD",
+      "aspect": "Methods of tests",
+      "year": 2022,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 15687 (Part 1):2006",
+      "is_base": "IS 15687",
+      "title": "Single - Capped fluorescent lamps: Part 1 safety requirements",
+      "department": "ETD",
+      "aspect": "Safety Standard",
+      "year": 2006,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     },
+     {
+      "is_number": "IS 5921 (Part 1):1993",
+      "is_base": "IS 5921",
+      "title": "Metal-clad base materials for printed circuits for use in electronic and telecommunication equipment: Part 1 General requirements and test",
+      "department": "LITD",
+      "aspect": "Product Specification",
+      "year": 1993,
+      "metadata_only": 0,
+      "hop": 2,
+      "seed": false,
+      "in_corpus": true
+     }
+    ],
+    "edges": [
+     {
+      "source": "IS 10322 (Part 5/Sec 3):2026",
+      "target": "IS 9000 (Part 4):2020",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 7.8 The door of a column-integrated luminaire sh",
+      "evidence_snippet": "shall be that used for the pendulum hammer, the vertical fall, spring-operated impact test apparatus specified in IS 9000 (Part 7/Sec 1 to 5) or by other suitable means giving equivalent results. An impact energy of 5 Nm shall be a",
+      "hop": 1
+     },
+     {
+      "source": "IS 10322 (Part 5/Sec 3):2026",
+      "target": "IS 13383 (Part 1):1992",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 17.0 The photometric performance shall be determin",
+      "evidence_snippet": "all apply. 17 PHOTOMETRIC TESTS 17.0 The photometric performance shall be determined by the test method given in IS 13383 (Part 2). The photometric requirements shall be as given in 17.1 to 17.4. 17.1 The photometric data of a luminaire shall",
+      "hop": 1
+     },
+     {
+      "source": "IS 13383 (Part 2):1992",
+      "target": "IS 7678:1975",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "en derived from CIE Publication No. 27 ( TC-2.4 ) 1973 on Photometry of luminaires for street lighting. This standard supersedes IS 7678 : 1975 'Method of photometric testing of incandescent type luminaires for general lighting services* which covers the method for photome",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 16103 (Part 1):2025",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 1.1 This standard (Part 2/Section 2) specifies the",
+      "evidence_snippet": "odules where compliance with IS16103 (Part 2) has not been proven. b) Type B \u2014 Luminaire using LED modules where compliance with IS16103 (Part 2) has been proven. c) Type C\u2014 Luminaire using a LED lamp and covered in IS 16107 (Part 1) NOTE \u2014 The definition of the LED module",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 10322 (Part 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": null,
+      "evidence_snippet": "e: Part 1 General requirements Part 2 Particular requirements, Section 1 LED luminaire Safety requirements have been covered in IS 10322 (Part 5/Section 3). At present, luminaire with conventional light sources are being used for the street lighting luminaire. Keeping in view of the",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 1885 (Part 90):2025",
+      "edge_type": "normative_reference",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 2.1 The following Indian Standards are necessary",
+      "evidence_snippet": "ard, the following definitions in addition to those given in IS 16101, 16103 (Part 2), 16107 (Part 1), 16107 (Part 2/ Section 1), IS 1885 (Part 16/Section 1), IS 1885 (Part 16/ Section 2) and IS 1885 (Part 16/Section 3) shall apply. 3.1 LED Street Lighting Luminaire Luminaire incorpora",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 16106:2012",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 8.4.1 The photometric performance shall be",
+      "evidence_snippet": "D streetlight luminaire. 8.4 Photometric Test 8.4.1 The photometric performance shall be determined by the test method given in IS 16106. The photometric requirements shall be as given in 17.1 to 17.4 of IS 10322 (Part 5/Section 3). 9 CHROMATICITY CO-ORDINATES, COR",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 16101:2012",
+      "edge_type": "terminology",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 1.1 This standard (Part 2/Section 2) specifies the",
+      "evidence_snippet": "a LED lamp and covered in IS 16107 (Part 1) NOTE \u2014 The definition of the LED module is given in IS 16103 (Part 1 and Part 2) and IS 16101. This standard does not cover LED street light luminaires that intentionally produce coloured light; neither does it cover modul",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 14700 (Part 1/Sec 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 10.4 Endurance Tests",
+      "evidence_snippet": "ric performance within the temperature range from 0\u00b0C to 45\u00b0C. 12 POWER FACTOR The test shall be carried out in accordance with IS 14700 (Part 3/Section 2). Power factor of the LED street lighting luminaire shall be not less than 0.9. 13 HARMONICS The harmonics of the input current",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 16102 (Part 1):2026",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 10.4 Endurance Tests",
+      "evidence_snippet": "The harmonics of the input current when measured in accordance with IS 14700 (Part 3/Section 2) shall be as given in Table 5 of IS 16102 (Part 2). The total harmonic distortion (THD) shall not be more than 20 percent. 14 SURGE PROTECTION The luminaire shall withstand a sur",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 4905:2015",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 18.2 Acceptance Tests",
+      "evidence_snippet": "ducted. The luminaries shall be selected from the lot at random. In order to ensure randomness of selection, procedures given in IS 4905 may be followed. The method of sampling and the criteria for acceptance shall be as given in IS 2500 (Part 1). Following shall co",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 2500 (Part 5):2021",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 18.2 Acceptance Tests",
+      "evidence_snippet": "lection, procedures given in IS 4905 may be followed. The method of sampling and the criteria for acceptance shall be as given in IS 2500 (Part 1). Following shall constitute the acceptance tests. a) Marking (see 4), b) Total input power (see 7), c) Luminaire efficacy (Im/",
+      "hop": 1
+     },
+     {
+      "source": "IS 16107 (Part 2/Sec 2):2017",
+      "target": "IS 16105:2012",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Annex B",
+      "evidence_snippet": "interpolated or extrapolated performance of product configurations lacking test data. Precedent for this approach can be found in IS 16105. If the particular luminaire configuration submitted has not been tested, the performance may be conservatively represented by t",
+      "hop": 1
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 12063:1987",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 2.3 Classification According to Degree of Protection",
+      "evidence_snippet": "lid Objects and Moisture Luminaires shall be classified in accordance with the \u2018IP number\u2019 system of classification described in IS 12063. Symbols for the degrees of protection are given in Section 3. Tests for the degrees of protection are given in Section 9. NOT",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 2824:2007",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.1 Minimum Distances for ac (50 Hz) Sinusoidal Voltag",
+      "evidence_snippet": "places on the test sample. For materials other than ceramic, compliance is checked by the proof tracking test in accordance with IS 2824 subject to the following details: a) Ifthe specimen has no flat surface of at least 15 mm x 15 mm, the test may be carried out o",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 3323:1980",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.4.4 Lampholders which are put into position by the",
+      "evidence_snippet": "t lamps (G23, G10q, GR8, etc). After the test, the distance between the holders shall comply with the relevant Standard Sheet of IS 3323 and the lampholder shall show no damage. The test- cap for his test shall comply with the IS 3323 for G 5 and G 13 lampholders.",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 694:2010",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.2 Flexible cables or cord used as a means of",
+      "evidence_snippet": "example, draught- proof enclosure and test supply voltage above the rated value for the luminaire. It is important to note that, IS 694 on PVC insulated cables specify a temperature of 70\u00b0C to be the maximum that PVC fixed wiring can sustain in normal continuous op",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1271:2012",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "of doubt, the average of the contact temperature measurements should be used. The material classification is in accordance with IS 1271 and IS 7809 series. IS 10322 (Part 1) : 2014 Table 12.2 Maximum Temperature Under the Test Conditions of 12.4.2, for Common Mat",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1401:2008",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.10.2 Any assembly gap with a width greater than",
+      "evidence_snippet": "hall not give straight access to live parts, so that the live parts can be touched with the conical pin of test probe as given in IS 1401. In addition, compliance shall be ensured with the required degree of protection against electric shock in accordance with the I",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1416:1972",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.15 Flammable Materials",
+      "evidence_snippet": "nts, of this clause do not apply to a transformer supplied within an enclosure of its own, that is IP20 or higher, complying with IS 1416. Compliance is checked by inspection, by measurement and by operating the luminaires in the abnormal condition with a slowly and",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 12948:1990",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.21.1 Luminaires incorporating tungsten halogen",
+      "evidence_snippet": "lamp is, a mains voltage (general lighting source) replacement lamp, or b) a low pressure tungsten halogen lamp as specified in IS 12948. 4.21.2 Parts of the lamp compartment shall so be designed that particles from a shattering lamp cannot impair safety. 4.21.3 A",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9968 (Part 1):2025",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.2 Flexible cables or cord used as a means of",
+      "evidence_snippet": "e luminaires manufacturer, shall be at least equal in their mechanical and electrical properties to those specified in IS 694 and IS 9968 (Part 1), as indicated in Table 5.1, and shall be capable of withstanding, without deterioration, the highest temperature to which they ma",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1258:2024",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "ntacts of ceramic lampholders and insulating material of lampholders and starterholders: vii) T, or T, marked (B15 and B22)\u201d (See IS 1258) 165 for T, and 210 for T, viii) Other types without T marking: ix) (See IS 10276 (Part 2), IS 3323: IS...for miscellaneous lamp",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 10276 (Part 1):2024",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "6 (Part 2), IS 3323: IS...for miscellaneous lampholders\u201d and IS T marking 1258) x) Other types without T marking:(E14, B15) (See IS 10276 and IS 1258) 135 xi) (E27, B22) (See IS 10276 and IS 1258) 165 xii) (E40) (See IS 10276) 225 xiii) Fluorescent lamp holder/start",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 2215:2006",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.5 Starter Holders",
+      "evidence_snippet": "4.4.1. to 4.4.7. 4.5 Starter Holders Starter holders the luminaires other than Class II shall accept starters which comply with IS 2215. Class II luminaires may require starters of Class II construction. For Class II luminaires where the starter can be touched wi",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 7809 (Part 3/Sec 1):1986",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.1 Maximum Temperatures Under the Test Conditions 12",
+      "evidence_snippet": "he average of the contact temperature measurements should be used. The material classification is in accordance with IS 1271 and IS 7809 series. IS 10322 (Part 1) : 2014 Table 12.2 Maximum Temperature Under the Test Conditions of 12.4.2, for Common Materials Used",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 11000 (Part 2/Sec 1):2018",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.3.1 Parts of insulating material retaining current",
+      "evidence_snippet": "carrying parts in position shall withstand the following tests: The parts to be tested are subjected to the needle-flame test of IS 11000 (Part 2/Sec 2), the test flame being applied to the sample for 10 s at the point where the highest temperatures are likely to occur, measured if",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15118:2014",
+      "edge_type": "installation",
+      "confidence": "confirmed",
+      "evidence_section": "Annex B",
+      "evidence_snippet": "which have: a) a white coated or dark coloured bulb; b) asmaller bulb; and Small differences from the specified At, Table 3 of IS 15118 (Part 1) are corrected for the adjustment of the HTS lamp by the test voltage, but such adjustment shall not cause the wattage to exceed 1",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9974 (Part 1):1981",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 3.2.10 Information Concerning Special Lamps, if",
+      "evidence_snippet": "ternal starting device or requiring an external ignitor where the lamp is required to be marked with the same symbol according to IS 9974 (Part 1). 3.2.11 Symbol (see Fig. 1), if applicable, for luminaires for lamps of similar shape to \u2018cool beam\u2019 lamps but where the use of",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 11654 (Part 1):2024",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.9.2 Insulated linings, sleeves and similar parts shall",
+      "evidence_snippet": "ng for wires attaining a temperature exceeding the values given in Table 12.2 of Section 12 shall comply with the requirements of IS 11654, taking into account the temperature measured on the wire in question. The sleeve shall be resistant to a temperature exceeding t",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 616:2017",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.10.1 For metal encased Class II luminaires, contact",
+      "evidence_snippet": "acitors shall comply with the requirements of ISQC 302400 and the method of their connection shall be in accordance with 9.3.4 of IS 616. NOTE \u2014 Contact between accessible metal parts and the basic insulation of internal wiring may be prevented by sleeves or simila",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 9000 (Part 4):2020",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 4.13.1 Luminaires shall have adequate mechanical",
+      "evidence_snippet": "al use. Compliance is checked by applying blows to the sample by means of the spring-operated impact test apparatus specified in IS 9000 (Part 7/Sec 1 to 5) or by other suitable means giving equivalent results. NOTE \u2014 Equivalent impact energies obtained by differen",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 1293:2019",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.14 If a plug is supplied with the luminaire by the",
+      "evidence_snippet": "he luminaire. A Class III luminaire shall not be provided with a plug which permits connection with a socket-outlet according to IS 1293. 5.2.15 Non-detachable flexible cables and cords and connecting leads (tails) of extra-low voltage d.c. supplied fluorescent lum",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 3010 (Part 1):1965",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 5.2.16 Appliance inlets incorporated into luminaires",
+      "evidence_snippet": "2.16 Appliance inlets incorporated into luminaires as the means of connection to the supply shall comply with the requirements of IS 3010 (Part 2). Looping-in of luminaires shall be achieved by appliance couplers, which, if of the Class II type, shall not accept Class I type",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 6616:1982",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 10.2 Insulation Resistance and Electric Strength",
+      "evidence_snippet": "shall be pressed together with a force of 2 + 0.5 N. The conditions of test for transistorized ballasts shall be as specified in IS 6616. NOTE \u2014 The insulation between live parts and the body, as well as between accessible metal parts and metal foil on the inside o",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15382 (Part 1):2022",
+      "edge_type": "test_method",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 11.2 Creepage Distances and Clearances",
+      "evidence_snippet": "ity shall comply with the requirements for basic insulation. NOTE \u2014 For details of pollution degrees or over voltage categories, IS 15382 (Part 1) should be consulted. For ordinary luminaires, the minimum distances specified in Tables 11.1 and 11.3 are based on the following",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 15687 (Part 1):2006",
+      "edge_type": "safety",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 12.3 Maximum Temperatures Under the Test Conditions of",
+      "evidence_snippet": "dance with IS 1271 and IS 7809 (all parts). \u00bb) Information regarding point(s) of measurement and temperature limits are given in IS 15687 (Part 1) (Single capped lamps, Safety requirements. Table 12.4 Maximum Temperature of Windings Under Abnormal Operating Conditions and at",
+      "hop": 2
+     },
+     {
+      "source": "IS 10322 (Part 1):2026",
+      "target": "IS 5921 (Part 1):1993",
+      "edge_type": "related_product",
+      "confidence": "confirmed",
+      "evidence_section": "Clause 13.1 General",
+      "evidence_snippet": "f certain parts of insulating material of luminaries. For printed wiring boards, reference should be made to the requirements of IS 5921 (Part 1). 13.2 Resistance to Heat External parts of insulating material providing protection against electric shock, and parts of insula",
+      "hop": 2
+     }
+    ]
+   },
+   "verification": {
+    "hard_failures": [],
+    "claim_checks": [
+     {
+      "claim": "IS 13383 (Part 2):1992 covers Photometry of luminaires - Method of measurement: Part 2 luminaires for road and street lighting.",
+      "citations": [
+       "IS 13383 (Part 2):1992#c001",
+       "IS 13383 (Part 2):1992#c000"
+      ],
+      "lexical_support": 1.0,
+      "llm_verdict": null,
+      "llm_reason": null,
+      "support_score": 1.0,
+      "uncited": false
+     }
+    ],
+    "fabricated_standards": [],
+    "invalid_citations": [],
+    "signals": {
+     "grounding_rate": 1.0,
+     "primary_withdrawn": false,
+     "query_relevance": 0.938,
+     "retrieval_strength": 1.0,
+     "top_similarity": 0.839,
+     "candidate_margin": 0.019,
+     "discrimination": 1.0,
+     "verification_depth": 1.0,
+     "claims_checked": 1
+    },
+    "withdrawn_standards": [],
+    "reasons": [],
+    "confidence": 0.984,
+    "threshold": 0.55,
+    "abstain": false
+   },
+   "elapsed_sec": 0.52
+  }
+ },
+ {
+  "slug": "switchgear",
+  "query": "Low-voltage switchgear and controlgear assemblies for a pump house",
+  "events": [
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "running",
+    "elapsed": 0.0
+   },
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "done",
+    "detail": "6 candidate standards",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "running",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "done",
+    "detail": "3 standards, 0 links",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "running",
+    "elapsed": 0.2
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "done",
+    "detail": "LLM unavailable \u2014 fell back to rule-based",
+    "elapsed": 0.33
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "running",
+    "elapsed": 0.33
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "done",
+    "detail": "confidence 0.716",
+    "elapsed": 0.35
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "running",
+    "elapsed": 0.35
+   },
+   {
+    "event": "stage",
+    "stage": "currency",
+    "status": "done",
+    "detail": "IS/IEC 61439:2014 current",
+    "elapsed": 0.35
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "running",
+    "elapsed": 0.35
+   },
+   {
+    "event": "stage",
+    "stage": "certification",
+    "status": "done",
+    "detail": "no scheme matched",
+    "elapsed": 0.35
+   }
+  ],
+  "result": {
+   "status": "recommended",
+   "synthesis_method": "rule_based",
+   "llm_error": "PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}",
+   "query": "Low-voltage switchgear and controlgear assemblies for a pump house",
+   "confidence": 0.716,
+   "threshold": 0.55,
+   "primary_standards": [
+    {
+     "is_number": "IS/IEC 61439:2014",
+     "role": "Closest semantic match to the requirement (similarity 0.792).",
+     "title": "Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies",
+     "metadata_only": true,
+     "currency": {
+      "is_number": "IS/IEC 61439:2014",
+      "is_base": "IS/IEC 61439",
+      "year": 2014,
+      "amendment_count": 0,
+      "withdrawn": false,
+      "catalogue_note": "(Active)",
+      "editions_known": [
+       {
+        "is_number": "IS/IEC 61439:2014",
+        "year": 2014
+       }
+      ],
+      "latest_known_edition": "IS/IEC 61439:2014",
+      "flags": [
+       "Catalogue metadata only \u2014 no full text was ingested for this standard, so its content could not be verified."
+      ],
+      "status": "current",
+      "full_text_year": null,
+      "archive_identifier": null,
+      "text_edition_mismatch": false
+     },
+     "certification": {
+      "schemes": [],
+      "note": "Certification flags come from a curated seed table and may be out of date; verify against the current BIS/MeitY notifications before relying on them."
+     }
+    }
+   ],
+   "supporting_standards": [
+    {
+     "is_number": "IS/IEC 60715:2017",
+     "role": "Also matched this requirement (Dimensions)."
+    },
+    {
+     "is_number": "IS 13947 (Part 3):1993",
+     "role": "Also matched this requirement (unclassified)."
+    },
+    {
+     "is_number": "IS 13947 (Part 2):1993",
+     "role": "Also matched this requirement (unclassified)."
+    }
+   ],
+   "summary": "IS/IEC 61439:2014 \u2014 Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies \u2014 is the closest match in the ingested corpus for this requirement.",
+   "claims": [
+    {
+     "claim": "IS/IEC 61439:2014 covers Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies.",
+     "citations": [
+      "IS/IEC 61439:2014#meta"
+     ],
+     "lexical_support": 0.917,
+     "llm_verdict": null,
+     "llm_reason": null,
+     "support_score": 1.0,
+     "uncited": false
+    }
+   ],
+   "caveats": [
+    "Generated without an LLM: this is rule-based synthesis from catalogue titles plus semantic retrieval, not a reasoned reading of the standard.",
+    "The primary match has no ingested full text, so its content could not be verified."
+   ],
+   "citations": {
+    "IS/IEC 61439:2014#meta": {
+     "chunk_id": "IS/IEC 61439:2014#meta",
+     "is_number": "IS/IEC 61439:2014",
+     "section": "catalogue metadata",
+     "excerpt": "IS/IEC 61439:2014 \u2014 Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies Aspect: Safety Standard. Technical committee: ETD 07.",
+     "similarity": 0.792
+    }
+   },
+   "allied_standards": [],
+   "tender_clause": "The product shall conform to IS/IEC 61439:2014 \u2014 Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies.",
+   "dependency_graph": {
+    "nodes": [
+     {
+      "is_number": "IS/IEC 60715:2017",
+      "is_base": "IS/IEC 60715",
+      "title": "Dimensions of low - Voltage switchgear and controlgear - Standardized mounting on rails for mechanical support of switchgear, controlgear and accessories (First Revision)",
+      "department": "ETD",
+      "aspect": "Dimensions",
+      "year": 2017,
+      "metadata_only": 1,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS/IEC 61439:2014",
+      "is_base": "IS/IEC 61439",
+      "title": "Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies",
+      "department": "ETD",
+      "aspect": "Safety Standard",
+      "year": 2014,
+      "metadata_only": 1,
+      "hop": 0,
+      "seed": true
+     },
+     {
+      "is_number": "IS 13947 (Part 3):1993",
+      "is_base": "IS 13947",
+      "title": "Low-voltage Switchgear and Controlgear - Part 3 : Switches, Disconnectors, Switch Disconnectors and Fuse Combination Units",
+      "department": "ETD",
+      "aspect": null,
+      "year": 1993,
+      "metadata_only": 1,
+      "hop": 0,
+      "seed": true
+     }
+    ],
+    "edges": []
+   },
+   "verification": {
+    "hard_failures": [],
+    "claim_checks": [
+     {
+      "claim": "IS/IEC 61439:2014 covers Low-Voltage Switchgear and Controlgear Assemblies Part 0 Guidance to Specifying Assemblies.",
+      "citations": [
+       "IS/IEC 61439:2014#meta"
+      ],
+      "lexical_support": 0.917,
+      "llm_verdict": null,
+      "llm_reason": null,
+      "support_score": 1.0,
+      "uncited": false
+     }
+    ],
+    "fabricated_standards": [],
+    "invalid_citations": [],
+    "signals": {
+     "grounding_rate": 1.0,
+     "primary_withdrawn": false,
+     "query_relevance": 1.0,
+     "retrieval_strength": 0.982,
+     "top_similarity": 0.792,
+     "candidate_margin": 0.003,
+     "discrimination": 1.0,
+     "verification_depth": 0.72,
+     "claims_checked": 1
+    },
+    "withdrawn_standards": [],
+    "reasons": [],
+    "confidence": 0.716,
+    "threshold": 0.55,
+    "abstain": false
+   },
+   "elapsed_sec": 0.35
+  }
+ },
+ {
+  "slug": "vague",
+  "query": "good quality material for the project",
+  "events": [
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "running",
+    "elapsed": 0.0
+   },
+   {
+    "event": "stage",
+    "stage": "retrieval",
+    "status": "done",
+    "detail": "6 candidate standards",
+    "elapsed": 0.25
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "running",
+    "elapsed": 0.25
+   },
+   {
+    "event": "stage",
+    "stage": "graph",
+    "status": "done",
+    "detail": "17 standards, 17 links",
+    "elapsed": 0.25
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "running",
+    "elapsed": 0.25
+   },
+   {
+    "event": "stage",
+    "stage": "synthesis",
+    "status": "done",
+    "detail": "LLM unavailable \u2014 fell back to rule-based",
+    "elapsed": 0.57
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "running",
+    "elapsed": 0.57
+   },
+   {
+    "event": "stage",
+    "stage": "critic",
+    "status": "done",
+    "detail": "abstained at 0.378",
+    "elapsed": 0.58
+   }
+  ],
+  "result": {
+   "status": "abstained",
+   "query": "good quality material for the project",
+   "message": "Not confident enough to recommend a specific Indian Standard for this input.",
+   "reasons": [
+    "The best-matching standard does not clearly address what the query asked about.",
+    "The language model was unavailable, so this ran on weaker rule-based synthesis: PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}"
+   ],
+   "confidence": 0.378,
+   "threshold": 0.55,
+   "closest_candidates": [
+    {
+     "is_number": "IS 12747 (Part 1):2011",
+     "title": "Combined flexible materials for electrical insulation: Part 1 definitions and general requirements (First Revision)",
+     "similarity": 0.687,
+     "department": "ETD",
+     "aspect": "Others",
+     "metadata_only": false,
+     "is_active": true,
+     "why_not_certain": "similarity below the confidence bar"
+    },
+    {
+     "is_number": "IS 11297 (Part 3/Sec 1):1988",
+     "title": "Specification for varnished fabrics for electrical purposes: Part 3 specifications for individual materials: Sec 1 glass fabric backed varnished fabrics",
+     "similarity": 0.677,
+     "department": "ETD",
+     "aspect": "Product Specification",
+     "metadata_only": false,
+     "is_active": true,
+     "why_not_certain": "similarity below the confidence bar"
+    },
+    {
+     "is_number": "IS 10192:1982",
+     "title": "Specification for synthetic resin bonded glass fibre (SRBGF) for electrical purposes",
+     "similarity": 0.69,
+     "department": "ETD",
+     "aspect": "Product Specification",
+     "metadata_only": false,
+     "is_active": true,
+     "why_not_certain": "similarity below the confidence bar"
+    },
+    {
+     "is_number": "IS 13465 (Part 2):2005",
+     "title": "Resin based reactive compounds used for electrical insulation: Part 2 methods of test (First Revision)",
+     "similarity": 0.68,
+     "department": "ETD",
+     "aspect": "Methods of tests",
+     "metadata_only": false,
+     "is_active": true,
+     "why_not_certain": "similarity below the confidence bar"
+    },
+    {
+     "is_number": "IS 5921 (Part 2):1973",
+     "title": "Metal-Clad Base Material for Printed Circuits for Use in Electronic and Telecommunication Equipment - Part 2 : Paper Phenolic Copper-Clad Laminated Sheet-PF-CP-CU Economic Grade",
+     "similarity": 0.696,
+     "department": "LITD",
+     "aspect": "Product Specification",
+     "metadata_only": false,
+     "is_active": false,
+     "why_not_certain": "marked WITHDRAWN in the BIS catalogue"
+    }
+   ],
+   "next_steps": [
+    "Add detail: voltage/current rating, material, environment, or intended application.",
+    "Name the product category explicitly (e.g. 'PVC insulated copper cable, 1100 V').",
+    "If this is a tender clause, submit the full clause rather than a fragment."
+   ],
+   "verification": {
+    "hard_failures": [],
+    "claim_checks": [
+     {
+      "claim": "IS 12747 (Part 1):2011 covers Combined flexible materials for electrical insulation: Part 1 definitions and general requirements (First Revision).",
+      "citations": [
+       "IS 12747 (Part 1):2011#c005"
+      ],
+      "lexical_support": 0.385,
+      "llm_verdict": null,
+      "llm_reason": null,
+      "support_score": 0.769,
+      "uncited": false
+     }
+    ],
+    "fabricated_standards": [],
+    "invalid_citations": [],
+    "signals": {
+     "grounding_rate": 0.769,
+     "primary_withdrawn": false,
+     "query_relevance": 0.0,
+     "retrieval_strength": 0.769,
+     "top_similarity": 0.696,
+     "candidate_margin": 0.002,
+     "discrimination": 0.745,
+     "verification_depth": 1.0,
+     "claims_checked": 1
+    },
+    "withdrawn_standards": [],
+    "reasons": [
+     "The best-matching standard does not clearly address what the query asked about.",
+     "The language model was unavailable, so this ran on weaker rule-based synthesis: PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}"
+    ],
+    "confidence": 0.378,
+    "threshold": 0.55,
+    "abstain": true
+   },
+   "elapsed_sec": 0.58,
+   "llm_error": "PermissionDeniedError: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}"
+  }
+ }
+]
