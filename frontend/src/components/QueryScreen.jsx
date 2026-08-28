@@ -72,7 +72,7 @@ function TextInput({ state, setState, settings, onOpen }) {
   )
 }
 
-function DocumentUpload({ state, setState, onDone }) {
+function DocumentUpload({ state, setState, settings, onDone }) {
   const { text, file, busy, err, cap } = state
   const set = (patch) => setState((p) => ({ ...p, ...patch }))
   const inputRef = useRef(null)
@@ -82,14 +82,14 @@ function DocumentUpload({ state, setState, onDone }) {
 
   const runText = async () => {
     set({ busy: true, err: null })
-    try { finish(await postBatch({ text, max_requirements: cap })) }
+    try { finish(await postBatch({ text, max_requirements: cap, use_llm: settings.use_llm })) }
     catch (e) { set({ err: String(e), busy: false }) }
   }
 
   const runFile = async (f) => {
     if (!f) return
     set({ busy: true, err: null, file: f.name })
-    try { finish(await postBatchUpload(f, cap)) }
+    try { finish(await postBatchUpload(f, cap, settings.use_llm)) }
     catch (e) { set({ err: String(e), busy: false }) }
   }
 
@@ -133,6 +133,7 @@ function DocumentUpload({ state, setState, onDone }) {
         <label className="cap-field">
           Cap at
           <select value={cap} onChange={(e) => set({ cap: Number(e.target.value) })} disabled={busy}>
+            <option value={3}>3 requirements</option>
             <option value={5}>5 requirements</option>
             <option value={10}>10 requirements</option>
             <option value={0}>no cap</option>
@@ -146,9 +147,12 @@ function DocumentUpload({ state, setState, onDone }) {
           <div>
             <b>Running every requirement through the full pipeline.</b>
             <div className="small muted">
-              Each one is retrieved, graph-expanded, synthesised and grounded
-              individually — roughly 5–8 seconds apiece, so a capped run finishes
-              faster than an uncapped one.
+              Each requirement is retrieved, graph-expanded, synthesised and
+              grounded on its own. With the language model on that is roughly a
+              minute each, so {cap ? `${cap} requirements take a few minutes` :
+              'an uncapped run can take a long while'}. Turning the model off in
+              Settings drops it to a few seconds per requirement, using rule-based
+              synthesis — the critic and the abstention path still run.
             </div>
           </div>
         </div>
@@ -170,7 +174,7 @@ export default function QueryScreen({ single, setSingle, batch, setBatch, settin
 
       {tab === 'text'
         ? <TextInput state={single} setState={setSingle} settings={settings} onOpen={onOpen} />
-        : <DocumentUpload state={batch} setState={setBatch} onDone={onReport} />}
+        : <DocumentUpload state={batch} setState={setBatch} settings={settings} onDone={onReport} />}
     </div>
   )
 }

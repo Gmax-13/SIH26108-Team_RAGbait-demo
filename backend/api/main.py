@@ -412,7 +412,8 @@ def post_batch(b: BatchText) -> dict[str, Any]:
 
 @app.post("/api/batch/upload")
 async def post_batch_upload(file: UploadFile = File(...),
-                            max_requirements: int = Form(0)) -> dict[str, Any]:
+                            max_requirements: int = Form(0),
+                            use_llm: bool = Form(True)) -> dict[str, Any]:
     """A tender document, uploaded rather than pasted.
 
     `max_requirements` is declared as Form, not a bare int: a bare int becomes a
@@ -430,4 +431,5 @@ async def post_batch_upload(file: UploadFile = File(...),
     if len(text.strip()) < 20:
         raise HTTPException(400, "Could not extract usable text from the upload.")
     con = connect()
-    return run_batch(con, get_retriever(con), text, max_requirements=max_requirements)
+    return run_batch(con, get_retriever(con), text, use_llm=use_llm,
+                     max_requirements=max_requirements)

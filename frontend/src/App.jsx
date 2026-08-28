@@ -65,7 +65,7 @@ export default function App() {
   // otherwise a result that took ten seconds to compute is destroyed the moment
   // you glance at the graph and come back.
   const [single, setSingle] = useState({ q: '', busy: false, res: null, err: null, stages: {} })
-  const [batch, setBatch] = useState({ text: '', file: null, busy: false, err: null, cap: 5 })
+  const [batch, setBatch] = useState({ text: '', file: null, busy: false, err: null, cap: 3 })
   const [report, setReport] = useState(null)
   const [settings, setSettings] = useState({ threshold: 0.55, top_k: 12, hops: 2, use_llm: true })
 

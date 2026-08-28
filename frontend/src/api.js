@@ -34,11 +34,12 @@ export const postBatch = (body) =>
     body: JSON.stringify(body),
   }).then(j)
 
-export const postBatchUpload = (file, maxRequirements = 0) => {
+export const postBatchUpload = (file, maxRequirements = 0, useLlm = true) => {
   const fd = new FormData()
   fd.append('file', file)
-  // Sent as a form field, matching the endpoint's Form(0) declaration.
+  // Sent as form fields, matching the endpoint's Form(...) declarations.
   fd.append('max_requirements', String(maxRequirements))
+  fd.append('use_llm', String(useLlm))
   return fetch('/api/batch/upload', { method: 'POST', body: fd }).then(j)
 }
 
