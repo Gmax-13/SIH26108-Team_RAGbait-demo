@@ -28,8 +28,6 @@ function TopBar({ screen, onMenu }) {
           <h1>{TITLES[screen]}</h1>
           <p>{SUBTITLES[screen]}</p>
         </div>
-        <span className="spacer" />
-        <div className="avatar" title="Procurement Officer">PO</div>
       </div>
     </header>
   )
