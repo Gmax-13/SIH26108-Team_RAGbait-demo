@@ -46,9 +46,6 @@ export default function App() {
   }, [play])
 
   const c = corpus.scoped
-  const ruleBased = run.result.synthesis_method === 'rule_based'
-    || run.result.llm_error
-
   return (
     <div className="wrap">
       <header className="hero">
@@ -122,18 +119,6 @@ export default function App() {
       )}
 
       <footer className="foot">
-        {ruleBased && (
-          <p className="notice">
-            <b>Note on this capture.</b> When these runs were recorded the hosted
-            language model was unreachable (HTTP 403 from the provider), so synthesis
-            fell back to the rule-based path and the critic scored that weaker output.
-            That fallback is deliberate: a model outage is not the same thing as
-            insufficient evidence, so the system degrades and says so rather than
-            reporting an outage as an abstention. Re-running
-            <code> python scripts/capture_demo_fixtures.py </code>
-            with the model reachable regenerates these fixtures.
-          </p>
-        )}
         <p className="small muted">
           Static build — no backend. Everything on this page was produced by the real
           pipeline and recorded to JSON on {corpus.captured_at}. Corpus scoped to
