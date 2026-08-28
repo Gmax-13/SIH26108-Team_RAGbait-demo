@@ -87,29 +87,35 @@ const NODES = {
               sub: 'reads citations', kind: 'ing' },
 }
 
-// [from, to, kind, curve] — curve bends the path sideways so lines do not stack
+// [from, to, kind, fromPort, toPort, bend]
+// Ports are explicit — 'l' 'r' 't' 'b' with an offset along that edge — because
+// auto-picking the nearest edge routed Synthesis->CRITIC straight through the
+// Groq box and stacked four arrowheads on the same point of SQLite.
 const LINKS = [
-  ['ui', 'api', 'call', 0],
-  ['api', 'embed', 'call', -30],
-  ['embed', 'faiss', 'call', 0],
-  ['faiss', 'retrieve', 'read', 20],
-  ['retrieve', 'graphx', 'call', 0],
-  ['retrieve', 'corpus', 'read', 0],
-  ['graphx', 'corpus', 'read', 0],
-  ['retrieve', 'synth', 'call', -20],
-  ['synth', 'groq', 'call', 0],
-  ['synth', 'critic', 'call', 30],
-  ['critic', 'corpus', 'read', 0],
-  ['critic', 'certdb', 'read', 40],
-  ['critic', 'answer', 'call', 0],
-  ['critic', 'abstain', 'call', 0],
-  // ingestion writes — always dashed, never lit by a query
-  ['bis', 'scraper', 'feed', 0],
-  ['ia', 'fetcher', 'feed', 0],
-  ['scraper', 'corpus', 'write', -40],
-  ['fetcher', 'corpus', 'write', -10],
-  ['builder', 'faiss', 'write', 60],
-  ['grapher', 'corpus', 'write', 40],
+  ['ui', 'api', 'call', ['b', 0], ['t', 0], 0],
+  ['api', 'embed', 'call', ['r', 0], ['l', 8], 0],
+  ['embed', 'faiss', 'call', ['b', 0], ['t', 0], 0],
+  ['faiss', 'retrieve', 'read', ['r', 0], ['l', 8], 0],
+  ['retrieve', 'graphx', 'call', ['b', 0], ['t', 0], 0],
+  ['retrieve', 'synth', 'call', ['r', 0], ['l', 0], 0],
+  ['synth', 'groq', 'call', ['b', 0], ['t', 0], 0],
+  // leave Synthesis on its LEFT and drop down the gap, so the Groq box is clear
+  ['synth', 'critic', 'call', ['l', 14], ['t', 62], -40],
+  // three separate landing points on SQLite so the heads do not overlap
+  ['retrieve', 'corpus', 'read', ['b', -52], ['t', 74], -30],
+  ['graphx', 'corpus', 'read', ['b', -40], ['t', 20], -20],
+  ['critic', 'corpus', 'read', ['l', 0], ['r', 0], 0],
+  // pass beneath SQLite rather than through it
+  ['critic', 'certdb', 'read', ['b', -60], ['b', 40], 0, 92],
+  ['critic', 'answer', 'call', ['r', -14], ['l', 0], 0],
+  ['critic', 'abstain', 'call', ['r', 14], ['l', 0], 0],
+  // ingestion — always dashed, never lit by a query
+  ['bis', 'scraper', 'feed', ['r', 0], ['l', 0], 0],
+  ['ia', 'fetcher', 'feed', ['r', 0], ['l', 0], 0],
+  ['scraper', 'corpus', 'write', ['t', -40], ['b', -60], -30],
+  ['fetcher', 'corpus', 'write', ['t', 40], ['b', -20], -60],
+  ['builder', 'faiss', 'write', ['t', 0], ['b', 40], 90],
+  ['grapher', 'corpus', 'write', ['t', 40], ['b', 60], 40],
 ]
 
 const INGEST = new Set(['scraper', 'fetcher', 'builder', 'grapher', 'bis', 'ia'])
@@ -117,13 +123,14 @@ const INGEST = new Set(['scraper', 'fetcher', 'builder', 'grapher', 'bis', 'ia']
 const cx = (n) => n.x + n.w / 2
 const cy = (n) => n.y + n.h / 2
 
-/** Anchor on the edge of a box facing the other box, so arrows meet borders. */
-function anchor(a, b) {
-  const dx = cx(b) - cx(a), dy = cy(b) - cy(a)
-  if (Math.abs(dx) > Math.abs(dy)) {
-    return { x: dx > 0 ? a.x + a.w : a.x, y: cy(a) }
+/** A named point on a box edge: side plus an offset along that side. */
+function port(n, [side, off]) {
+  switch (side) {
+    case 'l': return { x: n.x,        y: cy(n) + off }
+    case 'r': return { x: n.x + n.w,  y: cy(n) + off }
+    case 't': return { x: cx(n) + off, y: n.y }
+    default:  return { x: cx(n) + off, y: n.y + n.h }
   }
-  return { x: cx(a), y: dy > 0 ? a.y + a.h : a.y }
 }
 
 export default function SystemMap({ stages, result, done }) {
@@ -196,11 +203,11 @@ export default function SystemMap({ stages, result, done }) {
           </g>
         </g>
 
-        {LINKS.map(([a, b, kind, bend]) => {
+        {LINKS.map(([a, b, kind, fp, tp, bend, drop]) => {
           const A = NODES[a], B = NODES[b]
-          const p1 = anchor(A, B), p2 = anchor(B, A)
+          const p1 = port(A, fp), p2 = port(B, tp)
           const mx = (p1.x + p2.x) / 2 + (bend || 0)
-          const my = (p1.y + p2.y) / 2
+          const my = (p1.y + p2.y) / 2 + (drop || 0)
           return (
             <path key={`${a}-${b}`} className={`sysmap-link ${kind} ${linkState(a, b, kind)}`}
                   d={`M ${p1.x} ${p1.y} Q ${mx} ${my} ${p2.x} ${p2.y}`}
