@@ -20,15 +20,17 @@ const SUBTITLES = {
 function TopBar({ screen, onMenu }) {
   return (
     <header className="topbar">
-      <button className="hamburger" onClick={onMenu} aria-label="Open navigation">
-        <svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" /></svg>
-      </button>
-      <div className="tb-title">
-        <h1>{TITLES[screen]}</h1>
-        <p>{SUBTITLES[screen]}</p>
+      <div className="tb-inner">
+        <button className="hamburger" onClick={onMenu} aria-label="Open navigation">
+          <svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" /></svg>
+        </button>
+        <div className="tb-title">
+          <h1>{TITLES[screen]}</h1>
+          <p>{SUBTITLES[screen]}</p>
+        </div>
+        <span className="spacer" />
+        <div className="avatar" title="Procurement Officer">PO</div>
       </div>
-      <span className="spacer" />
-      <div className="avatar" title="Procurement Officer">PO</div>
     </header>
   )
 }

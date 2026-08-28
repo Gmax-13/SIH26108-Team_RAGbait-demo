@@ -68,7 +68,10 @@ function Field({ label, children }) {
   )
 }
 
-export default function StandardDetail({ isNumber, onOpen }) {
+/** `showGraph=false` when the caller already draws a graph — the explorer puts
+ *  this panel underneath the full knowledge graph, and rendering a second
+ *  dependency graph inside it just repeated the same picture. */
+export default function StandardDetail({ isNumber, onOpen, showGraph = true }) {
   const [std, setStd] = useState(null)
   const [graph, setGraph] = useState(null)
   const [err, setErr] = useState(null)
@@ -80,8 +83,9 @@ export default function StandardDetail({ isNumber, onOpen }) {
     if (!isNumber) return
     setStd(null); setGraph(null); setErr(null); setOutRow(null); setInRow(null)
     getStandard(isNumber).then(setStd).catch((e) => setErr(String(e)))
+    if (!showGraph) return
     getGraph(isNumber, hops).then(setGraph).catch(() => {})
-  }, [isNumber, hops])
+  }, [isNumber, hops, showGraph])
 
   if (!isNumber) return null
   if (err) return <div className="err">{err}</div>
@@ -113,7 +117,7 @@ export default function StandardDetail({ isNumber, onOpen }) {
       </div>
 
       {/* ---- graph first: the whole web, with this standard highlighted ---- */}
-      {graph && (
+      {showGraph && graph && (
         <div className="panel">
           <div className="row" style={{ justifyContent: 'space-between', marginBottom: 4 }}>
             <div>

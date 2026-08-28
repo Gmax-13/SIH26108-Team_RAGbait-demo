@@ -378,7 +378,7 @@ export default function GraphExplorer({ focus, setFocus }) {
         </div>
       </div>
 
-      {focus && <StandardDetail isNumber={focus} onOpen={setFocus} />}
+      {focus && <StandardDetail isNumber={focus} onOpen={setFocus} showGraph={false} />}
     </>
   )
 }

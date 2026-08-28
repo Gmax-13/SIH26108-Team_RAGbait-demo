@@ -88,6 +88,7 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   --navy-3:     #1e3765;
   --navy-ink:   #93a7c4;
   --sidebar-w:  248px;
+  --measure:    1440px;   /* content column; the graph benefits from the width */
 }
 
 .shell { display: flex; min-height: 100%; }
@@ -173,13 +174,18 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 /* ---------------------------------------------------------- main column */
 .main { flex: 1; min-width: 0; margin-left: var(--sidebar-w); }
 
+/* The bar spans the full column so its background and rule reach both edges,
+   but its contents are constrained to the same measure as .content — otherwise
+   the page title sits left of the cards it belongs to. */
 .topbar {
   position: sticky; top: 0; z-index: 30;
-  display: flex; align-items: center; gap: 14px;
-  padding: 15px 30px;
   background: rgba(255, 255, 255, .88);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--line);
+}
+.tb-inner {
+  display: flex; align-items: center; gap: 14px;
+  max-width: var(--measure); margin: 0 auto; padding: 15px 30px;
 }
 .tb-title h1 { font-size: 19px; font-weight: 650; margin: 0; }
 .tb-title p  { font-size: 12.5px; color: var(--ink-muted); margin: 1px 0 0; }
@@ -197,7 +203,7 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   stroke-width: 1.8; stroke-linecap: round;
 }
 
-.content { max-width: 1180px; padding: 26px 30px 90px; }
+.content { max-width: var(--measure); margin: 0 auto; padding: 26px 30px 90px; }
 
 /* ---------------------------------------------------------- cards */
 .card {
@@ -415,7 +421,7 @@ button.primary.lg { padding: 11px 24px; font-size: 14.5px; }
     opacity: 0; pointer-events: none; transition: opacity .25s ease;
   }
   .scrim.on { opacity: 1; pointer-events: auto; }
-  .content, .topbar { padding-left: 18px; padding-right: 18px; }
+  .content, .tb-inner { padding-left: 18px; padding-right: 18px; }
   .set-row { grid-template-columns: 1fr; gap: 12px; }
   .ta-row { grid-template-columns: 130px 1fr; }
   .ta-meta { display: none; }
