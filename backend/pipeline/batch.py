@@ -76,6 +76,43 @@ def _resolve_cited(con, raw: str) -> dict[str, Any]:
     return cur
 
 
+_NORMATIVE = re.compile(
+    r"(shall|must|conform(?:ing|s)?|comply|complies|in accordance with|"
+    r"as per|specified in|tested? (?:to|in accordance))", re.I)
+
+
+def _pick(reqs: list[dict[str, Any]], n: int) -> list[dict[str, Any]]:
+    """Choose which requirements to run when the caller caps the count.
+
+    Truncating to the first N is wrong on a real tender: the opening lines are
+    the letterhead, the reference block and the section heading, so a cap of 3
+    on a PDF spent the whole run on front matter and matched nothing. Rank by
+    how much the clause actually reads like a requirement — normative verbs, a
+    cited IS number, a sane length — take the best N, then put them back in
+    document order so the report still reads top-to-bottom.
+    """
+    if n <= 0 or len(reqs) <= n:
+        return reqs
+
+    def score(r: dict[str, Any]) -> float:
+        s = r.get("text") or ""
+        v = 0.0
+        if _NORMATIVE.search(s):
+            v += 2.0
+        v += min(2.0, len(r.get("cited_standards") or []) * 1.0)
+        if 60 <= len(s) <= 400:
+            v += 0.5
+        # Headings and reference blocks: mostly capitals, or no verb at all.
+        letters = [c for c in s if c.isalpha()]
+        if letters and sum(c.isupper() for c in letters) / len(letters) > 0.6:
+            v -= 1.5
+        return v
+
+    order = {id(r): i for i, r in enumerate(reqs)}
+    best = sorted(reqs, key=lambda r: (-score(r), order[id(r)]))[:n]
+    return sorted(best, key=lambda r: order[id(r)])
+
+
 def run_batch(con, retriever: Retriever, text: str, *,
               use_llm: bool = True, max_requirements: int = 0,
               progress=None) -> dict[str, Any]:
@@ -83,7 +120,7 @@ def run_batch(con, retriever: Retriever, text: str, *,
     parsed = extract_requirements(text, use_llm=use_llm)
     reqs = parsed["requirements"]
     if max_requirements:
-        reqs = reqs[:max_requirements]
+        reqs = _pick(reqs, max_requirements)
 
     results: list[dict[str, Any]] = []
     for i, r in enumerate(reqs, 1):
