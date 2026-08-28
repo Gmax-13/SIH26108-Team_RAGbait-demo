@@ -11,6 +11,15 @@ export const getStandard = (n) =>
 export const getGraph = (n, hops = 2) =>
   fetch(`/api/graph/${encodeURIComponent(n)}?hops=${hops}`).then(j)
 
+/** The whole dependency graph in scope, for the explorer's default view. */
+export const getFullGraph = (limit = 5000) =>
+  fetch(`/api/graph?limit=${limit}`).then(j)
+
+/** Type-ahead. `scope` is 'demo' (searchable + present in the graph) or 'all'
+ *  (the whole ingested catalogue, including departments with no graph). */
+export const searchStandards = (q, { limit = 12, scope = 'demo' } = {}) =>
+  fetch(`/api/standards/search?q=${encodeURIComponent(q)}&limit=${limit}&scope=${scope}`).then(j)
+
 export const postRecommend = (body) =>
   fetch('/api/recommend', {
     method: 'POST',
@@ -25,9 +34,11 @@ export const postBatch = (body) =>
     body: JSON.stringify(body),
   }).then(j)
 
-export const postBatchUpload = (file) => {
+export const postBatchUpload = (file, maxRequirements = 0) => {
   const fd = new FormData()
   fd.append('file', file)
+  // Sent as a form field, matching the endpoint's Form(0) declaration.
+  fd.append('max_requirements', String(maxRequirements))
   return fetch('/api/batch/upload', { method: 'POST', body: fd }).then(j)
 }
 
