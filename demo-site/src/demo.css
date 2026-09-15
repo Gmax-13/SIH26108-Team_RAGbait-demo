@@ -1,0 +1,61 @@
+/* Demo-only additions on top of the dashboard's index.css. */
+
+/* Inter has no Devanagari or Tamil glyphs; name the Noto faces right after it so
+   every browser renders Hindi, Marathi and Tamil input the same way. */
+:root {
+  --sans: 'Inter', 'Noto Sans Devanagari', 'Noto Sans Tamil', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.demo-badge {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--navy, #0e1c38);
+  color: #fff;
+  font: 600 12px/1 var(--sans);
+  letter-spacing: .01em;
+  box-shadow: 0 6px 20px rgba(14, 28, 56, .28);
+  cursor: default;
+}
+.demo-badge i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--warn, #b7791f);
+}
+
+.query-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.query-head .field-label { margin: 0; }
+.query-head .seg { margin: 0; }
+.seg.lang button { min-width: 64px; }
+
+.translate-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  margin-top: 14px;
+}
+.translate-note .en { font-family: var(--mono); font-size: 13px; }
+.translate-note .why { flex-basis: 100%; }
+
+.demo-note {
+  margin: 14px 0 0;
+  padding: 11px 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+}
