@@ -4,11 +4,14 @@ import type { CameraKeyframe, AudioCue, CursorSFXMap } from "./engine";
 export const SCENE_OVERLAP = 15;
 
 export const SCENES: SceneTiming[] = [
-  { id: "chaos", durationInFrames: 260 },
-  { id: "product-reveal", durationInFrames: 150 },
-  { id: "feature-showcase", durationInFrames: 200 },
-  { id: "headline-resolution", durationInFrames: 120 },
-  { id: "closer", durationInFrames: 90 },
+  { id: "hook", durationInFrames: 187 },
+  { id: "reveal", durationInFrames: 182 },
+  { id: "match", durationInFrames: 434 },
+  { id: "refusal", durationInFrames: 350 },
+  { id: "tender", durationInFrames: 350 },
+  { id: "graph", durationInFrames: 182 },
+  { id: "headline-resolution", durationInFrames: 182 },
+  { id: "closer", durationInFrames: 120 },
 ];
 
 export const SPREADSHEET_COLUMNS = [
@@ -53,12 +56,18 @@ export const NOTIFICATIONS = [
 ];
 
 export const CAMERA_TIMELINE: CameraKeyframe[] = [
-  { scene: "chaos", at: "start", x: 0, y: 0, scale: 1.0 },
-  { scene: "chaos", at: "end", x: 0, y: 0, scale: 1.0 },
-  { scene: "product-reveal", at: "start", x: 0, y: 0, scale: 1.0 },
-  { scene: "product-reveal", at: "end", x: 0, y: 0, scale: 1.0 },
-  { scene: "feature-showcase", at: "start", x: 0, y: 0, scale: 1.0 },
-  { scene: "feature-showcase", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "hook", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "hook", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "reveal", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "reveal", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "match", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "match", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "refusal", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "refusal", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "tender", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "tender", at: "end", x: 0, y: 0, scale: 1.0 },
+  { scene: "graph", at: "start", x: 0, y: 0, scale: 1.0 },
+  { scene: "graph", at: "end", x: 0, y: 0, scale: 1.0 },
   { scene: "headline-resolution", at: "start", x: 0, y: 0, scale: 1.0 },
   { scene: "headline-resolution", at: "end", x: 0, y: 0, scale: 1.0 },
   { scene: "closer", at: "start", x: 0, y: 0, scale: 1.0 },

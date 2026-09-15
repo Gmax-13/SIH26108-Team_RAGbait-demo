@@ -136,9 +136,12 @@ describe("e2e: FeatureShowcase layout zones", () => {
 describe("e2e: scene component wiring", () => {
   it("SCENE_COMPONENTS map covers every scene in SCENES", () => {
     const componentMap: Record<string, unknown> = {
-      "chaos": true,
-      "product-reveal": true,
-      "feature-showcase": true,
+      "hook": true,
+      "reveal": true,
+      "match": true,
+      "refusal": true,
+      "tender": true,
+      "graph": true,
       "headline-resolution": true,
       "closer": true,
     };
@@ -155,6 +158,12 @@ describe("e2e: scene component wiring", () => {
     expect(scenes.FeatureShowcase).toBeDefined();
     expect(scenes.HeadlineResolution).toBeDefined();
     expect(scenes.Closer).toBeDefined();
+    expect(scenes.Hook).toBeDefined();
+    expect(scenes.Reveal).toBeDefined();
+    expect(scenes.Match).toBeDefined();
+    expect(scenes.Refusal).toBeDefined();
+    expect(scenes.Tender).toBeDefined();
+    expect(scenes.Graph).toBeDefined();
   });
 });
 

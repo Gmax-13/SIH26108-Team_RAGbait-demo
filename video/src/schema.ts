@@ -2,22 +2,22 @@ import { z } from "zod";
 import { zColor } from "@remotion/zod-types";
 
 const BrandColorsSchema = z.object({
-  primary: zColor().default("#6366F1"),
-  accent: zColor().default("#22D3EE"),
-  background: zColor().default("#0F0F14"),
-  backgroundLight: zColor().default("#1A1A24"),
-  surface: zColor().default("#24243A"),
-  text: zColor().default("#F5F5FF"),
-  textMuted: zColor().default("#A0A0C0"),
-  success: zColor().default("#34D399"),
-  warning: zColor().default("#FBBF24"),
-  error: zColor().default("#F87171"),
+  primary: zColor().default("#2A78D6"),
+  accent: zColor().default("#6D4BC4"),
+  background: zColor().default("#0E1C38"),
+  backgroundLight: zColor().default("#16294B"),
+  surface: zColor().default("#1E3765"),
+  text: zColor().default("#F5F7FB"),
+  textMuted: zColor().default("#93A7C4"),
+  success: zColor().default("#0CA30C"),
+  warning: zColor().default("#B7791F"),
+  error: zColor().default("#D03B3B"),
 });
 
 const BRAND_COLORS_DEFAULTS = BrandColorsSchema.parse({});
 
 const BrandSchema = z.object({
-  name: z.string().max(100).default("Product"),
+  name: z.string().max(100).default("ManakSetu"),
   colors: BrandColorsSchema.default(BRAND_COLORS_DEFAULTS),
   fontSans: z.string().max(100).default("Inter"),
   fontSerif: z.string().max(100).default("Fraunces"),
@@ -28,11 +28,11 @@ const BrandSchema = z.object({
 const BRAND_DEFAULTS = BrandSchema.parse({});
 
 const HeadlinesSchema = z.object({
-  pain: z.array(z.string().max(200)).default(["Where did that", "request go?"]),
+  pain: z.array(z.string().max(200)).default(["24,000 Indian Standards.", "Which one does your tender need?"]),
   painFontSize: z.number().int().min(8).max(400).optional(),
-  resolution: z.array(z.string().max(200)).default(["Every request.", "Tracked."]),
+  resolution: z.array(z.string().max(200)).default(["Names the right standard.", "Or says it cannot."]),
   resolutionFontSize: z.number().int().min(8).max(400).optional(),
-  closer: z.array(z.string().max(200)).default(["Try it free."]),
+  closer: z.array(z.string().max(200)).default(["Built for BIS procurement"]),
   closerFontSize: z.number().int().min(8).max(400).optional(),
   color: zColor().optional(),
 });
@@ -120,154 +120,41 @@ const CursorPathEntrySchema = z.object({
 );
 
 const DEFAULT_WINDOW_LAYOUT = z.array(WindowLayoutSchema).parse([
+  // One window per product scene: the 1600×1000 dashboard viewport at 0.95 scale, plus 40px of chrome.
   {
-    id: "spreadsheet", title: "Tracking Sheet",
-    startX: 500, startY: 30, startW: 1100, startH: 500,
-    endX: 1450, endY: -200,
-    enterAt: 5, enterDuration: 14, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
+    id: "reveal-app", title: "ManakSetu — Indian Standards Engine",
+    startX: 200, startY: 45, startW: 1520, startH: 990,
+    enterAt: 58, enterDuration: 20, enterFrom: "slide-up",
     zIndex: 1,
   },
   {
-    id: "email", title: "Email — Q2 Requests",
-    startX: 20, startY: 200, startW: 1020, startH: 400,
-    endX: -680, endY: 400,
-    enterAt: 30, enterDuration: 14, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 2,
-  },
-  {
-    id: "chat", title: "Team Chat",
-    startX: 200, startY: 350, startW: 1200, startH: 500,
-    endX: 900, endY: 850,
-    enterAt: 60, enterDuration: 14, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 3,
-  },
-  // ChaosDesktop — sticky notes
-  {
-    id: "sticky-0", title: "Sticky Note",
-    startX: 30, startY: 20, startW: 200, startH: 160,
-    endX: -100, endY: -180,
-    enterAt: 0, enterDuration: 12, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 0, rotation: -3,
-  },
-  {
-    id: "sticky-1", title: "Sticky Note",
-    startX: 260, startY: 35, startW: 200, startH: 160,
-    endX: 60, endY: -200,
-    enterAt: 8, enterDuration: 12, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 0, rotation: 2.5,
-  },
-  {
-    id: "sticky-2", title: "Sticky Note",
-    startX: 140, startY: 190, startW: 200, startH: 160,
-    endX: -60, endY: -160,
-    enterAt: 16, enterDuration: 12, enterFrom: "scale",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 0, rotation: -4,
-  },
-  // ChaosDesktop — notifications
-  {
-    id: "notification-0", title: "Notification",
-    startX: 1530, startY: 30, startW: 360, startH: 80,
-    endX: 2030,
-    enterAt: 90, enterDuration: 10, enterFrom: "slide-right",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 10,
-  },
-  {
-    id: "notification-1", title: "Notification",
-    startX: 1530, startY: 132, startW: 360, startH: 80,
-    endX: 2030,
-    enterAt: 104, enterDuration: 10, enterFrom: "slide-right",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 10,
-  },
-  {
-    id: "notification-2", title: "Notification",
-    startX: 1530, startY: 234, startW: 360, startH: 80,
-    endX: 2030,
-    enterAt: 118, enterDuration: 10, enterFrom: "slide-right",
-    animateAt: 150, animateDuration: 25,
-    zIndex: 10,
-  },
-  {
-    id: "product-window", title: "Dashboard — Overview",
-    startX: 30, startY: 30, startW: 1860, startH: 1020,
-    endX: 980, endY: 500, endW: 960, endH: 600,
+    id: "match-app", title: "ManakSetu — New Query",
+    startX: 200, startY: 45, startW: 1520, startH: 990,
     enterAt: 0, enterDuration: 1, enterFrom: "fade",
-    animateAt: 30, animateDuration: 18,
     zIndex: 1,
   },
   {
-    id: "top-panel", title: "Request Manager",
-    startX: 30, startY: 30, startW: 920, startH: 440,
-    enterAt: 48, enterDuration: 10, enterFrom: "slide-up",
-    zIndex: 2,
-  },
-  {
-    id: "left-panel", title: "Smart Alerts",
-    startX: 30, startY: 500, startW: 920, startH: 570,
-    enterAt: 53, enterDuration: 10, enterFrom: "slide-up",
-    zIndex: 3,
-  },
-  // FeatureShowcase
-  {
-    id: "feature-0", title: "Dashboard",
-    startX: 30, startY: 30, startW: 800, startH: 500,
-    enterAt: 0, enterDuration: 12, enterFrom: "scale",
+    id: "refusal-app", title: "ManakSetu — New Query",
+    startX: 200, startY: 45, startW: 1520, startH: 990,
+    enterAt: 0, enterDuration: 1, enterFrom: "fade",
     zIndex: 1,
   },
   {
-    id: "feature-1", title: "Request Manager",
-    startX: 990, startY: 30, startW: 800, startH: 500,
-    enterAt: 35, enterDuration: 12, enterFrom: "scale",
-    zIndex: 2,
+    id: "tender-app", title: "ManakSetu — Document Upload",
+    startX: 200, startY: 45, startW: 1520, startH: 990,
+    enterAt: 0, enterDuration: 1, enterFrom: "fade",
+    zIndex: 1,
   },
   {
-    id: "feature-2", title: "Smart Alerts",
-    startX: 30, startY: 30, startW: 1400, startH: 700,
-    enterAt: 70, enterDuration: 12, enterFrom: "scale",
-    zIndex: 3,
+    id: "graph-app", title: "ManakSetu — Standards Graph",
+    startX: 200, startY: 45, startW: 1520, startH: 990,
+    enterAt: 0, enterDuration: 1, enterFrom: "fade",
+    zIndex: 1,
   },
 ]);
 
-const DEFAULT_CURSOR_PATH = z.array(CursorPathEntrySchema).parse([
-  // ChaosDesktop (offset 0)
-  { at: 0, action: "idle", positionX: 1400, positionY: 300 },
-  { at: 10, action: "moveTo", target: "spreadsheet", anchorXPct: 60, anchorYPct: 40, duration: 12 },
-  { at: 26, action: "click", target: "spreadsheet" },
-  { at: 34, action: "moveTo", target: "email", anchor: "top-bar", duration: 12 },
-  { at: 50, action: "click", target: "email" },
-  { at: 58, action: "moveTo", target: "chat", anchorXPct: 40, anchorYPct: 30, duration: 12 },
-  { at: 76, action: "click", target: "chat" },
-  { at: 84, action: "moveTo", target: "notification-0", duration: 12 },
-  { at: 100, action: "click", target: "notification-0" },
-  { at: 108, action: "moveTo", target: "notification-1", duration: 10 },
-  { at: 122, action: "click", target: "notification-1" },
-  // ProductReveal (offset 245)
-  { at: 245, action: "idle", positionX: 200, positionY: 180 },
-  { at: 250, action: "moveTo", target: "product-window", anchor: "corner-top-left", duration: 12 },
-  { at: 265, action: "click", target: "product-window", anchor: "corner-top-left" },
-  { at: 275, action: "drag", target: "product-window", anchor: "corner-top-left", toX: 980, toY: 500, duration: 18 },
-  { at: 303, action: "moveTo", target: "top-panel", anchorXPct: 50, anchorYPct: 40, duration: 12 },
-  { at: 319, action: "click", target: "top-panel" },
-  { at: 329, action: "moveTo", target: "left-panel", anchorXPct: 50, anchorYPct: 40, duration: 12 },
-  { at: 345, action: "click", target: "left-panel" },
-  // FeatureShowcase (offset 380)
-  { at: 380, action: "idle", positionX: 300, positionY: 400 },
-  { at: 388, action: "moveTo", target: "feature-0", anchorXPct: 50, anchorYPct: 35, duration: 12 },
-  { at: 404, action: "click", target: "feature-0" },
-  { at: 420, action: "moveTo", target: "feature-1", anchorXPct: 50, anchorYPct: 35, duration: 12 },
-  { at: 436, action: "click", target: "feature-1" },
-  { at: 458, action: "moveTo", target: "feature-2", anchorXPct: 40, anchorYPct: 30, duration: 12 },
-  { at: 474, action: "click", target: "feature-2" },
-  { at: 495, action: "moveTo", target: "feature-2", anchor: "top-bar", duration: 10 },
-  { at: 510, action: "click", target: "feature-2", anchor: "top-bar" },
-]);
+// The product scenes script their own cursor against captured UI rects.
+const DEFAULT_CURSOR_PATH = z.array(CursorPathEntrySchema).parse([]);
 
 // --- Layout Descriptor (Figma Bridge) ---
 
@@ -418,25 +305,30 @@ const MusicSchema = z.object({
 
 const MUSIC_DEFAULTS = MusicSchema.parse({});
 
+// ManakSetu film. Durations land each push on a bar line of the 86 BPM music bed
+// (one bar ≈ 83.7 frames, first downbeat ≈ frame 19).
 const DEFAULT_SCENES: z.infer<typeof SceneConfigSchema>[] = [
-  { id: "chaos", enabled: true, durationInFrames: 260, enterFrom: "none", exitTo: "top", background: "dark" },
-  { id: "product-reveal", enabled: true, durationInFrames: 150, enterFrom: "bottom", exitTo: "right", background: "dark" },
-  { id: "feature-showcase", enabled: true, durationInFrames: 200, enterFrom: "left", exitTo: "top", background: "dark" },
-  { id: "headline-resolution", enabled: true, durationInFrames: 120, enterFrom: "bottom", exitTo: "top", background: "gradient" },
-  { id: "closer", enabled: true, durationInFrames: 90, enterFrom: "bottom", exitTo: "none", background: "light" },
+  { id: "hook", enabled: true, durationInFrames: 187, enterFrom: "none", exitTo: "top", background: "gradient" },
+  { id: "reveal", enabled: true, durationInFrames: 182, enterFrom: "bottom", exitTo: "top", background: "gradient" },
+  { id: "match", enabled: true, durationInFrames: 434, enterFrom: "bottom", exitTo: "left", background: "gradient" },
+  { id: "refusal", enabled: true, durationInFrames: 350, enterFrom: "right", exitTo: "left", background: "gradient" },
+  { id: "tender", enabled: true, durationInFrames: 350, enterFrom: "right", exitTo: "left", background: "gradient" },
+  { id: "graph", enabled: true, durationInFrames: 182, enterFrom: "right", exitTo: "top", background: "gradient" },
+  { id: "headline-resolution", enabled: true, durationInFrames: 182, enterFrom: "bottom", exitTo: "top", background: "gradient" },
+  { id: "closer", enabled: true, durationInFrames: 120, enterFrom: "bottom", exitTo: "none", background: "light" },
 ];
 
 const DEFAULT_FEATURES = [
-  { title: "Dashboard", description: "Live metrics and KPIs at a glance" },
-  { title: "Request Manager", description: "Track every request from submission to delivery" },
-  { title: "Smart Alerts", description: "Get notified when things need attention" },
+  { title: "Match", description: "Finds the Indian Standard that governs a requirement" },
+  { title: "Refuse", description: "Abstains when the evidence does not support an answer" },
+  { title: "Report", description: "Turns a whole tender into a compliance report" },
 ];
 
 export const CinematicSchema = z.object({
   brand: BrandSchema.default(BRAND_DEFAULTS),
 
   headlines: HeadlinesSchema.default(HEADLINES_DEFAULTS),
-  cta: z.string().max(100).default("Try it free"),
+  cta: z.string().max(100).default("Built for BIS procurement"),
 
   productFeatures: z.array(ProductFeatureSchema).min(1).default(DEFAULT_FEATURES),
 

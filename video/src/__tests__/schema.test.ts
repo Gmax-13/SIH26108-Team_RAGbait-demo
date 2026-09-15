@@ -5,11 +5,11 @@ import type { CinematicProps } from "../schema";
 describe("CinematicSchema", () => {
   it("parses empty object with all defaults", () => {
     const result = CinematicSchema.parse({});
-    expect(result.brand.name).toBe("Product");
-    expect(result.brand.colors.primary).toBe("#6366F1");
-    expect(result.headlines.pain).toEqual(["Where did that", "request go?"]);
-    expect(result.cta).toBe("Try it free");
-    expect(result.scenes).toHaveLength(5);
+    expect(result.brand.name).toBe("ManakSetu");
+    expect(result.brand.colors.primary).toBe("#2A78D6");
+    expect(result.headlines.pain).toEqual(["24,000 Indian Standards.", "Which one does your tender need?"]);
+    expect(result.cta).toBe("Built for BIS procurement");
+    expect(result.scenes).toHaveLength(8);
     expect(result.overlap).toBe(15);
     expect(result.easing).toBe("snappy");
     expect(result.music.enabled).toBe(true);
@@ -25,9 +25,9 @@ describe("CinematicSchema", () => {
     });
     expect(result.brand.name).toBe("SampleHQ");
     expect(result.brand.colors.primary).toBe("#FF0000");
-    expect(result.brand.colors.accent).toBe("#22D3EE");
+    expect(result.brand.colors.accent).toBe("#6D4BC4");
     expect(result.cta).toBe("Start now");
-    expect(result.headlines.pain).toEqual(["Where did that", "request go?"]);
+    expect(result.headlines.pain).toEqual(["24,000 Indian Standards.", "Which one does your tender need?"]);
   });
 
   it("validates scene durationInFrames min/max", () => {
@@ -117,9 +117,12 @@ describe("CinematicSchema", () => {
     const result = CinematicSchema.parse({});
     const ids = result.scenes.map((s) => s.id);
     expect(ids).toEqual([
-      "chaos",
-      "product-reveal",
-      "feature-showcase",
+      "hook",
+      "reveal",
+      "match",
+      "refusal",
+      "tender",
+      "graph",
       "headline-resolution",
       "closer",
     ]);
@@ -181,9 +184,9 @@ describe("CinematicSchema", () => {
       brand: { colors: { primary: "#FF0000" } },
     });
     expect(result.brand.colors.primary).toBe("#FF0000");
-    expect(result.brand.colors.accent).toBe("#22D3EE");
-    expect(result.brand.colors.text).toBe("#F5F5FF");
-    expect(result.brand.colors.background).toBe("#0F0F14");
+    expect(result.brand.colors.accent).toBe("#6D4BC4");
+    expect(result.brand.colors.text).toBe("#F5F7FB");
+    expect(result.brand.colors.background).toBe("#0E1C38");
   });
 
   it("cursorScale defaults to 1", () => {
@@ -210,8 +213,15 @@ describe("CinematicSchema", () => {
     expect(() => CinematicSchema.parse({ cursorRotation: 200 })).toThrow();
   });
 
-  it("cursorPath entry curve field is optional, defaults to undefined", () => {
+  it("cursorPath defaults to empty — product scenes script their own cursor", () => {
     const result = CinematicSchema.parse({});
+    expect(result.cursorPath).toEqual([]);
+  });
+
+  it("cursorPath entry curve field is optional, defaults to undefined", () => {
+    const result = CinematicSchema.parse({
+      cursorPath: [{ at: 0, action: "idle", positionX: 100, positionY: 100 }],
+    });
     const entry = result.cursorPath[0];
     expect(entry.curve).toBeUndefined();
   });
@@ -237,3 +247,5 @@ describe("CinematicSchema", () => {
     ).toThrow();
   });
 });
+
+export type { CinematicProps };

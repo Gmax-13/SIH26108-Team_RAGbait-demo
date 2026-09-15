@@ -13,17 +13,31 @@ import {
   ChaosDesktop,
   ProductReveal,
   FeatureShowcase,
+  Hook,
+  Reveal,
+  Match,
+  Refusal,
+  Tender,
+  Graph,
   HeadlineResolution,
   Closer,
 } from "./scenes";
+import { REFUSAL_HUSH } from "./scenes/Refusal";
 import { DynamicWindows } from "./scenes/DynamicWindows";
 
-const SCENE_COMPONENTS: Record<string, React.FC> = {
+export const SCENE_COMPONENTS: Record<string, React.FC> = {
+  "hook": Hook,
+  "reveal": Reveal,
+  "match": Match,
+  "refusal": Refusal,
+  "tender": Tender,
+  "graph": Graph,
+  "headline-resolution": HeadlineResolution,
+  "closer": Closer,
+  // The template's original demo scenes, still available to enable in Studio.
   "chaos": ChaosDesktop,
   "product-reveal": ProductReveal,
   "feature-showcase": FeatureShowcase,
-  "headline-resolution": HeadlineResolution,
-  "closer": Closer,
 };
 
 export const CinematicDemo: React.FC<CinematicProps> = (props) => {
@@ -55,6 +69,17 @@ export const CinematicDemo: React.FC<CinematicProps> = (props) => {
         : undefined,
     [props.music],
   );
+
+  // The music drops away under the refusal, so the moment lands in near-silence.
+  const duckRanges = useMemo(() => {
+    const refusalStart = getSceneStartFrame(enabledScenes, "refusal", props.overlap);
+    if (refusalStart < 0) return [];
+    return [{
+      startFrame: refusalStart + REFUSAL_HUSH.from,
+      endFrame: refusalStart + REFUSAL_HUSH.to,
+      duckedVolume: 0.1,
+    }];
+  }, [enabledScenes, props.overlap]);
 
   return (
     <VideoPropsProvider value={props}>
@@ -89,10 +114,7 @@ export const CinematicDemo: React.FC<CinematicProps> = (props) => {
             sfxTimeline={sfxTimeline}
             scenes={enabledScenes}
             overlap={props.overlap}
-            duckMusicDuring={[
-              { startFrame: 150, endFrame: 260, duckedVolume: 0.12 },
-              { startFrame: 565, endFrame: 685, duckedVolume: 0.12 },
-            ]}
+            duckMusicDuring={duckRanges}
           />
         )}
       </AbsoluteFill>

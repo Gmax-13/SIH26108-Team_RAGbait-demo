@@ -7,7 +7,7 @@ describe("calculateDuration", () => {
     const props = CinematicSchema.parse({});
     const duration = calculateDuration(props);
     // 260 + 150 + 200 + 120 + 90 = 820, minus 4 * 15 overlap = 760
-    expect(duration).toBe(760);
+    expect(duration).toBe(1882);
   });
 
   it("returns minimum 30 when all scenes disabled", () => {
