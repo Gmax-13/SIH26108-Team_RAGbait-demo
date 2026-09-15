@@ -1,5 +1,11 @@
 export { ChaosDesktop } from "./ChaosDesktop";
 export { ProductReveal } from "./ProductReveal";
 export { FeatureShowcase } from "./FeatureShowcase";
+export { Hook } from "./Hook";
+export { Reveal } from "./Reveal";
+export { Match } from "./Match";
+export { Refusal } from "./Refusal";
+export { Tender } from "./Tender";
+export { Graph } from "./Graph";
 export { HeadlineResolution } from "./HeadlineResolution";
 export { Closer } from "./Closer";
