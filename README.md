@@ -13,6 +13,15 @@ support a confident answer, it returns "not confident enough" plus the closest
 candidates. A fabricated IS number is treated as a critical bug, not a
 cosmetic one.
 
+## Watch it
+
+[![The engine refusing a vague tender phrase — click to watch the full film](docs/media/manaksetu-refusal-teaser.gif)](docs/media/manaksetu-promo.mp4)
+
+**▶ [Watch the full 63-second film (MP4, 1080p)](docs/media/manaksetu-promo.mp4)** — the real
+dashboard, recorded from live queries: a match with its citation trail, the
+refusal above, and a tender report that catches an outdated `IS 3043 - 1987`.
+Built with Remotion in [`video/`](video/).
+
 ---
 
 ## What makes this different from keyword search
