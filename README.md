@@ -151,7 +151,10 @@ Four tabs, all on the same pipeline:
 
 - **Single query** — one description in, a verified recommendation or an
   abstention out, with the citation trail and dependency graph.
-- **Batch tender mode** — a whole document in, a quantified compliance report out.
+- **Batch tender mode** — a whole document in, a quantified compliance report out,
+  with a compliance and testing checklist built from the report itself: outdated
+  references to correct, standards to specify, certification, test methods,
+  safety standards, and requirements an engineer must resolve.
 - **Explore a standard** — the catalogue record, currency flags, known editions,
   certification, and every cited dependency with the verbatim sentence proving
   it. Graph nodes and cited standards are clickable, so the dependency web can

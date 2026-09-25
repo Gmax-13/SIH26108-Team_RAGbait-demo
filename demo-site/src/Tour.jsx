@@ -59,7 +59,7 @@ const STEPS = [
       <>
         Click <b>Load sample tender</b>, then <b>Generate Compliance Report</b>. Every requirement
         is matched to a standard, and the report catches the tender citing
-        <b> IS 3043:1987</b> when the 2018 edition is current. The report opens under <b>Reports</b>.
+        <b> IS 3043:1987</b> when the 2018 edition is current. The report opens under <b>Reports</b>, with a compliance and testing checklist to tick off.
       </>
     ),
   },

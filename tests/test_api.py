@@ -179,6 +179,10 @@ def test_batch_produces_a_quantified_summary(client):
     # the tender cites the 1987 edition; 2018 exists
     assert s["outdated_document_citations"] >= 1
     assert b["outdated_document_citations"][0]["latest_known_edition"] == "IS 3043:2018"
+    # ...and the checklist tells the officer to fix it
+    correct = next(x for x in b["compliance_checklist"]["sections"] if x["key"] == "correct")
+    assert any("IS 3043:2018" in i["action"] for i in correct["items"])
+    assert s["checklist_items"] == b["compliance_checklist"]["total"]
 
 
 def test_logs_expose_the_audit_trail(client):

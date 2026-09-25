@@ -3,6 +3,7 @@ import { downloadCSV, downloadJSON, stamp } from '../download'
 import { CountUp } from '../anim'
 import { CurrencyBadge } from './Common'
 import ResultView from './ResultView'
+import ComplianceChecklist from './ComplianceChecklist'
 
 const fmt = (n) => (n ?? 0).toLocaleString()
 
@@ -20,6 +21,14 @@ export default function BatchReport({ report }) {
   if (!report) return null
   const s = report.summary
 
+  // A checklist item's requirement chip opens that requirement's detail below.
+  const showRequirement = (rid) => {
+    const i = (report.results || []).findIndex((x) => x.requirement.id === rid)
+    if (i < 0) return
+    setOpen(i)
+    setTimeout(() => document.getElementById('req-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+  }
+
   return (
     <>
       <div className="panel">
@@ -34,6 +43,7 @@ export default function BatchReport({ report }) {
                 cls={s.certification_flags ? 'flag' : ''} />
           <Tile n={s.requirements_abstained} l="Abstained — no confident match"
                 cls={s.requirements_abstained ? 'flag' : ''} />
+          {s.checklist_items != null && <Tile n={s.checklist_items} l="Checklist actions" />}
         </div>
         <div className="row" style={{ marginTop: 12 }}>
           <button className="ghost" onClick={() => downloadJSON(`compliance-report-${stamp()}.json`, report)}>
@@ -64,6 +74,8 @@ export default function BatchReport({ report }) {
           ))}
         </p>
       </div>
+
+      <ComplianceChecklist checklist={report.compliance_checklist} onRequirement={showRequirement} />
 
       {!!(report.outdated_document_citations || []).length && (
         <div className="panel">
@@ -156,7 +168,7 @@ export default function BatchReport({ report }) {
       </div>
 
       {open !== null && report.results[open] && (
-        <div className="panel">
+        <div className="panel" id="req-detail">
           <h2>Detail — {report.results[open].requirement.id}</h2>
           <p className="small muted">{report.results[open].requirement.text}</p>
           <ResultView result={report.results[open].result} />

@@ -1298,3 +1298,35 @@ button.primary { transition: background .15s, transform .08s, box-shadow .15s; }
   background: none; border: none; cursor: pointer; padding: 5px 8px;
   font-size: 12.5px; color: var(--accent-ink); text-decoration: underline;
 }
+
+/* ---------------------------------------------------------- compliance checklist */
+.checklist .card-head { margin-bottom: 4px; }
+.cl-section { margin-top: 18px; }
+.panel .cl-section h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 2px; }
+.cl-count {
+  font-size: 11px; font-weight: 650; letter-spacing: 0; color: var(--ink-2);
+  background: var(--surface-3); border-radius: 99px; padding: 1px 8px;
+}
+.cl-about { margin: 0 0 8px; }
+.cl-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--r-sm); }
+.cl-list li {
+  display: flex; gap: 11px; align-items: flex-start;
+  padding: 10px 12px; border-bottom: 1px solid var(--line);
+  border-left: 3px solid transparent;
+}
+.cl-list li:last-child { border-bottom: 0; }
+.cl-list input { margin: 3px 0 0; width: 16px; height: 16px; flex: none; accent-color: var(--good); cursor: pointer; }
+.cl-text { min-width: 0; flex: 1; }
+.cl-text label { cursor: pointer; font-size: 14px; line-height: 1.5; }
+.cl-id { color: var(--ink-muted); font-size: 11.5px; margin-right: 8px; }
+.cl-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; margin-top: 3px; line-height: 1.45; }
+.cl-req {
+  background: var(--accent-wash); color: var(--accent-ink); border: 1px solid #c5dcf8;
+  border-radius: 6px; padding: 0 6px; font-size: 11.5px; line-height: 1.6; cursor: pointer;
+}
+.cl-req:hover { border-color: var(--accent); }
+.cl-list li.done { background: var(--good-wash); }
+.cl-list li.done .cl-text label { color: var(--ink-muted); text-decoration: line-through; }
+.cl-correct .cl-list li { border-left-color: var(--bad); }
+.cl-certify .cl-list li { border-left-color: var(--warn); }
+.cl-resolve .cl-list li { border-left-color: var(--abstain); }

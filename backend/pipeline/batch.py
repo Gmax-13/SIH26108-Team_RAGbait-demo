@@ -16,6 +16,7 @@ import time
 from typing import Any
 
 
+from backend.pipeline.checklist import build_checklist
 from backend.pipeline.currency import check_currency
 from backend.pipeline.parse_document import extract_requirements
 from backend.pipeline.recommend import recommend
@@ -181,7 +182,7 @@ def run_batch(con, retriever: Retriever, text: str, *,
     outdated_cited = [c for c in document_citations
                       if c.get("status") in ("superseded", "withdrawn")]
 
-    return {
+    report = {
         "status": "batch_complete",
         "extraction": {"method": parsed["method"], "notes": parsed["notes"]},
         "summary": {
@@ -201,3 +202,8 @@ def run_batch(con, retriever: Retriever, text: str, *,
         "results": results,
         "elapsed_sec": round(time.time() - t0, 2),
     }
+    # Derived from the finished report, so it can never cite anything the report
+    # does not already contain.
+    report["compliance_checklist"] = build_checklist(report)
+    report["summary"]["checklist_items"] = report["compliance_checklist"]["total"]
+    return report

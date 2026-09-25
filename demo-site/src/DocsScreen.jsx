@@ -144,6 +144,7 @@ export default function DocsScreen({ go }) {
             <div className="docs-card"><b>Certification</b><span>Flags BIS Product Certification, CRS or Hallmarking where a rule applies.</span></div>
             <div className="docs-card"><b>Allied standards</b><span>Test methods, terminology, safety and installation standards it depends on.</span></div>
             <div className="docs-card"><b>A tender clause</b><span>Paste-ready specification text for the officer.</span></div>
+            <div className="docs-card"><b>A compliance checklist</b><span>For a whole tender: references to correct, standards to specify, certification and tests, ready to tick off.</span></div>
           </div>
           <p>
             When the evidence doesn't support an answer, it <b>abstains</b>. It gives the reasons,
@@ -154,7 +155,7 @@ export default function DocsScreen({ go }) {
             <li><b>New Query</b>: a single requirement, or a whole tender pasted in and turned into a compliance report.</li>
             <li><b>Dashboard</b>: corpus composition and the full ingestion audit trail.</li>
             <li><b>Standards Graph</b>: every standard and the cited dependencies between them.</li>
-            <li><b>Reports</b>: the tender compliance report, exportable as JSON or CSV.</li>
+            <li><b>Reports</b>: the tender compliance report with its compliance and testing checklist, exportable as JSON, CSV or Markdown.</li>
           </ul>
           <button className="primary" onClick={() => go('query')}>Try a query</button>
         </Section>
@@ -278,6 +279,7 @@ export default function DocsScreen({ go }) {
               ['Allied standards, six categories', <span className="badge ok">Built</span>, "All six edge types, from BIS's own aspect taxonomy"],
               ['Latest version and amendments', <span className="badge ok">Built</span>, 'IS 1554 (Part 1):1988 → current, 5 amendments; IS 3043-1987 → superseded by 2018'],
               ['Certification requirements', <span className="badge warn">Partial</span>, 'BIS Product Certification and CRS fire; Hallmarking covers gold and silver, outside this corpus'],
+              ['Compliance and testing checklist', <span className="badge ok">Built</span>, 'Generated with every tender report from its own matches: outdated references, standards, certification, test methods, safety, and requirements an engineer must resolve'],
               ['Multilingual input', <span className="badge warn">Designed</span>, 'Translate-then-retrieve: detect the language, match in English, answer in the original; Hindi, Marathi and Tamil examples on New Query'],
             ]}
           />
