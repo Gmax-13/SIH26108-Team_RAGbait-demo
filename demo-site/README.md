@@ -16,6 +16,13 @@ directly and swaps only two modules.
   does not translate yet). Free-typed text shows a note, because only recorded
   examples can run.
 
+- `src/DocsScreen.jsx` adds a **Docs** screen to the sidebar: the problem
+  statement, the solution, what is different, how it works, KPIs, requirement
+  coverage, stack, limitations and roadmap. It is passed in through `App`'s
+  `extraScreens` prop, so the dashboard itself is unchanged. Corpus figures are
+  read from the recorded stats; the evaluation figures are copied from
+  `data/logs/eval-scoped.json` and must be updated by hand when it is re-run.
+
 A fixed badge marks every page as an offline demo.
 
 ## What is recorded
@@ -27,6 +34,7 @@ A fixed badge marks every page as an offline demo.
 | Dashboard | corpus stats and the latest 2,000 ingestion log events |
 | Standards Graph | the full in-scope graph; search runs in the browser over its standards; every node opens its recorded catalogue record |
 | Settings | shown as in the dashboard; results are the ones recorded with default settings |
+| Docs | static documentation; demo-only, not in the live dashboard |
 
 ## Run locally
 

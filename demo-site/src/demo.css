@@ -59,3 +59,149 @@
   border-radius: var(--r-sm);
   background: var(--surface-2);
 }
+
+/* ---------------------------------------------------------- docs */
+.docs {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.docs-toc {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.docs-toc-label {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: 0 10px 8px;
+}
+.docs-toc button {
+  background: none;
+  border: none;
+  border-left: 2px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+  font: 500 13.5px/1.35 var(--sans);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.docs-toc button:hover { color: var(--ink); }
+.docs-toc button.on { color: var(--accent-ink); border-left-color: var(--accent); font-weight: 600; }
+
+.docs-body { min-width: 0; max-width: 900px; }
+.docs-body p, .docs-list { max-width: 72ch; }
+.docs-section { scroll-margin-top: 96px; padding: 24px 26px; }
+.docs-section > p:last-child { margin-bottom: 0; }
+.docs-section code { font-family: var(--mono); font-size: 12.5px; }
+
+.docs-hero {
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--r);
+  padding: 28px 28px 24px;
+  margin-bottom: 18px;
+}
+.docs-hero h2 { margin: 6px 0 10px; font-size: 24px; line-height: 1.25; font-weight: 680; }
+.docs-hero p { margin: 0; font-size: 15.5px; color: #dce6f5; }
+.docs-hero b { color: #fff; }
+.docs-eyebrow { font-size: 11.5px; font-weight: 650; letter-spacing: .07em; text-transform: uppercase; color: #60a5fa; }
+.docs-meta { margin-top: 16px; color: var(--navy-ink); }
+
+.docs-list { padding-left: 20px; margin: 10px 0 14px; }
+.docs-list li { margin-bottom: 6px; }
+
+.docs-callout {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--accent);
+  background: var(--accent-wash);
+}
+.docs-callout.abstain { border-left-color: var(--abstain); background: var(--abstain-wash); }
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 14px 0 16px;
+}
+.docs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+}
+.docs-card span { font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+
+.docs-table { margin: 12px 0 14px; }
+.docs-table td:first-child { font-weight: 550; }
+
+.docs-flow {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  counter-reset: none;
+}
+.docs-flow li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+}
+.docs-flow li .small { color: var(--ink-2); line-height: 1.45; }
+.docs-flow li.critic { border-color: var(--abstain); background: var(--abstain-wash); }
+.docs-step {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font: 650 11.5px/1 var(--sans);
+  background: var(--navy);
+  color: #fff;
+}
+.docs-flow li.critic .docs-step { background: var(--abstain); }
+
+.docs-section .tiles { margin-bottom: 6px; }
+
+@media (max-width: 1000px) {
+  .docs { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  /* The topbar's height varies with its wrapped subtitle here, so the chips
+     sit at the top of the page rather than sticking under it. */
+  .docs-toc {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .docs-toc-label { display: none; }
+  .docs-toc button {
+    flex: none;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 6px 12px;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  .docs-toc button.on { border-color: var(--accent); background: var(--accent-wash); }
+  .docs-section { scroll-margin-top: 120px; padding: 20px 18px; }
+  .docs-hero { padding: 22px 20px 20px; }
+  .docs-hero h2 { font-size: 20px; }
+}
