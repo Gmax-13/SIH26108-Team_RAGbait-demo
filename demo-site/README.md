@@ -24,6 +24,11 @@ directly and swaps only two modules.
   read from the recorded stats; the evaluation figures are copied from
   `data/logs/eval-scoped.json` and must be updated by hand when it is re-run.
 
+- `src/Tour.jsx` is a guided tour for evaluators. It opens on the first visit,
+  is remembered in `localStorage`, and can be replayed from the **?** button in
+  the bottom-right corner. It moves between screens by clicking the dashboard's
+  own buttons, so if a nav label or tab name changes, update it in `STEPS`.
+
 ## What is recorded
 
 | Screen | Offline behaviour |

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import '@dashboard/index.css'
 import App from '@dashboard/App.jsx'
 import DocsScreen from './DocsScreen.jsx'
+import Tour from './Tour.jsx'
 import './demo.css'
 
 const DOCS = {
@@ -16,5 +17,6 @@ const DOCS = {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App extraScreens={[DOCS]} />
+    <Tour />
   </StrictMode>,
 )
