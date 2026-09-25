@@ -8,6 +8,7 @@ const ICON = {
   dashboard:'M3 3h6v6H3z M11 3h6v4h-6z M11 9h6v8h-6z M3 11h6v6H3z',
   graph:    'M5 5.5a2 2 0 1 0 0-.1 M15 5.5a2 2 0 1 0 0-.1 M10 15a2 2 0 1 0 0-.1 M6.6 6.9 8.8 13 M13.4 6.9 11.2 13 M7 5.5h6',
   reports:  'M5 2h7l3 3v13H5z M12 2v3h3 M7.5 10h5 M7.5 13h5 M7.5 7h3',
+  docs:     'M4 3.5h5.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 0-1.5-1.5H4z M16 3.5h-5.5a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 1 1.5-1.5H16z',
   settings: 'M10 7.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6 M10 1.5v2.2 M10 16.3v2.2 M3.9 3.9l1.6 1.6 M14.5 14.5l1.6 1.6 M1.5 10h2.2 M16.3 10h2.2 M3.9 16.1l1.6-1.6 M14.5 5.5l1.6-1.6',
 }
 
@@ -27,7 +28,7 @@ function Icon({ name }) {
   )
 }
 
-export default function Sidebar({ screen, setScreen, health, open, onClose }) {
+export default function Sidebar({ screen, setScreen, health, open, onClose, nav = NAV }) {
   return (
     <>
       <div className={`scrim ${open ? 'on' : ''}`} onClick={onClose} />
@@ -43,7 +44,7 @@ export default function Sidebar({ screen, setScreen, health, open, onClose }) {
         </div>
 
         <nav className="nav">
-          {NAV.map(([key, label, icon]) => (
+          {nav.map(([key, label, icon]) => (
             <button key={key}
                     className={`nav-item ${screen === key ? 'active' : ''}`}
                     onClick={() => { setScreen(key); onClose?.() }}>
