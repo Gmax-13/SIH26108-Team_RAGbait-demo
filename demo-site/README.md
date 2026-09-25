@@ -19,10 +19,14 @@ directly and swaps only two modules.
 
 - `src/DocsScreen.jsx` adds a **Docs** screen to the sidebar: the problem
   statement, the solution, what is different, how it works, KPIs, requirement
-  coverage, stack, limitations and roadmap. It is passed in through `App`'s
+  coverage, stack, limitations and roadmap, told mostly through diagrams and
+  interactive pieces (output previews, a typical-AI vs ManakSetu toggle, an
+  animated pipeline, and a critic explainer). It is passed in through `App`'s
   `extraScreens` prop, so the dashboard itself is unchanged. Corpus figures are
-  read from the recorded stats; the evaluation figures are copied from
-  `data/logs/eval-scoped.json` and must be updated by hand when it is re-run.
+  read from the recorded stats. The evaluation figures are copied from
+  `data/logs/eval-scoped.json`, and the critic explainer copies the confidence
+  formula from `backend/pipeline/critic.py`; update both by hand when those
+  change.
 
 - `src/Tour.jsx` is a guided tour for evaluators. It opens on the first visit,
   is remembered in `localStorage`, and can be replayed from the **?** button in
