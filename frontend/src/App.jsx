@@ -11,7 +11,7 @@ const SUBTITLES = {
   query: 'Match a requirement to the Indian Standards that govern it.',
   dashboard: 'What is in the corpus, and how it was built.',
   graph: 'Every standard and the dependencies between them.',
-  reports: 'Tender compliance reports generated from uploaded documents.',
+  reports: 'Tender compliance reports generated from tender documents.',
   settings: 'Retrieval parameters and the abstention threshold.',
 }
 
@@ -40,11 +40,11 @@ function ReportsScreen({ report, onOpen, goUpload }) {
         </svg>
         <h2>No report yet</h2>
         <p>
-          Upload a tender or specification and every requirement in it is run through
+          Add a tender or specification and every requirement in it is run through
           the same pipeline as a single query, then aggregated into one compliance
           report — matched standards, outdated citations and certification flags.
         </p>
-        <button className="primary" onClick={goUpload}>Upload a document</button>
+        <button className="primary" onClick={goUpload}>Add a tender</button>
       </div>
     )
   }

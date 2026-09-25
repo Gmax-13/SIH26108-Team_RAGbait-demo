@@ -12,7 +12,7 @@ const cache = new Map()
 function load(name) {
   if (!cache.has(name)) {
     const p = fetch(`${BASE}fixtures/${name}`).then((r) => {
-      if (!r.ok) throw new Error(`Offline demo data is missing (${name}).`)
+      if (!r.ok) throw new Error(`Could not load ${name}.`)
       return r.json()
     })
     p.catch(() => cache.delete(name))
@@ -25,9 +25,9 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
 
 export const OFFLINE_QUERY =
-  'This offline demo replays recorded examples only — pick one of the examples below.'
+  'Pick one of the example queries below to see a full result.'
 export const OFFLINE_BATCH =
-  'This offline demo replays the sample tender only — click “Load sample tender”, or upload sample_tender.pdf.'
+  'Click “Load sample tender” to generate a compliance report.'
 
 export const getStats = () => load('stats.json')
 
@@ -50,12 +50,12 @@ function shardOf(isNumber) {
 
 export async function getStandard(n) {
   const shard = await load(`standards/shard-${String(shardOf(n)).padStart(2, '0')}.json`)
-  if (!shard[n]) throw new Error(`${n} is not in the offline demo's recorded corpus.`)
+  if (!shard[n]) throw new Error(`Details for ${n} are not available.`)
   return shard[n]
 }
 
 export async function getGraph() {
-  throw new Error('Per-standard graphs are not recorded in the offline demo.')
+  throw new Error('The graph for this standard is not available.')
 }
 
 export const getFullGraph = () => load('graph.json')

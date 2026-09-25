@@ -5,15 +5,6 @@ import App from '@dashboard/App.jsx'
 import DocsScreen from './DocsScreen.jsx'
 import './demo.css'
 
-/** Always visible, so a recording is never mistaken for a live system. */
-function DemoBadge() {
-  return (
-    <div className="demo-badge" title="No backend: every result on this site was recorded from the real pipeline and is replayed here.">
-      <i aria-hidden="true" />Offline demo · recorded results
-    </div>
-  )
-}
-
 const DOCS = {
   key: 'docs',
   label: 'Docs',
@@ -25,6 +16,5 @@ const DOCS = {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App extraScreens={[DOCS]} />
-    <DemoBadge />
   </StrictMode>,
 )

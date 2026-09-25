@@ -16,7 +16,6 @@ const SECTIONS = [
   ['stack', 'Tech stack'],
   ['limits', 'Limitations'],
   ['roadmap', 'Roadmap'],
-  ['demo', 'About this demo'],
 ]
 
 function Table({ head, rows }) {
@@ -152,7 +151,7 @@ export default function DocsScreen({ go }) {
           </p>
           <h3>Four screens, one pipeline</h3>
           <ul className="docs-list">
-            <li><b>New Query</b>: a single requirement, or a whole tender uploaded as a compliance report.</li>
+            <li><b>New Query</b>: a single requirement, or a whole tender pasted in and turned into a compliance report.</li>
             <li><b>Dashboard</b>: corpus composition and the full ingestion audit trail.</li>
             <li><b>Standards Graph</b>: every standard and the cited dependencies between them.</li>
             <li><b>Reports</b>: the tender compliance report, exportable as JSON or CSV.</li>
@@ -279,7 +278,7 @@ export default function DocsScreen({ go }) {
               ['Allied standards, six categories', <span className="badge ok">Built</span>, "All six edge types, from BIS's own aspect taxonomy"],
               ['Latest version and amendments', <span className="badge ok">Built</span>, 'IS 1554 (Part 1):1988 → current, 5 amendments; IS 3043-1987 → superseded by 2018'],
               ['Certification requirements', <span className="badge warn">Partial</span>, 'BIS Product Certification and CRS fire; Hallmarking covers gold and silver, outside this corpus'],
-              ['Multilingual input', <span className="badge warn">Designed</span>, 'Translate-then-retrieve; this demo shows Hindi, Marathi and Tamil with pre-recorded translations'],
+              ['Multilingual input', <span className="badge warn">Designed</span>, 'Translate-then-retrieve: detect the language, match in English, answer in the original; Hindi, Marathi and Tamil examples on New Query'],
             ]}
           />
         </Section>
@@ -320,20 +319,6 @@ export default function DocsScreen({ go }) {
             <li><b>Better ranking</b>: raise recall@1 by reducing the bias toward standards with full text.</li>
             <li><b>Pilot</b> with a procurement agency, tracking the KPIs above on real tenders.</li>
           </ol>
-        </Section>
-
-        <Section id="demo" title="About this demo">
-          <p>
-            This site runs with <b>no backend</b>. Every result was recorded from the real API and
-            pipeline and is replayed here, including stage timings, citations, confidence scores,
-            compliance reports and catalogue records. A request the recording doesn't cover is
-            refused with a message, never answered with invented output.
-          </p>
-          <p className="small muted" style={{ marginBottom: 0 }}>
-            The Hindi, Marathi and Tamil examples show the English query they are matched on.
-            Those translations were recorded in advance, because the live system doesn't
-            translate yet.
-          </p>
         </Section>
       </article>
     </div>

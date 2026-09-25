@@ -3,12 +3,13 @@
  *
  *  - examples can be shown in English, Hindi, Marathi or Tamil, and a
  *    non-English example shows the English query it is matched on;
- *  - only recorded examples run — free text gets a note instead of a result.
+ *  - only recorded examples run — free text gets a note instead of a result;
+ *  - tenders are pasted, not uploaded: the upload dropzone is removed.
  *
  *  Keep the rest in step with the original when that file changes.
  */
-import { useRef, useState } from 'react'
-import { OFFLINE_QUERY, postBatch, postBatchUpload, streamRecommend } from './api.demo'
+import { useState } from 'react'
+import { OFFLINE_QUERY, postBatch, streamRecommend } from './api.demo'
 import ResultView from '@dashboard/components/ResultView'
 import StageProgress from '@dashboard/components/StageProgress'
 import SystemMap from '@dashboard/components/SystemMap'
@@ -152,7 +153,6 @@ function TextInput({ state, setState, settings, onOpen }) {
           <span className="small">Translated for retrieval: <span className="en">“{translation.english}”</span></span>
           <span className="small muted why">
             Indian Standards are published in English, so the query is matched in English.
-            In this offline demo the translation is pre-recorded.
           </span>
         </div>
       )}
@@ -165,10 +165,8 @@ function TextInput({ state, setState, settings, onOpen }) {
 }
 
 function DocumentUpload({ state, setState, settings, onDone }) {
-  const { text, file, busy, err, cap } = state
+  const { text, busy, err, cap } = state
   const set = (patch) => setState((p) => ({ ...p, ...patch }))
-  const inputRef = useRef(null)
-  const [drag, setDrag] = useState(false)
 
   const finish = (rep) => { set({ busy: false }); onDone(rep) }
 
@@ -178,41 +176,18 @@ function DocumentUpload({ state, setState, settings, onDone }) {
     catch (e) { set({ err: String(e), busy: false }) }
   }
 
-  const runFile = async (f) => {
-    if (!f) return
-    set({ busy: true, err: null, file: f.name })
-    try { finish(await postBatchUpload(f, cap, settings.use_llm)) }
-    catch (e) { set({ err: String(e), busy: false }) }
-  }
-
   const loadSample = async () => {
     try {
       const r = await fetch(`${import.meta.env.BASE_URL}sample_tender.txt`)
       if (r.ok) set({ text: await r.text(), file: null })
-      else set({ err: 'Sample tender not found in demo-site/public/' })
+      else set({ err: 'The sample tender could not be loaded.' })
     } catch (e) { set({ err: String(e) }) }
   }
 
   return (
     <>
-      <label className="field-label">Upload a tender or technical specification</label>
-      <div className={`dropzone ${drag ? 'over' : ''} ${busy ? 'busy' : ''}`}
-           onDragOver={(e) => { e.preventDefault(); setDrag(true) }}
-           onDragLeave={() => setDrag(false)}
-           onDrop={(e) => { e.preventDefault(); setDrag(false); runFile(e.dataTransfer.files?.[0]) }}
-           onClick={() => !busy && inputRef.current?.click()}>
-        <svg viewBox="0 0 24 24" className="dz-icon" aria-hidden="true">
-          <path d="M12 16V4 M8 8l4-4 4 4 M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" />
-        </svg>
-        <div className="dz-main">{file ? file : 'Drop a PDF or TXT here, or click to browse'}</div>
-        <div className="dz-sub">PDF text is extracted server-side. Nothing is stored.</div>
-        <input ref={inputRef} type="file" accept=".pdf,.txt" hidden
-               onChange={(e) => runFile(e.target.files?.[0])} />
-      </div>
-
-      <div className="or-line"><span>or paste the text</span></div>
-
-      <textarea rows={6} value={text} onChange={(e) => set({ text: e.target.value })}
+      <label className="field-label" htmlFor="tender">Paste a tender or technical specification</label>
+      <textarea id="tender" rows={8} value={text} onChange={(e) => set({ text: e.target.value })}
                 placeholder="Paste the full tender or technical specification text here…" />
 
       <div className="row" style={{ marginTop: 14 }}>
@@ -261,7 +236,7 @@ export default function QueryScreen({ single, setSingle, batch, setBatch, settin
     <div className="card">
       <div className="seg">
         <button className={tab === 'text' ? 'on' : ''} onClick={() => setTab('text')}>Text Input</button>
-        <button className={tab === 'doc' ? 'on' : ''} onClick={() => setTab('doc')}>Document Upload</button>
+        <button className={tab === 'doc' ? 'on' : ''} onClick={() => setTab('doc')}>Tender Document</button>
       </div>
 
       {tab === 'text'

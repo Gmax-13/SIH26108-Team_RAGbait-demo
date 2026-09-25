@@ -14,7 +14,8 @@ directly and swaps only two modules.
   **English, Hindi, Marathi and Tamil**. A non-English example shows the English
   query it is matched on; those translations are pre-recorded (the real system
   does not translate yet). Free-typed text shows a note, because only recorded
-  examples can run.
+  examples can run. The document tab takes pasted text only; the upload
+  dropzone is removed.
 
 - `src/DocsScreen.jsx` adds a **Docs** screen to the sidebar: the problem
   statement, the solution, what is different, how it works, KPIs, requirement
@@ -23,14 +24,12 @@ directly and swaps only two modules.
   read from the recorded stats; the evaluation figures are copied from
   `data/logs/eval-scoped.json` and must be updated by hand when it is re-run.
 
-A fixed badge marks every page as an offline demo.
-
 ## What is recorded
 
 | Screen | Offline behaviour |
 |---|---|
 | New Query → Text Input | the five example queries, streamed stage by stage in ~6 s (true seconds still shown) |
-| New Query → Document Upload | the sample tender (paste via "Load sample tender", or upload `sample_tender.pdf`) at every cap |
+| New Query → Tender Document | the sample tender, via "Load sample tender", at every cap |
 | Dashboard | corpus stats and the latest 2,000 ingestion log events |
 | Standards Graph | the full in-scope graph; search runs in the browser over its standards; every node opens its recorded catalogue record |
 | Settings | shown as in the dashboard; results are the ones recorded with default settings |
